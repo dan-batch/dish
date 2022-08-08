@@ -12,14 +12,58 @@ Vue.use(Vuex)
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 
-if(currentToken != null) {
+if (currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
 
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    dietaryRestrictions: [
+      {
+        id: 1,
+        name: "Dairy-free",
+        abbreviation: "df",
+        active: false
+      }, {
+        id: 2,
+        name: "Gluten-free",
+        abbreviation: "gf",
+        active: true
+      }, {
+        id: 3,
+        name: "Halal",
+        abbreviation: "hl",
+        active: false
+      }, {
+        id: 4,
+        name: "Kosher",
+        abbreviation: "k",
+        active: false
+      }, {
+        id: 5,
+        name: "Low-carb",
+        abbreviation: "lc",
+        active: false
+      }, {
+        id: 6,
+        name: "Nut-free",
+        abbreviation: "nf",
+        active: true
+      }, {
+        id: 7,
+        name: "Vegan",
+        abbreviation: "vn",
+        active: false
+      }, {
+        id: 8,
+        name: "Vegetarian",
+        abbreviation: "v",
+        active: false
+      },
+
+    ],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -29,7 +73,7 @@ export default new Vuex.Store({
     },
     SET_USER(state, user) {
       state.user = user;
-      localStorage.setItem('user',JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -37,6 +81,6 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    }
+    },
   }
 })

@@ -27,6 +27,7 @@ CREATE SEQUENCE seq_restrictions
 
 CREATE TABLE restrictions(
 	restriction_id int NOT NULL DEFAULT nextval('seq_restrictions'),
+	restriction_abbrev varchar (2) NOT NULL,
 	restriction_name varchar (25) NOT NULL,
 	CONSTRAINT PK_restrictions PRIMARY KEY (restriction_id)
 );

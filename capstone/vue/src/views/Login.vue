@@ -4,7 +4,7 @@
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
-        Invalid username and password!
+        Invalid email and password!
       </div>
       <div
         class="alert alert-success"
@@ -13,13 +13,13 @@
       >
         Thank you for registering, please sign in.
       </div>
-      <label for="username" class="sr-only">Username</label>
+      <label for="email" class="sr-only">Email Address</label>
       <input
         type="text"
-        id="username"
+        id="email"
         class="form-control"
-        placeholder="Username"
-        v-model="user.username"
+        placeholder="Email Address"
+        v-model="user.email"
         required
         autofocus
       />
@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       user: {
-        username: "",
+        email: "",
         password: "",
       },
       invalidCredentials: false,

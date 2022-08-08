@@ -14,14 +14,14 @@
           {{ registrationErrorMsg }}
         </div>
         <div class="form-label-text">
-          <label for="username" class="sr-only">Email Address:</label> <br />
+          <label for="email" class="sr-only">Email Address:</label> <br />
         </div>
         <input
           type="text"
-          id="username"
+          id="email"
           class="form-control"
           placeholder="Email Address"
-          v-model="user.username"
+          v-model="user.email"
           required
           autofocus
         /><br />
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       user: {
-        username: "",
+        email: "",
         password: "",
         confirmPassword: "",
         role: "user",
@@ -123,7 +123,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
 
 .logo-header {
-  max-width: 100px;
+  max-width: 150px;
 }
 
 .center {

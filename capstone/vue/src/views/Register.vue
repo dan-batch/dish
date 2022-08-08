@@ -13,17 +13,21 @@
         <div class="alert alert-danger" role="alert" v-if="registrationErrors">
           {{ registrationErrorMsg }}
         </div>
-        <label for="username" class="sr-only">Email Address:</label> <br />
+        <div class="form-label-text">
+          <label for="username" class="sr-only">Email Address:</label> <br />
+        </div>
         <input
           type="text"
           id="username"
           class="form-control"
-          placeholder="Username"
+          placeholder="Email Address"
           v-model="user.username"
           required
           autofocus
         /><br />
-        <label for="password" class="sr-only">Password:</label><br />
+        <div class="form-label-text">
+          <label for="password" class="sr-only">Password:</label><br />
+        </div>
         <input
           type="password"
           id="password"
@@ -40,15 +44,23 @@
           v-model="user.confirmPassword"
           required
         /><br />
-        <router-link class="link-text" :to="{ name: 'login' }"
-          >Already have an account?</router-link
-        ><br />
-        <button class="btn btn-lg btn-primary btn-block" type="submit">
-          Register
-        </button>
-        <button class="btn-cancel" v-on:click.prevent="resetForm" type="cancel">
-          Never mind!
-        </button>
+        <div class="link-ctr">
+          <router-link class="link-text" :to="{ name: 'login' }"
+            >Already have an account?</router-link
+          ><br />
+        </div>
+        <div class="btn-ctr">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Register
+          </button>
+          <button
+            class="btn-cancel"
+            v-on:click.prevent="resetForm"
+            type="cancel"
+          >
+            Never mind!
+          </button>
+        </div>
       </form>
     </div>
   </div>
@@ -169,5 +181,16 @@ input::placeholder {
 .form-align {
   display: flex;
   justify-content: center;
+}
+
+.btn-ctr,
+.link-ctr {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.form-label-text {
+  text-indent: 30px;
 }
 </style>

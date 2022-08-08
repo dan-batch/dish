@@ -26,34 +26,34 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void findIdByUsername_given_null_throws_exception() {
-        sut.findIdByUsername(null);
+        sut.findIdByEmail(null);
     }
 
     @Test(expected = UsernameNotFoundException.class)
     public void findIdByUsername_given_invalid_username_throws_exception() {
-        sut.findIdByUsername("invalid");
+        sut.findIdByEmail("invalid");
     }
 
     @Test
-    public void findIdByUsername_given_valid_user_returns_user_id() {
-        int actualUserId = sut.findIdByUsername(USER_1.getUsername());
+    public void findIdByEmail_given_valid_user_returns_user_id() {
+        int actualUserId = sut.findIdByEmail(USER_1.getEmail());
 
         Assert.assertEquals(USER_1.getId(), actualUserId);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void findByUsername_given_null_throws_exception() {
-        sut.findByUsername(null);
+    public void findByEmail_given_null_throws_exception() {
+        sut.findByEmail(null);
     }
 
     @Test(expected = UsernameNotFoundException.class)
-    public void findByUsername_given_invalid_username_throws_exception() {
-        sut.findByUsername("invalid");
+    public void findByEmail_given_invalid_username_throws_exception() {
+        sut.findByEmail("invalid");
     }
 
     @Test
     public void findByUsername_given_valid_user_returns_user() {
-        User actualUser = sut.findByUsername(USER_1.getUsername());
+        User actualUser = sut.findByEmail(USER_1.getEmail());
 
         Assert.assertEquals(USER_1, actualUser);
     }
@@ -87,24 +87,24 @@ public class JdbcUserDaoTests extends BaseDaoTests {
     }
 
     @Test(expected = DataIntegrityViolationException.class)
-    public void create_user_with_existing_username() {
-        sut.create(USER_1.getUsername(), USER_3.getPassword(), "ROLE_USER");
+    public void create_user_with_existing_email() {
+        sut.create(USER_1.getEmail(), USER_3.getPassword(), "ROLE_USER");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void create_user_with_null_password() {
-        sut.create(USER_3.getUsername(), null, "ROLE_USER");
+        sut.create(USER_3.getEmail(), null, "ROLE_USER");
     }
 
     @Test
     public void create_user_creates_a_user() {
         User newUser = new User(-1, "new", "user", "ROLE_USER");
 
-        boolean userWasCreated = sut.create(newUser.getUsername(), newUser.getPassword(), "ROLE_USER");
+        boolean userWasCreated = sut.create(newUser.getEmail(), newUser.getPassword(), "ROLE_USER");
 
         Assert.assertTrue(userWasCreated);
 
-        User actualUser = sut.findByUsername(newUser.getUsername());
+        User actualUser = sut.findByEmail(newUser.getEmail());
         newUser.setId(actualUser.getId());
 
         actualUser.setPassword(newUser.getPassword()); // reset password back to unhashed password for testing

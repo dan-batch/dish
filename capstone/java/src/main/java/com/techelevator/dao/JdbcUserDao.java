@@ -24,14 +24,14 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public int findIdByUsername(String username) {
-        if (username == null) throw new IllegalArgumentException("Username cannot be null");
+    public int findIdByEmail(String email) {
+        if (email == null) throw new IllegalArgumentException("Username cannot be null");
 
         int userId;
         try {
-            userId = jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
+            userId = jdbcTemplate.queryForObject("select user_id from users where user_email = ?", int.class, email);
         } catch (EmptyResultDataAccessException e) {
-            throw new UsernameNotFoundException("User " + username + " was not found.");
+            throw new UsernameNotFoundException("User " + email + " was not found.");
         }
 
         return userId;
@@ -63,24 +63,24 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User findByUsername(String username) {
-        if (username == null) throw new IllegalArgumentException("Username cannot be null");
+    public User findByEmail(String email) {
+        if (email == null) throw new IllegalArgumentException("Username cannot be null");
 
         for (User user : this.findAll()) {
-            if (user.getUsername().equalsIgnoreCase(username)) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
                 return user;
             }
         }
-        throw new UsernameNotFoundException("User " + username + " was not found.");
+        throw new UsernameNotFoundException("User " + email + " was not found.");
     }
 
     @Override
-    public boolean create(String username, String password, String role) {
+    public boolean create(String email, String password, String role) {
         String insertUserSql = "insert into users (username,password_hash,role) values (?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole) == 1;
+        return jdbcTemplate.update(insertUserSql, email, password_hash, ssRole) == 1;
     }
 
     private User mapRowToUser(SqlRowSet rs) {

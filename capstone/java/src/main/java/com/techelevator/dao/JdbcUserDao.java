@@ -25,7 +25,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public int findIdByEmail(String email) {
-        if (email == null) throw new IllegalArgumentException("Username cannot be null");
+        if (email == null) throw new IllegalArgumentException("Email cannot be null");
 
         int userId;
         try {
@@ -64,7 +64,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findByEmail(String email) {
-        if (email == null) throw new IllegalArgumentException("Username cannot be null");
+        if (email == null) throw new IllegalArgumentException("Email cannot be null");
 
         for (User user : this.findAll()) {
             if (user.getEmail().equalsIgnoreCase(email)) {
@@ -75,20 +75,18 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean create(String email, String password, String role) {
-        String insertUserSql = "insert into users (username,password_hash,role) values (?,?,?)";
+    public boolean create(String email, String password) {
+        String insertUserSql = "insert into users (email,password_hash) values (?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
-        String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        return jdbcTemplate.update(insertUserSql, email, password_hash, ssRole) == 1;
+        return jdbcTemplate.update(insertUserSql, email, password_hash) == 1;
     }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getInt("user_id"));
-        user.setUsername(rs.getString("username"));
+        user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password_hash"));
-        user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;
     }

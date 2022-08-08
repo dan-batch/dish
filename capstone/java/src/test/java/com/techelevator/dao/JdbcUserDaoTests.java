@@ -83,24 +83,24 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_null_username() {
-        sut.create(null, USER_3.getPassword(), "ROLE_USER");
+        sut.create(null, USER_3.getPassword());
     }
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_existing_email() {
-        sut.create(USER_1.getEmail(), USER_3.getPassword(), "ROLE_USER");
+        sut.create(USER_1.getEmail(), USER_3.getPassword());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void create_user_with_null_password() {
-        sut.create(USER_3.getEmail(), null, "ROLE_USER");
+        sut.create(USER_3.getEmail(), null);
     }
 
     @Test
     public void create_user_creates_a_user() {
         User newUser = new User(-1, "new", "user", "ROLE_USER");
 
-        boolean userWasCreated = sut.create(newUser.getEmail(), newUser.getPassword(), "ROLE_USER");
+        boolean userWasCreated = sut.create(newUser.getEmail(), newUser.getPassword());
 
         Assert.assertTrue(userWasCreated);
 

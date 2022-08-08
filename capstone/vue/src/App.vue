@@ -11,7 +11,7 @@
     <router-view />
     <footer>
       ©2022 Potluck Planner | Tech Elevator Capstone | Dan Batchelder - Robyn
-      Florentz - Conor Smith - Robert Weeks
+      Florentz - Conor Smith - Bob Weeks
     </footer>
   </div>
 </template>

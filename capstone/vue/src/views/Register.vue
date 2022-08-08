@@ -13,13 +13,13 @@
         <div class="alert alert-danger" role="alert" v-if="registrationErrors">
           {{ registrationErrorMsg }}
         </div>
-        <label for="username" class="sr-only">Email Address:</label> <br />
+        <label for="email" class="sr-only">Email Address:</label> <br />
         <input
           type="text"
-          id="username"
+          id="email"
           class="form-control"
-          placeholder="Username"
-          v-model="user.username"
+          placeholder="Email Address"
+          v-model="user.email"
           required
           autofocus
         /><br />
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       user: {
-        username: "",
+        email: "",
         password: "",
         confirmPassword: "",
         role: "user",

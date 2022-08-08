@@ -1,24 +1,25 @@
 <template>
   <div id="login" class="text-center">
+    <img src="../assets/Dish_Logo_Cropped.png" alt="dish logo" />
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
-      <div
-        class="alert alert-danger"
-        role="alert"
-        v-if="invalidCredentials"
-      >Invalid username and password!</div>
+      <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
+        Invalid email and password!
+      </div>
       <div
         class="alert alert-success"
         role="alert"
         v-if="this.$route.query.registration"
-      >Thank you for registering, please sign in.</div>
-      <label for="username" class="sr-only">Username</label>
+      >
+        Thank you for registering, please sign in.
+      </div>
+      <label for="email" class="sr-only">Email Address</label>
       <input
         type="text"
-        id="username"
+        id="email"
         class="form-control"
-        placeholder="Username"
-        v-model="user.username"
+        placeholder="Email Address"
+        v-model="user.email"
         required
         autofocus
       />
@@ -46,31 +47,35 @@ export default {
   data() {
     return {
       user: {
-        username: "",
-        password: ""
+        email: "",
+        password: "",
       },
-      invalidCredentials: false
+      invalidCredentials: false,
     };
   },
   methods: {
     login() {
       authService
         .login(this.user)
-        .then(response => {
+        .then((response) => {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
             this.$router.push("/");
           }
         })
-        .catch(error => {
+        .catch((error) => {
           const response = error.response;
 
           if (response.status === 401) {
             this.invalidCredentials = true;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
+</style>

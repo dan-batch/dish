@@ -1,5 +1,6 @@
 <template>
   <div id="register" class="text-center">
+    <img src="../assets/Dish_Logo_Cropped.png" alt="dish logo" />
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Your Account!</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">

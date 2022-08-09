@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
+import MyProfile from '../views/MyProfile'
 import store from '../store/index'
 
 Vue.use(Router)
@@ -28,6 +29,11 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/myProfile',
+      name: 'my-profile',
+      component: MyProfile,
     },
     {
       path: "/login",

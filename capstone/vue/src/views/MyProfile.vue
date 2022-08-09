@@ -6,36 +6,16 @@
       v-on:submit.prevent="saveProfileChanges()"
       v-on:reset.prevent="cancelProfileChanges()"
     >
-<<<<<<< HEAD
-      <h3>Personal Info</h3>
+      <h3 class="personal-info">Personal Info</h3>
       <div>
         <img :src="this.$store.state.user.imageURL" alt="profile pic" />
-        <label for="email">Image URL:</label>
-        <input
-          type="text"
-          name="imageURL"
-          id="imageURL"
-          v-model="userImageURL"
-        />
       </div>
-      <label for="email">E-mail address:</label>
-      <input type="email" name="email" id="email" v-model="userEmail" />
-      <h3>My Dietary Restrictions</h3>
-=======
-      <h3 class="personal-info">Personal Info</h3>
-      <div class="profile-pic">
-        <img src="" alt="profile pic" />
-      </div>
+      <label for="imageURL">Image URL:</label>
+      <input type="text" name="imageURL" id="imageURL" v-model="userImageURL" />
+
       <label for="email" id="email-label">E-mail address:</label>
-      <input
-        type="email"
-        name="email"
-        id="email"
-        v-bind:value="this.$store.state.user.email"
-      />
+      <input type="email" name="email" id="email" v-model="userEmail" />
       <h3 class="dietary-restrictions">My Dietary Restrictions</h3>
-      <!-- <div class="list"> -->
->>>>>>> 5ecdb0f2e5df8524d073645531b0dedf7f5dd117
       <ul class="dietary-restriction-list">
         <li v-for="restriction in dietaryRestrictions" :key="restriction.id">
           <span class="dietary-restriction-icon">{{

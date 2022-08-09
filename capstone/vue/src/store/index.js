@@ -19,7 +19,9 @@ if (currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {},
+    user: currentUser || {
+      email: 'bread@bread.com',
+    }, //ADDED email property to empty user object to test mutation. Can be removed if necessary, just be sure to comment out UPDATE_USER_EMAIL mutation.
     dietaryRestrictions: [
       {
         id: 1,
@@ -85,8 +87,9 @@ export default new Vuex.Store({
     UPDATE_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
       state.dietaryRestrictions = dietaryRestrictions;
     },
-    // UPDATE_USER_EMAIL(state, userEmail) {
-    //   state.user.username = userEmail;
-    // }
+    UPDATE_USER_EMAIL(state, userEmail) {
+      state.user.email = userEmail;
+      console.log('UPDATE_USER_EMAIL');
+    }
   }
 })

@@ -82,5 +82,11 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
+    UPDATE_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
+      state.dietaryRestrictions = dietaryRestrictions;
+    },
+    // UPDATE_USER_EMAIL(state, userEmail) {
+    //   state.user.username = userEmail;
+    // }
   }
 })

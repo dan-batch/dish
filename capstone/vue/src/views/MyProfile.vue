@@ -2,7 +2,10 @@
   <div class="my-profile">
     <nav></nav>
     <h2>My Profile</h2>
-    <form v-on:submit.prevent>
+    <form
+      v-on:submit.prevent="saveProfileChanges()"
+      v-on:reset="cancelProfileChanges()"
+    >
       <h3>Personal Info</h3>
       <div>
         <img src="" alt="profile pic" />
@@ -13,11 +16,10 @@
         name="email"
         id="email"
         v-bind:value="this.$store.state.user.username"
-        v-on:input="userEmail = $event.target.value"
       />
       <h3>My Dietary Restrictions</h3>
       <ul class="dietary-restriction-list">
-        <li v-for="restriction in myRestrictions" :key="restriction.id">
+        <li v-for="restriction in dietaryRestrictions" :key="restriction.id">
           <span class="dietary-restriction-icon">{{
             restriction.abbreviation
           }}</span>
@@ -32,8 +34,7 @@
 </template>
 
 <script>
-import userService from "../services/UserService";
-let restrictionsList = [];
+// import userService from "../services/UserService";
 export default {
   name: "my-profile",
   data() {
@@ -44,26 +45,27 @@ export default {
   },
   methods: {
     saveProfileChanges() {
-      let userID = this.$store.state.user.userID;
-      const updatedUser = {
-        username: this.email,
-      };
-      userService.updateUser(userID, updatedUser).then((response) => {
-        if (response.status === 200) {
-          this.$router.push("/");
-        }
-      });
+      //   let userID = this.$store.state.user.userID;
+      //   const updatedUser = {
+      //     username: this.email,
+      //   };
+      //   userService.updateUser(userID, updatedUser).then((response) => {
+      //     if (response.status === 200) {
+      //       this.$router.push("/");
+      //     }
+      //   });
+      this.$store.commit(
+        "UPDATE_DIETARY_RESTRICTIONS",
+        this.dietaryRestrictions
+      );
+      //   this.$store.commit("UPDATE_USER_EMAIL", this.userEmail);
     },
     cancelProfileChanges() {
-      this.$router.push("/");
+      //   this.$router.push("/");
+      document.location.reload();
     },
   },
-  computed: {
-    myRestrictions() {
-      restrictionsList = this.$store.state.dietaryRestrictions;
-      return restrictionsList;
-    },
-  },
+  computed: {},
 };
 </script>
 

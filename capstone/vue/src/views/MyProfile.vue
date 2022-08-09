@@ -5,7 +5,14 @@
     <form v-on:submit.prevent="saveProfileChanges()">
       <h3>Personal Info</h3>
       <div>
-        <img src="" alt="profile pic" />
+        <img :src="this.$store.state.user.imageURL" alt="profile pic" />
+        <label for="email">Image URL:</label>
+        <input
+          type="text"
+          name="imageURL"
+          id="imageURL"
+          v-model="userImageURL"
+        />
       </div>
       <label for="email">E-mail address:</label>
       <input type="email" name="email" id="email" v-model="userEmail" />
@@ -36,6 +43,7 @@ export default {
   data() {
     return {
       userEmail: this.$store.state.user.email,
+      userImageURL: this.$store.state.user.imageURL,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
       selectedItems: this.selectRestrictions(),
     };
@@ -59,10 +67,13 @@ export default {
       );
       this.$store.commit("UPDATE_USER_EMAIL", this.userEmail);
       console.log(this.$store.state.user.email);
+      this.$store.commit("UPDATE_USER_IMAGE_URL", this.userImageURL);
+      console.log(this.$store.state.user.imageURL);
     },
     cancelProfileChanges() {
       //   this.$router.push("/");
       this.userEmail = this.$store.state.user.email;
+      this.userImageURL = this.$store.state.user.imageURL;
       this.selectedItems = this.selectRestrictions();
       console.log("cancelProfileChanges");
     },

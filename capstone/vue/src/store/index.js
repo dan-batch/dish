@@ -21,6 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {
       email: 'bread@bread.com',
+      imageURL: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/homemade-bread-horizontal-1547759080.jpg?crop=0.671xw:1.00xh;0.0801xw,0&resize=640:*'
     }, //ADDED email property to empty user object to test mutation. Can be removed if necessary, just be sure to comment out UPDATE_USER_EMAIL mutation.
     dietaryRestrictions: [
       {
@@ -90,6 +91,10 @@ export default new Vuex.Store({
     UPDATE_USER_EMAIL(state, userEmail) {
       state.user.email = userEmail;
       console.log('UPDATE_USER_EMAIL');
+    },
+    UPDATE_USER_IMAGE_URL(state, userImageURL) {
+      state.user.imageURL = userImageURL;
+      console.log('UPDATE_USER_IMAGE_URL');
     }
   }
 })

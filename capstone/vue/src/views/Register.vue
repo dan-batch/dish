@@ -53,6 +53,8 @@
           <button class="btn btn-lg btn-primary btn-block" type="submit">
             Register
           </button>
+        </div>
+        <div class="btn-ctr">
           <button
             class="btn-cancel"
             v-on:click.prevent="resetForm"
@@ -147,21 +149,25 @@ export default {
 .btn {
   font-family: quicksand, sans-serif;
   font-weight: 700;
+  font-size: 16px;
   color: white;
   background-color: #9dcd5a;
   border-radius: 15px;
   border: none;
   height: 30px;
+  width: 125px;
 }
 
 .btn-cancel {
   font-family: quicksand, sans-serif;
   font-weight: 700;
+  font-size: 16px;
   color: white;
   background-color: #f58634;
   border-radius: 15px;
   border: none;
   height: 30px;
+  width: 125px;
 }
 
 .form-control {
@@ -171,7 +177,7 @@ export default {
   width: 500px;
   border: none;
   border-radius: 20px;
-  margin: 20px;
+  margin: 5px;
 }
 
 input::placeholder {
@@ -192,5 +198,9 @@ input::placeholder {
 
 .form-label-text {
   text-indent: 30px;
+}
+
+input {
+  text-indent: 10px;
 }
 </style>

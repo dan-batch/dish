@@ -6,6 +6,7 @@
       v-on:submit.prevent="saveProfileChanges()"
       v-on:reset.prevent="cancelProfileChanges()"
     >
+<<<<<<< HEAD
       <h3>Personal Info</h3>
       <div>
         <img :src="this.$store.state.user.imageURL" alt="profile pic" />
@@ -20,6 +21,21 @@
       <label for="email">E-mail address:</label>
       <input type="email" name="email" id="email" v-model="userEmail" />
       <h3>My Dietary Restrictions</h3>
+=======
+      <h3 class="personal-info">Personal Info</h3>
+      <div class="profile-pic">
+        <img src="" alt="profile pic" />
+      </div>
+      <label for="email" id="email-label">E-mail address:</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        v-bind:value="this.$store.state.user.email"
+      />
+      <h3 class="dietary-restrictions">My Dietary Restrictions</h3>
+      <!-- <div class="list"> -->
+>>>>>>> 5ecdb0f2e5df8524d073645531b0dedf7f5dd117
       <ul class="dietary-restriction-list">
         <li v-for="restriction in dietaryRestrictions" :key="restriction.id">
           <span class="dietary-restriction-icon">{{
@@ -33,8 +49,11 @@
           />
         </li>
       </ul>
-      <input type="submit" value="Save Changes" />
-      <input type="reset" value="Cancel" />
+      <!-- </div> -->
+      <div class="buttonGrid">
+        <input type="submit" id="submitButton" value="Save Changes" />
+        <input type="reset" id="cancelButton" value="Cancel" />
+      </div>
     </form>
   </div>
 </template>
@@ -103,5 +122,82 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+h2 {
+  width: 100%;
+  text-align: center;
+}
+
+h2 {
+  grid-area: ga-title;
+}
+
+form {
+  grid-area: ga-formGrid;
+}
+
+.personal-info {
+  grid-area: ga-infoTitle;
+}
+
+.profile-pic {
+  grid-area: ga-profilePic;
+}
+
+#email-label {
+  grid-area: ga-emailLabel;
+}
+
+#email {
+  grid-area: ga-emailInput;
+}
+
+.dietary-restrictions {
+  grid-area: ga-restrictionsTitle;
+}
+
+ul {
+  grid-area: ga-list;
+}
+
+.buttonGrid {
+  grid-area: ga-buttonGrid;
+}
+
+#submitButton {
+  grid-area: ga-submit;
+}
+
+#cancelButton {
+  grid-area: ga-cancel;
+}
+
+.my-profile {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  row-gap: 20px;
+  column-gap: 50px;
+  grid-template-areas:
+    ".          ga-title    ."
+    "ga-formGrid  ga-formGrid ga-formGrid"
+    ".  ga-buttonGrid .";
+  align-items: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "ga-infoTitle   .  ga-restrictionsTitle"
+    "ga-profilePic  .  ga-List"
+    "ga-emailLabel  .  ga-List"
+    "ga-emailInput  .  ga-List";
+}
+
+.buttonGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "ga-submit  ga-cancel";
+  align-items: center;
+}
 </style>

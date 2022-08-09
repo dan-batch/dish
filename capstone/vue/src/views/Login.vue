@@ -55,7 +55,7 @@
             v-on:click.prevent="resetForm"
             type="cancel"
           >
-            Never mind!
+            Never Mind!
           </button>
         </div>
       </form>
@@ -104,7 +104,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
 
 img {
@@ -122,6 +122,14 @@ img {
   justify-content: center;
 }
 
+.font-weight-normal {
+  font-family: quicksand, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+}
+
 .rtr-link,
 .btn-ctr {
   display: flex;
@@ -130,6 +138,16 @@ img {
 
 .label-text {
   text-indent: 15px;
+}
+
+.form-control {
+  border-radius: 10px;
+  background-color: white;
+  height: 40px;
+  width: 500px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
 }
 
 .submit-btn {
@@ -141,6 +159,7 @@ img {
   background-color: #9dcd5a;
   height: 32px;
   width: 125px;
+  margin-bottom: 10px;
 }
 
 .cancel-btn {
@@ -152,5 +171,9 @@ img {
   background-color: #f58634;
   height: 32px;
   width: 125px;
+}
+
+input {
+  text-indent: 10px;
 }
 </style>

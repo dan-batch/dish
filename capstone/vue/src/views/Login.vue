@@ -55,7 +55,7 @@
             v-on:click.prevent="resetForm"
             type="cancel"
           >
-            Never mind!
+            Never Mind!
           </button>
         </div>
       </form>

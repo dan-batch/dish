@@ -17,6 +17,7 @@ CREATE TABLE users (
 	last_name varchar(20) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	role varchar(20) NOT NULL,
+	picture_url varchar (200),
 	CONSTRAINT PK_user PRIMARY KEY (user_id),
 	CONSTRAINT proper_email CHECK (user_email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );

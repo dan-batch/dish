@@ -7,7 +7,7 @@
       v-on:reset="cancelProfileChanges()"
     >
       <h3 class="personal-info">Personal Info</h3>
-      <div>
+      <div class="profile-pic">
         <img src="" alt="profile pic" />
       </div>
       <label for="email" id="email-label">E-mail address:</label>
@@ -18,6 +18,7 @@
         v-bind:value="this.$store.state.user.email"
       />
       <h3 class="dietary-restrictions">My Dietary Restrictions</h3>
+      <!-- <div class="list"> -->
       <ul class="dietary-restriction-list">
         <li v-for="restriction in dietaryRestrictions" :key="restriction.id">
           <span class="dietary-restriction-icon">{{
@@ -27,6 +28,7 @@
           <input type="checkbox" v-model="restriction.active" />
         </li>
       </ul>
+      <!-- </div> -->
       <div class="buttonGrid">
         <input type="submit" id="submitButton" value="Save Changes" />
         <input type="reset" id="cancelButton" value="Cancel" />
@@ -71,9 +73,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h2 {
-  position: fixed;
   width: 100%;
   text-align: center;
 }
@@ -82,11 +83,15 @@ h2 {
   grid-area: ga-title;
 }
 
+form {
+  grid-area: ga-formGrid;
+}
+
 .personal-info {
   grid-area: ga-infoTitle;
 }
 
-img {
+.profile-pic {
   grid-area: ga-profilePic;
 }
 
@@ -102,7 +107,7 @@ img {
   grid-area: ga-restrictionsTitle;
 }
 
-.dietary-restrictions-list {
+ul {
   grid-area: ga-list;
 }
 
@@ -118,16 +123,26 @@ img {
   grid-area: ga-cancel;
 }
 
-form {
+.my-profile {
   display: grid;
   grid-template-columns: 2fr 1fr 2fr;
+  row-gap: 20px;
+  column-gap: 50px;
+  grid-template-areas:
+    ".          ga-title    ."
+    "ga-formGrid  ga-formGrid ga-formGrid"
+    ".  ga-buttonGrid .";
+  align-items: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
     "ga-infoTitle   .  ga-restrictionsTitle"
     "ga-profilePic  .  ga-List"
     "ga-emailLabel  .  ga-List"
-    "ga-emailInput  .  ga-List"
-    ".  ga-buttonGrid .";
-  align-items: center;
+    "ga-emailInput  .  ga-List";
 }
 
 .buttonGrid {

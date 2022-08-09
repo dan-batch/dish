@@ -2,7 +2,10 @@
   <div class="my-profile">
     <nav></nav>
     <h2>My Profile</h2>
-    <form v-on:submit.prevent="saveProfileChanges()">
+    <form
+      v-on:submit.prevent="saveProfileChanges()"
+      v-on:reset.prevent="cancelProfileChanges()"
+    >
       <h3>Personal Info</h3>
       <div>
         <img :src="this.$store.state.user.imageURL" alt="profile pic" />
@@ -31,13 +34,14 @@
         </li>
       </ul>
       <input type="submit" value="Save Changes" />
-      <input type="button" value="Cancel" v-on:click="cancelProfileChanges()" />
+      <input type="reset" value="Cancel" />
     </form>
   </div>
 </template>
 
 <script>
 // import userService from "../services/UserService";
+// import dietaryRestrictionsService from "../services/DietaryRestrictionsService";
 export default {
   name: "my-profile",
   data() {
@@ -54,13 +58,13 @@ export default {
       // let userID = this.$store.state.user.userID;
       // const updatedUser = {
       //   email: this.email,
+      //   imageURL: this.imageURL,
       // };
       // userService.updateUser(userID, updatedUser).then((response) => {
       //   if (response.status === 200) {
-      //     alert("Successful update made to profile.");
+      //     this.saveDietaryChanges();
       //   }
       // });
-      console.log(this.userEmail);
       this.$store.commit(
         "UPDATE_DIETARY_RESTRICTIONS",
         this.dietaryRestrictions
@@ -70,8 +74,16 @@ export default {
       this.$store.commit("UPDATE_USER_IMAGE_URL", this.userImageURL);
       console.log(this.$store.state.user.imageURL);
     },
+    // saveDietaryChanges() {
+    //   dietaryRestrictionService
+    //     .updateForUser(userID, this.dietaryRestrictions)
+    //     .then((r) => {
+    //       if (r.status === 200) {
+    //         alert("Successful Update to Profile.");
+    //       }
+    //     });
+    // },
     cancelProfileChanges() {
-      //   this.$router.push("/");
       this.userEmail = this.$store.state.user.email;
       this.userImageURL = this.$store.state.user.imageURL;
       this.selectedItems = this.selectRestrictions();

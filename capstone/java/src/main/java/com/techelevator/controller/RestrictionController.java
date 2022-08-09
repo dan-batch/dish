@@ -2,10 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.RestrictionDao;
 import com.techelevator.dao.UserDao;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -17,9 +14,9 @@ public class RestrictionController {
         restrictionDao = this.restrictionDao;
     }
 
-    @PutMapping(path = "/{id}/restrictions")
-    public boolean addRestrictionToUser(@PathVariable int id){
-        return restrictionDao.addRestrictionToUser(id);
+    @PostMapping(path = "/restrictions")
+    public boolean addRestrictionToUser(int userId, int restrictionId){
+        return restrictionDao.addRestrictionToUser(userId, restrictionId);
     }
 
 

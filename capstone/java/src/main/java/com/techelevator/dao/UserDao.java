@@ -12,7 +12,7 @@ public interface UserDao {
 
     User findByEmail(String email);
 
-    int findIdByEmail(String email);
+//    int findIdByEmail(String email);
 
     boolean create(String email, String password);
 }

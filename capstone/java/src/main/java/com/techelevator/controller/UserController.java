@@ -15,7 +15,7 @@ public class UserController {
     private UserDao userDao;
 
     private UserController(UserDao userDao){
-        userDao = this.userDao;
+        this.userDao = userDao;
     }
 
     @GetMapping(path = "")
@@ -26,15 +26,15 @@ public class UserController {
         return userDao.getUserById(userId);
     }
 
-    @GetMapping(path = "/{email}/id")
-    public User findByEmail(@PathVariable String email){
+    @GetMapping(path = "/email")
+    public User findByEmail(@RequestParam String email){
         return userDao.findByEmail(email);
     }
 
-    @GetMapping(path = "/{email}")
-    public int findIdByEmail(@PathVariable String email){
-        return userDao.findIdByEmail(email);
-    }
+//    @GetMapping(path = "/id/{email}")
+//    public int findIdByEmail(@RequestParam String email){
+//        return userDao.findIdByEmail(email);
+//    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")

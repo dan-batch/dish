@@ -18,13 +18,13 @@ public class JdbcRestrictionDao implements RestrictionDao {
     }
 
     @Override
-    public boolean addRestrictionToUser(int id) {
-        String userRestrictionSql = "SELECT restriction_id FROM user_restrictions " +
-                "WHERE user_id = ?";
+    public boolean addRestrictionToUser(int userId, int restrictionId) {
+        String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) VALUES restrictions " +
+                "VALUES ((SELECT user_id FROM users WHERE user_id = ?), (SELECT restriction_id FROM restrictions WHERE restriction_id = ?));";
 
         String allRestrictionsSql = "SELECT restriction_id FROM restrictions";
 
-        SqlRowSet userRestrictionResults = jdbcTemplate.queryForRowSet(userRestrictionSql, id);
+        SqlRowSet userRestrictionResults = jdbcTemplate.queryForRowSet(userRestrictionSql, userId, restrictionId);
 
         SqlRowSet allRestrictionsResults = jdbcTemplate.queryForRowSet(allRestrictionsSql);
 
@@ -40,9 +40,7 @@ public class JdbcRestrictionDao implements RestrictionDao {
         }
 
         for(Restriction restriction : userRestrictionIds){
-            if (allRestrictionIds.contains(restriction)){
-                restriction.setActive(true);
-            }
+            restriction.setActive(allRestrictionIds.contains(restriction));
         }
         return true;
     }

@@ -2,6 +2,6 @@ package com.techelevator.dao;
 
 public interface RestrictionDao {
 
-    boolean addRestrictionToUser(int id);
+    boolean addRestrictionToUser(int id, int restrictionId);
 
 }

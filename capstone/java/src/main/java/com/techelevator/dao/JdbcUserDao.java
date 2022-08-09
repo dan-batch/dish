@@ -23,19 +23,19 @@ public class JdbcUserDao implements UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public int findIdByEmail(String email) {
-        if (email == null) throw new IllegalArgumentException("Email cannot be null");
-
-        int userId;
-        try {
-            userId = jdbcTemplate.queryForObject("select user_id from users where user_email = ?", int.class, email);
-        } catch (EmptyResultDataAccessException e) {
-            throw new UsernameNotFoundException("User " + email + " was not found.");
-        }
-
-        return userId;
-    }
+//    @Override
+//    public int findIdByEmail(String email) {
+//        if (email == null) throw new IllegalArgumentException("Email cannot be null");
+//
+//        int userId;
+//        try {
+//            userId = jdbcTemplate.queryForObject("select user_id from users where user_email = ?", int.class, email);
+//        } catch (EmptyResultDataAccessException e) {
+//            throw new UsernameNotFoundException("User " + email + " was not found.");
+//        }
+//
+//        return userId;
+//    }
 
 	@Override
 	public User getUserById(int userId) {
@@ -85,7 +85,7 @@ public class JdbcUserDao implements UserDao {
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getInt("user_id"));
-        user.setEmail(rs.getString("email"));
+        user.setEmail(rs.getString("user_email"));
         user.setPassword(rs.getString("password_hash"));
         user.setActivated(true);
         return user;

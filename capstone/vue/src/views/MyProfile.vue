@@ -29,7 +29,6 @@
           />
         </li>
       </ul>
-      <!-- </div> -->
       <div class="buttonGrid">
         <input type="submit" id="submitButton" value="Save Changes" />
         <input type="reset" id="cancelButton" value="Cancel" />
@@ -114,6 +113,7 @@ h2 {
 
 form {
   grid-area: ga-formGrid;
+  align-items: center;
 }
 
 .personal-info {
@@ -130,6 +130,9 @@ form {
 
 #email {
   grid-area: ga-emailInput;
+  width: 500px;
+  height: 20px;
+  border-radius: 15px;
 }
 
 .dietary-restrictions {
@@ -140,38 +143,68 @@ ul {
   grid-area: ga-list;
 }
 
+li {
+  list-style: none;
+}
+
+.dietary-restriction-icon,
+span {
+  background-color: white;
+  border-style: solid;
+  border-radius: 15px;
+  width: 200px;
+  height: 30px;
+}
+
+.dietary-restriction-icon {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+
+li > input {
+  align-items: right;
+}
+
 .buttonGrid {
   grid-area: ga-buttonGrid;
 }
 
 #submitButton {
   grid-area: ga-submit;
+  width: 10em;
+  align-items: right;
+  border-radius: 15px;
 }
 
 #cancelButton {
   grid-area: ga-cancel;
+  width: 10em;
+  align-items: left;
+  border-radius: 15px;
 }
 
 .my-profile {
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr;
-  row-gap: 20px;
-  column-gap: 50px;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    ".          ga-title    ."
-    "ga-formGrid  ga-formGrid ga-formGrid"
-    ".  ga-buttonGrid .";
+    " ga-title    ga-title"
+    "ga-formGrid  ga-formGrid";
   align-items: center;
 }
 
 form {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    "ga-infoTitle   .  ga-restrictionsTitle"
-    "ga-profilePic  .  ga-List"
-    "ga-emailLabel  .  ga-List"
-    "ga-emailInput  .  ga-List";
+    "ga-infoTitle   ga-restrictionsTitle"
+    "ga-profilePic  ga-list"
+    "ga-emailLabel  ga-list"
+    "ga-emailInput  ga-list"
+    "ga-buttonGrid ga-buttonGrid";
+  align-items: center;
 }
 
 .buttonGrid {

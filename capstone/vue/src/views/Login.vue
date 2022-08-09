@@ -108,7 +108,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
 
 img {
-  max-width: 125px;
+  max-width: 150px;
 }
 
 .header-img {
@@ -129,7 +129,7 @@ img {
 }
 
 .label-text {
-  text-indent: 30px;
+  text-indent: 15px;
 }
 
 .submit-btn {

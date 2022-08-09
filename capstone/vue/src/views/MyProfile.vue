@@ -71,7 +71,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h2 {
   position: fixed;
   width: 100%;

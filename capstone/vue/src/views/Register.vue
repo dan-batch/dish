@@ -119,7 +119,7 @@ export default {
     },
   },
 };
-</script>
+</script>npm
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
@@ -138,6 +138,8 @@ export default {
   font-family: quicksand, sans-serif;
   display: flex;
   justify-content: center;
+  padding: 0px;
+  margin: 0px;
 }
 
 .sr-only,
@@ -197,7 +199,7 @@ input::placeholder {
 }
 
 .form-label-text {
-  text-indent: 30px;
+  text-indent: 15px;
 }
 
 input {

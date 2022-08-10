@@ -4,6 +4,8 @@ import com.techelevator.dao.RestrictionDao;
 import com.techelevator.dao.UserDao;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/user")
 public class RestrictionController {
@@ -15,8 +17,8 @@ public class RestrictionController {
     }
 
     @PostMapping(path = "/restrictions")
-    public boolean addRestrictionToUser(int userId, int restrictionId){
-        return restrictionDao.addRestrictionToUser(userId, restrictionId);
+    public boolean addRestrictionToUser(int restrictionId, Principal principal){
+        return restrictionDao.addRestrictionToUser(restrictionId, principal);
     }
 
 

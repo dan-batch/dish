@@ -81,6 +81,13 @@ public class JdbcUserDao implements UserDao {
 
         return jdbcTemplate.update(insertUserSql, email, password_hash) == 1;
     }
+    @Override
+    public int getIdByUsername(String email){
+        String sql = "SELECT user_id FROM users WHERE user_email = ?;";
+
+        return jdbcTemplate.queryForObject(sql, Integer.class, email);
+
+    }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();

@@ -6,27 +6,39 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class JdbcRestrictionDao implements RestrictionDao {
     private final JdbcTemplate jdbcTemplate;
+    private UserDao userDao;
 
     public JdbcRestrictionDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        this.userDao = userDao;
     }
 
+
     @Override
-    public boolean addRestrictionToUser(int userId, int restrictionId) {
+    public boolean addRestrictionToUser(int restrictionId, Principal principal) {
         String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) VALUES restrictions " +
                 "VALUES ((SELECT user_id FROM users WHERE user_id = ?), (SELECT restriction_id FROM restrictions WHERE restriction_id = ?));";
 
+        jdbcTemplate.update(userRestrictionSql, userDao.getIdByUsername(principal.getName()), restrictionId);
+
+        return true;
+    }
+
+    @Override
+    public boolean setRestrictionsActive(int userId){
+        String userRestrictionSql = "SELECT restriction_id FROM user_restrictions WHERE user_id = ?;";
         String allRestrictionsSql = "SELECT restriction_id FROM restrictions";
 
-        SqlRowSet userRestrictionResults = jdbcTemplate.queryForRowSet(userRestrictionSql, userId, restrictionId);
-
+        SqlRowSet userRestrictionResults = jdbcTemplate.queryForRowSet((userRestrictionSql));
         SqlRowSet allRestrictionsResults = jdbcTemplate.queryForRowSet(allRestrictionsSql);
+
 
         List<Restriction> userRestrictionIds = new ArrayList<>();
         List<Restriction> allRestrictionIds = new ArrayList<>();

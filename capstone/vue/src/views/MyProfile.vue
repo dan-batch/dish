@@ -118,6 +118,10 @@ export default {
 </script>
 
 <style scoped>
+img {
+  max-width: 150px;
+}
+
 .header-img {
   grid-area: ga-logo;
   display: flex;
@@ -291,11 +295,13 @@ form {
     "ga-urlEntry    ga-list"
     "ga-emailEntry  ga-list"
     "ga-buttonGrid ga-buttonGrid";
+  justify-items: center;
 }
 
 .buttonGrid {
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 3fr;
+  column-gap: 30px;
   grid-template-areas: ". ga-submit  ga-cancel  .";
 }
 </style>

@@ -79,10 +79,7 @@ export default {
       //     this.saveDietaryChanges();
       //   }
       // });
-      this.$store.commit(
-        "UPDATE_DIETARY_RESTRICTIONS",
-        this.dietaryRestrictions
-      );
+      this.$store.commit("UPDATE_DIETARY_RESTRICTIONS", this.selectedItems);
       this.$store.commit("UPDATE_USER_EMAIL", this.userEmail);
       console.log(this.$store.state.user.email);
       this.$store.commit("UPDATE_USER_IMAGE_URL", this.userImageURL);

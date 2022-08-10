@@ -85,8 +85,15 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    UPDATE_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
-      state.dietaryRestrictions = dietaryRestrictions;
+    // SET_USER_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
+    //   state.dietaryRestrictions = dietaryRestrictions;
+    // },
+    UPDATE_DIETARY_RESTRICTIONS(state, selectedItems) {
+      state.dietaryRestrictions.forEach(r => {
+        if (selectedItems.includes(r.id)) {
+          r.active = true;
+        }
+      });
     },
     UPDATE_USER_EMAIL(state, userEmail) {
       state.user.email = userEmail;

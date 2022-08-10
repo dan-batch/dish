@@ -14,7 +14,7 @@ public interface UserDao {
 
 //    int findIdByEmail(String email);
 
-    boolean create(String email, String password);
+    boolean create(String email, String password, String role);
 
     int getIdByUsername(String username);
 }

@@ -20,20 +20,20 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {
-      email: 'bread@bread.com',
-      imageURL: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/homemade-bread-horizontal-1547759080.jpg?crop=0.671xw:1.00xh;0.0801xw,0&resize=640:*'
+      email: 'carly@user.com',
+      imageURL: 'https://media-exp1.licdn.com/dms/image/C5603AQG11wYnSQ28ug/profile-displayphoto-shrink_800_800/0/1625681037290?e=1665619200&v=beta&t=YYcwiDfDxqJeZNyfPrxqKQMP5_9yZnLeiY1LxM85JfI'
     }, //ADDED email property to empty user object to test mutation. Can be removed if necessary, just be sure to comment out UPDATE_USER_EMAIL mutation.
     dietaryRestrictions: [
       {
         id: 1,
         name: "Dairy-free",
         abbreviation: "df",
-        active: false
+        active: true
       }, {
         id: 2,
         name: "Gluten-free",
         abbreviation: "gf",
-        active: true
+        active: false
       }, {
         id: 3,
         name: "Halal",

@@ -15,7 +15,7 @@ public class JdbcRestrictionDao implements RestrictionDao {
     private final JdbcTemplate jdbcTemplate;
     private UserDao userDao;
 
-    public JdbcRestrictionDao(JdbcTemplate jdbcTemplate) {
+    public JdbcRestrictionDao(JdbcTemplate jdbcTemplate, UserDao userDao) {
         this.jdbcTemplate = jdbcTemplate;
         this.userDao = userDao;
     }
@@ -23,8 +23,8 @@ public class JdbcRestrictionDao implements RestrictionDao {
 
     @Override
     public boolean addRestrictionToUser(int restrictionId, Principal principal) {
-        String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) VALUES restrictions " +
-                "VALUES ((SELECT user_id FROM users WHERE user_id = ?), (SELECT restriction_id FROM restrictions WHERE restriction_id = ?));";
+        String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) " +
+                "VALUES (?, ?);";
 
         jdbcTemplate.update(userRestrictionSql, userDao.getIdByUsername(principal.getName()), restrictionId);
 
@@ -32,14 +32,14 @@ public class JdbcRestrictionDao implements RestrictionDao {
     }
 
     @Override
-    public boolean setRestrictionActive(int userId){
+    public List<Restriction> setRestrictionActive(int userId){
         String userRestrictionSql = "SELECT restriction_id FROM user_restrictions " +
                 "JOIN users ON users.user_id = user_restrictions.user_id WHERE users.user_id = ?;";
+
         String allRestrictionsSql = "SELECT restriction_id FROM restrictions";
 
         SqlRowSet userRestrictionResults = jdbcTemplate.queryForRowSet(userRestrictionSql, userId);
         SqlRowSet allRestrictionsResults = jdbcTemplate.queryForRowSet(allRestrictionsSql);
-
 
         List<Restriction> userRestrictionIds = new ArrayList<>();
         List<Restriction> allRestrictionIds = new ArrayList<>();
@@ -55,13 +55,13 @@ public class JdbcRestrictionDao implements RestrictionDao {
         for(Restriction restriction : userRestrictionIds){
             restriction.setActive(allRestrictionIds.contains(restriction));
         }
-        return true;
+        return userRestrictionIds;
     }
 
     private Restriction mapRowToRestriction(SqlRowSet sql){
         Restriction restriction = new Restriction();
         restriction.setId(sql.getInt("restriction_id"));
-        restriction.setInitials(sql.getString("restriction_initials"));
+        restriction.setInitials(sql.getString("restriction_abbrev"));
         restriction.setName(sql.getString("restriction_name"));
         return restriction;
     }

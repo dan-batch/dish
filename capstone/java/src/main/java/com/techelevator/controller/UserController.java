@@ -38,8 +38,8 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")
-    public boolean create(String email, String password){
-        return userDao.create(email, password);
+    public boolean create(String email, String password, String role){
+        return userDao.create(email, password, role);
 
     }
 }

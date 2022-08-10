@@ -120,6 +120,9 @@ export default {
 <style scoped>
 .header-img {
   grid-area: ga-logo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h2 {
@@ -145,6 +148,9 @@ form {
 
 .profile-pic {
   grid-area: ga-profilePic;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .urlEntry {
@@ -273,6 +279,7 @@ li {
     "ga-logo      ga-logo"
     " ga-title    ga-title"
     "ga-formGrid  ga-formGrid";
+  column-gap: 50px;
 }
 
 form {

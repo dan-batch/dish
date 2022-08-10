@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class RestrictionController {
 
     private RestrictionDao restrictionDao;
@@ -27,7 +28,7 @@ public class RestrictionController {
         return restrictionDao.addRestrictionToUser(restrictionId, principal);
     }
 
-    @GetMapping(path = "/restrictions/{userId}")
+    @GetMapping(path = "/{userId}/restrictions")
     public List<Restriction> setRestrictionActive(@PathVariable int userId){
         return restrictionDao.setRestrictionActive(userId);
     }

@@ -25,42 +25,42 @@ export default new Vuex.Store({
     }, //ADDED email property to empty user object to test mutation. Can be removed if necessary, just be sure to comment out UPDATE_USER_EMAIL mutation.
     dietaryRestrictions: [
       {
-        id: 1,
+        id: 2001,
         name: "Dairy-free",
         abbreviation: "df",
         active: true
       }, {
-        id: 2,
+        id: 2002,
         name: "Gluten-free",
         abbreviation: "gf",
         active: false
       }, {
-        id: 3,
+        id: 2003,
         name: "Halal",
         abbreviation: "hl",
         active: false
       }, {
-        id: 4,
+        id: 2004,
         name: "Kosher",
         abbreviation: "k",
         active: false
       }, {
-        id: 5,
+        id: 2005,
         name: "Low-carb",
         abbreviation: "lc",
         active: false
       }, {
-        id: 6,
+        id: 2006,
         name: "Nut-free",
         abbreviation: "nf",
         active: true
       }, {
-        id: 7,
+        id: 2007,
         name: "Vegan",
         abbreviation: "vn",
         active: false
       }, {
-        id: 8,
+        id: 2008,
         name: "Vegetarian",
         abbreviation: "v",
         active: false
@@ -85,9 +85,9 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    // SET_USER_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
-    //   state.dietaryRestrictions = dietaryRestrictions;
-    // },
+    SET_USER_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
+      state.dietaryRestrictions = dietaryRestrictions;
+    },
     UPDATE_DIETARY_RESTRICTIONS(state, selectedItems) {
       state.dietaryRestrictions.forEach(r => {
         if (selectedItems.includes(r.id)) {

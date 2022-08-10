@@ -74,26 +74,29 @@ export default {
       //   email: this.email,
       //   imageURL: this.imageURL,
       // };
-      // userService.updateUser(userID, updatedUser).then((response) => {
+      // userService.updateUser(userID, updatedUser)
+      // .then((response) => {
       //   if (response.status === 200) {
       //     this.saveDietaryChanges();
       //   }
-      // });
+      // })
+      // .catch(alert("Update to Profile was NOT SUCCESSFUL."));
       this.$store.commit("UPDATE_DIETARY_RESTRICTIONS", this.selectedItems);
       this.$store.commit("UPDATE_USER_EMAIL", this.userEmail);
       console.log(this.$store.state.user.email);
       this.$store.commit("UPDATE_USER_IMAGE_URL", this.userImageURL);
       console.log(this.$store.state.user.imageURL);
     },
-    // saveDietaryChanges() {
-    //   dietaryRestrictionService
-    //     .updateForUser(userID, this.dietaryRestrictions)
-    //     .then((r) => {
-    //       if (r.status === 200) {
-    //         alert("Successful Update to Profile.");
-    //       }
-    //     });
-    // },
+    saveDietaryChanges() {
+      // dietaryRestrictionService
+      //   .updateForUser(userID, this.dietaryRestrictions)
+      //   .then((r) => {
+      //     if (r.status === 200) {
+      //       alert("SUCCESSFUL Update to Profile.");
+      //     }
+      //   })
+      //   .catch(alert("Update to Profile was NOT SUCCESSFUL."));
+    },
     cancelProfileChanges() {
       this.userEmail = this.$store.state.user.email;
       this.userImageURL = this.$store.state.user.imageURL;

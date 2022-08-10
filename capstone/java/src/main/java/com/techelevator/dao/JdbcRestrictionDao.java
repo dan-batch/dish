@@ -33,29 +33,30 @@ public class JdbcRestrictionDao implements RestrictionDao {
 
     @Override
     public List<Restriction> setRestrictionActive(int userId){
-        String userRestrictionSql = "SELECT restriction_id FROM user_restrictions " +
-                "JOIN users ON users.user_id = user_restrictions.user_id WHERE users.user_id = ?;";
+        String userRestrictionSql = "SELECT restriction_id FROM user_restrictions\n" +
+                "JOIN users ON users.user_id = user_restrictions.user_id\n" +
+                "WHERE users.user_id = ?;";
 
-        String allRestrictionsSql = "SELECT restriction_id FROM restrictions";
+        String allRestrictionsSql = "SELECT * FROM restrictions";
 
         SqlRowSet userRestrictionResults = jdbcTemplate.queryForRowSet(userRestrictionSql, userId);
         SqlRowSet allRestrictionsResults = jdbcTemplate.queryForRowSet(allRestrictionsSql);
 
-        List<Restriction> userRestrictionIds = new ArrayList<>();
+        List<Integer> userRestrictionIds = new ArrayList<>();
         List<Restriction> allRestrictionIds = new ArrayList<>();
 
         while(userRestrictionResults.next()){
-            userRestrictionIds.add(mapRowToRestriction(userRestrictionResults));
+            userRestrictionIds.add(userRestrictionResults.getInt("restriction_id"));
         }
 
         while(allRestrictionsResults.next()){
             allRestrictionIds.add(mapRowToRestriction(allRestrictionsResults));
         }
 
-        for(Restriction restriction : userRestrictionIds){
-            restriction.setActive(allRestrictionIds.contains(restriction));
+        for(Restriction restriction : allRestrictionIds){
+            restriction.setActive(userRestrictionIds.contains(restriction.getId()));
         }
-        return userRestrictionIds;
+        return allRestrictionIds;
     }
 
     private Restriction mapRowToRestriction(SqlRowSet sql){

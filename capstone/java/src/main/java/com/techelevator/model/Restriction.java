@@ -47,4 +47,8 @@ public class Restriction {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+//    public String toString() {
+//        return "BREAD.";
+//    }
 }

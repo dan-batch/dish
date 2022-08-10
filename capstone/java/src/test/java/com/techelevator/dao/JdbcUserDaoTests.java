@@ -28,12 +28,12 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 //    public void findIdByUsername_given_null_throws_exception() {
 //        sut.findIdByEmail(null);
 //    }
-
+//
 //    @Test(expected = UsernameNotFoundException.class)
 //    public void findIdByUsername_given_invalid_username_throws_exception() {
 //        sut.findIdByEmail("invalid");
 //    }
-
+//
 //    @Test
 //    public void findIdByEmail_given_valid_user_returns_user_id() {
 //        int actualUserId = sut.findIdByEmail(USER_1.getEmail());
@@ -83,24 +83,24 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_null_username() {
-        sut.create(null, USER_3.getPassword());
+        sut.create(null, USER_3.getPassword(), "ROLE_USER" );
     }
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_existing_email() {
-        sut.create(USER_1.getEmail(), USER_3.getPassword());
+        sut.create(USER_1.getEmail(), USER_3.getPassword(), "ROLE_USER");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void create_user_with_null_password() {
-        sut.create(USER_3.getEmail(), null);
+        sut.create(USER_3.getEmail(), null, "ROLE_USER");
     }
 
     @Test
     public void create_user_creates_a_user() {
         User newUser = new User(-1, "new", "user", "ROLE_USER");
 
-        boolean userWasCreated = sut.create(newUser.getEmail(), newUser.getPassword());
+        boolean userWasCreated = sut.create(newUser.getEmail(), newUser.getPassword(), "ROLE_USER");
 
         Assert.assertTrue(userWasCreated);
 

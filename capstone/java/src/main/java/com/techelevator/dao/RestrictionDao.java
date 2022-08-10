@@ -1,11 +1,14 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Restriction;
+
 import java.security.Principal;
+import java.util.List;
 
 public interface RestrictionDao {
 
     boolean addRestrictionToUser(int restrictionId, Principal principal);
 
-    boolean setRestrictionActive(int userId);
+    List<Restriction> setRestrictionActive(int userId);
 
 }

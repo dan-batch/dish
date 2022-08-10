@@ -6,6 +6,6 @@ public interface RestrictionDao {
 
     boolean addRestrictionToUser(int restrictionId, Principal principal);
 
-    boolean setRestrictionsActive(int userId);
+    boolean setRestrictionActive(int userId);
 
 }

@@ -21,5 +21,9 @@ public class RestrictionController {
         return restrictionDao.addRestrictionToUser(restrictionId, principal);
     }
 
+    @GetMapping(path = "/restrictions/{userId}")
+    public boolean setRestrictionActive(@PathVariable int userId){
+        return restrictionDao.setRestrictionActive(userId);
+    }
 
 }

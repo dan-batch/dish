@@ -150,8 +150,9 @@ export default {
 
 .btn {
   font-family: quicksand, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 18px;
   color: white;
   background-color: #9dcd5a;
   border-radius: 15px;
@@ -162,8 +163,9 @@ export default {
 
 .btn-cancel {
   font-family: quicksand, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 18px;
   color: white;
   background-color: #f58634;
   border-radius: 15px;

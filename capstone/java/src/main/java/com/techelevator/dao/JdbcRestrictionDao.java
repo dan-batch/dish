@@ -33,10 +33,11 @@ public class JdbcRestrictionDao implements RestrictionDao {
 
     @Override
     public boolean setRestrictionActive(int userId){
-        String userRestrictionSql = "SELECT restriction_id FROM user_restrictions WHERE user_id = ?;";
+        String userRestrictionSql = "SELECT restriction_id FROM user_restrictions " +
+                "JOIN users ON users.user_id = user_restrictions.user_id WHERE users.user_id = ?;";
         String allRestrictionsSql = "SELECT restriction_id FROM restrictions";
 
-        SqlRowSet userRestrictionResults = jdbcTemplate.queryForRowSet((userRestrictionSql));
+        SqlRowSet userRestrictionResults = jdbcTemplate.queryForRowSet(userRestrictionSql, userId);
         SqlRowSet allRestrictionsResults = jdbcTemplate.queryForRowSet(allRestrictionsSql);
 
 

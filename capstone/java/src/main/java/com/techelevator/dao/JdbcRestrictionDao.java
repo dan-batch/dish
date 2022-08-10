@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +20,26 @@ public class JdbcRestrictionDao implements RestrictionDao {
 
 
     @Override
-    public boolean addRestrictionToUser(int restrictionId, Principal principal) {
-        String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) " +
-                "VALUES (?, ?);";
+    public boolean updateUserRestrictions(int userId, List<Integer> restrictionIdList) {
+        List<Restriction> userRestrictions = getUserRestrictions(userId);
+        for (Restriction restriction : userRestrictions) {
+            if (!restriction.isActive() && restrictionIdList.contains(restriction.getId())) {
+                String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) " +
+                        "VALUES (?, ?);";
+                jdbcTemplate.update(userRestrictionSql, userId, restriction.getId());
+            } else if (restriction.isActive() && !restrictionIdList.contains((restriction.getId()))) {
+                String sql = "DELETE FROM user_restrictions\n" +
+                        "WHERE user_id = ? AND restriction_id = ?;";
+                jdbcTemplate.update(sql,userId,restriction.getId());
+            }
+        }
 
-        jdbcTemplate.update(userRestrictionSql, userDao.getIdByUsername(principal.getName()), restrictionId);
 
         return true;
     }
 
     @Override
-    public List<Restriction> setRestrictionActive(int userId){
+    public List<Restriction> getUserRestrictions(int userId){
         String userRestrictionSql = "SELECT restriction_id FROM user_restrictions\n" +
                 "JOIN users ON users.user_id = user_restrictions.user_id\n" +
                 "WHERE users.user_id = ?;";
@@ -42,20 +50,20 @@ public class JdbcRestrictionDao implements RestrictionDao {
         SqlRowSet allRestrictionsResults = jdbcTemplate.queryForRowSet(allRestrictionsSql);
 
         List<Integer> userRestrictionIds = new ArrayList<>();
-        List<Restriction> allRestrictionIds = new ArrayList<>();
+        List<Restriction> userRestrictionObjects = new ArrayList<>();
 
         while(userRestrictionResults.next()){
             userRestrictionIds.add(userRestrictionResults.getInt("restriction_id"));
         }
 
         while(allRestrictionsResults.next()){
-            allRestrictionIds.add(mapRowToRestriction(allRestrictionsResults));
+            userRestrictionObjects.add(mapRowToRestriction(allRestrictionsResults));
         }
 
-        for(Restriction restriction : allRestrictionIds){
+        for(Restriction restriction : userRestrictionObjects){
             restriction.setActive(userRestrictionIds.contains(restriction.getId()));
         }
-        return allRestrictionIds;
+        return userRestrictionObjects;
     }
 
     private Restriction mapRowToRestriction(SqlRowSet sql){

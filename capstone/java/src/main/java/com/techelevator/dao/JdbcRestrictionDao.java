@@ -32,7 +32,7 @@ public class JdbcRestrictionDao implements RestrictionDao {
     }
 
     @Override
-    public boolean setRestrictionsActive(int userId){
+    public boolean setRestrictionActive(int userId){
         String userRestrictionSql = "SELECT restriction_id FROM user_restrictions WHERE user_id = ?;";
         String allRestrictionsSql = "SELECT restriction_id FROM restrictions";
 

@@ -65,6 +65,7 @@
 
 <script>
 import authService from "../services/AuthService";
+import dietaryRestrictionService from "../services/DietaryRestrictionsService";
 
 export default {
   name: "login",
@@ -86,6 +87,16 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
+            dietaryRestrictionService
+              .getForUser(this.$store.state.user.id)
+              .then((response) => {
+                if (response.status == 200) {
+                  this.$store.commit(
+                    "SET_USER_DIETARY_RESTRICTIONS",
+                    response.data
+                  );
+                }
+              });
             this.$router.push("/");
           }
         })
@@ -100,6 +111,7 @@ export default {
     resetForm() {
       this.user = {};
     },
+    populateRestrictionsState() {},
   },
 };
 </script>

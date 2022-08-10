@@ -4,15 +4,15 @@ public class Restriction {
 
     private int id;
     private String name;
-    private String initials;
+    private String abbreviation;
     private boolean isActive;
 
     public Restriction(){}
 
-    public Restriction(int id, String name, String initials, boolean isActive){
+    public Restriction(int id, String name, String abbreviation, boolean isActive){
         this.id = id;
         this.name = name;
-        this.initials = initials;
+        this.abbreviation = abbreviation;
         this.isActive = isActive;
     }
 
@@ -32,16 +32,16 @@ public class Restriction {
         return name;
     }
 
-    public String getInitials() {
-        return initials;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
     public boolean isActive() {
         return isActive;
     }
 
-    public void setInitials(String initials) {
-        this.initials = initials;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public void setActive(boolean active) {

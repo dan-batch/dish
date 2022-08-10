@@ -1,7 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Restriction;
-import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -62,7 +61,7 @@ public class JdbcRestrictionDao implements RestrictionDao {
     private Restriction mapRowToRestriction(SqlRowSet sql){
         Restriction restriction = new Restriction();
         restriction.setId(sql.getInt("restriction_id"));
-        restriction.setInitials(sql.getString("restriction_abbrev"));
+        restriction.setAbbreviation(sql.getString("restriction_abbrev"));
         restriction.setName(sql.getString("restriction_name"));
         return restriction;
     }

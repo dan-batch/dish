@@ -13,6 +13,7 @@ import java.util.List;
 //@PreAuthorize("isAuthenticated()")
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class RestrictionController {
 
     private RestrictionDao restrictionDao;

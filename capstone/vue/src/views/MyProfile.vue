@@ -304,4 +304,114 @@ form {
   column-gap: 30px;
   grid-template-areas: ". ga-submit  ga-cancel  .";
 }
+
+img {
+  max-width: 150px;
+}
+</style>
+
+<style>
+#df-icon {
+  background-color: #faef36;
+  color: #6b3e0a;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+#gf-icon {
+  background-color: #75aa00;
+  color: #6b3e0a;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+#hl-icon {
+  background-color: #d44f02;
+  color: #6b3e0a;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+#k-icon {
+  background-color: #baeffa;
+  color: #6b3e0a;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+#lc-icon {
+  background-color: #ffbd59;
+  color: #6b3e0a;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+#nf-icon {
+  background-color: #e86201;
+  color: #6b3e0a;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+#vn-icon {
+  background-color: #7ed957;
+  color: #6b3e0a;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+#v-icon {
+  background-color: #498a0c;
+  color: #6b3e0a;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: bold;
+}
 </style>

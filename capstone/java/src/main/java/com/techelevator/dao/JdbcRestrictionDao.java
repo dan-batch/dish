@@ -26,7 +26,7 @@ public class JdbcRestrictionDao implements RestrictionDao {
         String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) " +
                 "VALUES (?, ?);";
 
-        jdbcTemplate.update(userRestrictionSql, userDao.getIdByUsername(principal.getName()), restrictionId);
+        jdbcTemplate.update(userRestrictionSql, userDao.getIdByEmail(principal.getName()), restrictionId);
 
         return true;
     }

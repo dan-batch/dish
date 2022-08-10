@@ -8,7 +8,6 @@ import com.techelevator.model.UserNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -64,28 +63,28 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findByEmail(String email) {
-        if (email == null) throw new IllegalArgumentException("Username cannot be null");
+        if (email == null) throw new IllegalArgumentException("Email cannot be null");
 
         for (User user : this.findAll()) {
             if (user.getEmail().equalsIgnoreCase(email)) {
                 return user;
-            }
-        }
-        throw new UsernameNotFoundException("User " + email + " was not found.");
+            }throw new UserNotFoundException();
+        } return null;
+
     }
 
     @Override
-    public boolean create(String username, String password, String role) {
-        String insertUserSql = "insert into users (username,password_hash,role) values (?,?,?)";
+    public boolean create(String email, String password, String role) {
+        String insertUserSql = "insert into users (email,password_hash,role) values (?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole) == 1;
+        return jdbcTemplate.update(insertUserSql, email, password_hash, ssRole) == 1;
     }
 
     @Override
-    public int getIdByUsername(String email){
-        String sql = "SELECT user_id FROM users WHERE user_email = ?;";
+    public int getIdByEmail(String email){
+        String sql = "SELECT user_id FROM users WHERE email = ?;";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, email);
 
@@ -94,7 +93,7 @@ public class JdbcUserDao implements UserDao {
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getInt("user_id"));
-        user.setEmail(rs.getString("user_email"));
+        user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);

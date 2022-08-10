@@ -5,7 +5,7 @@ import javax.validation.constraints.NotEmpty;
 public class RegisterUserDTO {
 
     @NotEmpty
-    private String username;
+    private String email;
     @NotEmpty
     private String password;
     @NotEmpty
@@ -13,12 +13,12 @@ public class RegisterUserDTO {
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

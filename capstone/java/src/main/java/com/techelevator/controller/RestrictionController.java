@@ -11,7 +11,7 @@ public class RestrictionController {
     private RestrictionDao restrictionDao;
 
     private RestrictionController(RestrictionDao restrictionDao){
-        restrictionDao = this.restrictionDao;
+        this.restrictionDao = restrictionDao;
     }
 
     @PostMapping(path = "/restrictions")

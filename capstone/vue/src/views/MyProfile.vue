@@ -307,6 +307,7 @@ form {
 
 img {
   max-width: 150px;
+  border-radius: 15px;
 }
 </style>
 

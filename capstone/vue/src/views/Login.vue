@@ -190,4 +190,8 @@ img {
 input {
   text-indent: 10px;
 }
+
+.alert-success {
+  text-align: center;
+}
 </style>

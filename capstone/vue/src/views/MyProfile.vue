@@ -11,7 +11,11 @@
     >
       <h3 class="personal-info">Personal Info:</h3>
       <div>
-        <img :src="this.$store.state.user.imageURL" alt="profile pic" />
+        <img
+          :src="this.$store.state.user.imageURL"
+          class="profile-pic"
+          alt="profile pic"
+        />
       </div>
       <div class="urlEntry">
         <label for="imageURL" class="urlLabel">Image URL:</label>
@@ -47,7 +51,7 @@
       </ul>
       <div class="buttonGrid">
         <input type="submit" id="submitButton" value="Save Changes" />
-        <input type="reset" id="cancelButton" value="Never Mind!" />
+        <input type="reset" id="cancelButton" value="Discard Changes" />
       </div>
     </form>
   </div>
@@ -305,9 +309,10 @@ form {
   grid-template-areas: ". ga-submit  ga-cancel  .";
 }
 
-img {
+.profile-pic {
   max-width: 150px;
   border-radius: 15px;
+  border: 3px solid #6b3e0a;
 }
 </style>
 

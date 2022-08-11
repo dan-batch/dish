@@ -54,9 +54,9 @@ public class AuthenticationController {
     public void register(@Valid @RequestBody RegisterUserDTO newUser) {
         try {
             User user = userDao.findByEmail(newUser.getEmail());
-            throw new UserAlreadyExistsException();
-        } catch (UserNotFoundException e) {
-            userDao.create(newUser.getEmail(),newUser.getPassword(), newUser.getRole());
+            userDao.create(newUser.getEmail(),newUser.getPassword(), "ROLE_USER");
+        } catch (UserAlreadyExistsException e) {
+            e.getMessage();
         }
     }
 

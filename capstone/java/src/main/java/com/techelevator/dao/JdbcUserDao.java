@@ -65,11 +65,11 @@ public class JdbcUserDao implements UserDao {
     public User findByEmail(String email) {
         if (email == null) throw new IllegalArgumentException("Email cannot be null");
 
-        for (User user : this.findAll()) {
+        for (User user : findAll()) {
             if (user.getEmail().equalsIgnoreCase(email)) {
                 return user;
             }
-            throw new UserNotFoundException();
+//            throw new UserNotFoundException();
         }
         return null;
 

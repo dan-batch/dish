@@ -10,6 +10,8 @@ public interface PotluckDao {
 
     List<Potluck> getAllPlucks();
 
+    List<Potluck> getAllPlucksByUser(int userId);
+
     Boolean createPluck (int pluckId, String pluckName,
                         String pluckPlace, LocalDateTime pluckTime);
 

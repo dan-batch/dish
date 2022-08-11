@@ -190,8 +190,12 @@ img {
 input {
   text-indent: 10px;
 }
-
 .alert-success {
   text-align: center;
+}
+
+.alert-danger {
+  text-align: center;
+  color: #f58634;
 }
 </style>

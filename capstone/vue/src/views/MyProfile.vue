@@ -10,8 +10,12 @@
       v-on:reset.prevent="cancelProfileChanges()"
     >
       <h3 class="personal-info">Personal Info:</h3>
-      <div>
-        <img :src="this.$store.state.user.imageURL" alt="profile pic" />
+      <div class="pfp-border">
+        <img
+          :src="this.$store.state.user.imageURL"
+          class="profile-pic"
+          alt="profile pic"
+        />
       </div>
       <div class="urlEntry">
         <label for="imageURL" class="urlLabel">Image URL:</label>
@@ -47,7 +51,7 @@
       </ul>
       <div class="buttonGrid">
         <input type="submit" id="submitButton" value="Save Changes" />
-        <input type="reset" id="cancelButton" value="Never Mind!" />
+        <input type="reset" id="cancelButton" value="Discard Changes" />
       </div>
     </form>
   </div>
@@ -272,7 +276,7 @@ li {
   font-size: 18px;
   color: white;
   height: 32px;
-  width: 125px;
+  width: 175px;
   background-color: #f58634;
 }
 
@@ -305,9 +309,16 @@ form {
   grid-template-areas: ". ga-submit  ga-cancel  .";
 }
 
-img {
+.profile-pic {
   max-width: 150px;
+  /* border: 3px solid #6b3e0a; */
   border-radius: 15px;
+}
+
+.pfp-border {
+  border: 3px solid #6b3e0a;
+  border-radius: 18px;
+  background-color: #6b3e0a;
 }
 </style>
 

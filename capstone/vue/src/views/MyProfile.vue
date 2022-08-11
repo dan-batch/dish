@@ -70,11 +70,13 @@ export default {
   methods: {
     saveProfileChanges() {
       let userID = this.$store.state.user.id;
-      const updatedUser = {
-        id: this.userID,
+      let updatedUser = {
+        authorities: this.$store.state.user.authorities,
         email: this.userEmail,
+        id: userID,
         imageURL: this.userImageURL,
       };
+      updatedUser.authorities = this.$store.state.user.authorities;
       userService
         .updateUser(userID, updatedUser)
         .then((response) => {
@@ -83,17 +85,13 @@ export default {
           }
         })
         .catch((e) => {
-          alert(e.message);
+          alert(e.message + " update user");
         });
-      // this.saveDietaryChanges();
       this.$store.commit(
         "UPDATE_DIETARY_RESTRICTIONS",
         this.selectedRestrictions
       );
-      this.$store.commit("UPDATE_USER_EMAIL", this.userEmail);
-      console.log(this.$store.state.user.email);
-      this.$store.commit("UPDATE_USER_IMAGE_URL", this.userImageURL);
-      console.log(this.$store.state.user.imageURL);
+      this.$store.commit("SET_USER", updatedUser);
     },
     saveDietaryChanges() {
       let userID = this.$store.state.user.id;

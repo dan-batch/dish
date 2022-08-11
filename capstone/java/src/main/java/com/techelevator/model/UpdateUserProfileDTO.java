@@ -1,10 +1,13 @@
 package com.techelevator.model;
 
+import java.util.List;
+
 /**
  * DTO for updating a user's email and/or image URL.
  */
 public class UpdateUserProfileDTO {
 
+    private List<Object> authorities;
     private int userId;
     private String email;
     private String imageURL;

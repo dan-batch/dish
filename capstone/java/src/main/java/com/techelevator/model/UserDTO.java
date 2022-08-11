@@ -5,12 +5,29 @@ import java.util.List;
 /**
  * DTO for updating a user's email and/or image URL.
  */
-public class UpdateUserProfileDTO {
+public class UserDTO {
 
-    private List<Object> authorities;
     private int userId;
     private String email;
     private String imageURL;
+    private String firstName;
+    private String lastName;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public int getUserId() {
         return userId;
@@ -41,6 +58,8 @@ public class UpdateUserProfileDTO {
         return "UpdateUserProfileDTO{" +
                 "email='" + email + '\'' +
                 ", imageURL='" + imageURL +
+                ", firstName='" + firstName +
+                ", lastName='" + lastName +
                 '}';
     }
 }

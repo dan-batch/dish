@@ -88,7 +88,7 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    SET_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
+    SET_USER_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
       state.dietaryRestrictions = dietaryRestrictions;
       localStorage.setItem('dietaryRestrictions', JSON.stringify(dietaryRestrictions));
     },

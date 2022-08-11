@@ -16,5 +16,5 @@ public interface UserDao {
 
     boolean create(String email, String password, String role);
 
-    int getIdByEmail(String email);
+    int getIdByEmail(String email); //todo: is this necessary?
 }

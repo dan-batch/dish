@@ -12,8 +12,8 @@ public class LoginDTO {
       return email;
    }
 
-   public void setUsername(String username) {
-      this.email = username;
+   public void setEmail(String email) {
+      this.email = email;
    }
 
    public String getPassword() {
@@ -27,7 +27,7 @@ public class LoginDTO {
    @Override
    public String toString() {
       return "LoginDTO{" +
-              "username='" + email + '\'' +
+              "email='" + email + '\'' +
               ", password='" + password + '\'' +
               '}';
    }

@@ -79,7 +79,7 @@ export default {
         email: "",
         password: "",
         confirmPassword: "",
-        role: "user",
+        role: "USER",
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",

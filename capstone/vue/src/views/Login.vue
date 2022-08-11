@@ -47,7 +47,9 @@
           <router-link :to="{ name: 'register' }">Need an account?</router-link>
         </div>
         <div class="btn-ctr">
-          <button class="submit-btn" type="submit">Log In</button>
+          <button class="submit-btn" type="submit" v-on:click="login">
+            Log In
+          </button>
         </div>
         <div class="btn-ctr">
           <button
@@ -187,5 +189,9 @@ img {
 
 input {
   text-indent: 10px;
+}
+
+.alert-success {
+  text-align: center;
 }
 </style>

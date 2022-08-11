@@ -33,8 +33,6 @@ public class JdbcRestrictionDao implements RestrictionDao {
                 jdbcTemplate.update(sql,userId,restriction.getId());
             }
         }
-
-
         return true;
     }
 

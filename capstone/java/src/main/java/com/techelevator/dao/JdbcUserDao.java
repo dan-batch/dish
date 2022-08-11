@@ -6,9 +6,9 @@ import java.util.Objects;
 
 import com.techelevator.model.UpdateUserProfileDTO;
 import com.techelevator.model.UserNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -75,32 +75,39 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findByEmail(String email) {
-        if (email == null) throw new IllegalArgumentException("Username cannot be null");
+        if (email == null) throw new IllegalArgumentException("Email cannot be null");
 
-        for (User user : this.findAll()) {
+        for (User user : findAll()) {
             if (user.getEmail().equalsIgnoreCase(email)) {
                 return user;
             }
+//            throw new UserNotFoundException();
         }
-        throw new UsernameNotFoundException("User " + email + " was not found.");
+        return null;
+
     }
 
     @Override
-    public boolean create(String user_email, String password, String role) {
-        String insertUserSql = "insert into users (user_email,password_hash,role) values (?,?,?)";
+    public boolean create(String email, String password, String role) {
+        String insertUserSql = "insert into users (email,password_hash,role) values (?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        return jdbcTemplate.update(insertUserSql, user_email, password_hash, ssRole) == 1;
+        return jdbcTemplate.update(insertUserSql, email, password_hash, ssRole) == 1; //todo: why ==1?
     }
 
     @Override
-    public int getIdByUsername(String email){
-        String sql = "SELECT user_id FROM users WHERE user_email = ?;";
-
-        return jdbcTemplate.queryForObject(sql, Integer.class, email);
-
+    public int getIdByEmail(String email) throws NullPointerException{
+        String sql = "SELECT user_id FROM users WHERE email = ?;";
+        int userId;
+        try {
+            userId = jdbcTemplate.queryForObject(sql, Integer.class, email);
+            return userId;
+        } catch (EmptyResultDataAccessException e) {
+            throw new UserNotFoundException();
+        }
     }
+
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();

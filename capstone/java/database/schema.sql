@@ -4,24 +4,25 @@ DROP TABLE IF EXISTS users, restrictions, user_restrictions;
 
 DROP SEQUENCE IF EXISTS seq_user_id, seq_restrictions;
 
+DROP TYPE IF EXISTS user_role;
+
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
   START WITH 1001
   NO MAXVALUE;
   
-CREATE TYPE user_role AS ENUM ('ROLE_ADMIN', 'ROLE_USER');
 
 CREATE TABLE users (
 	user_id int NOT NULL DEFAULT nextval('seq_user_id'),
-	user_email varchar (50) NOT NULL,
-	first_name varchar(20) NOT NULL,
-	last_name varchar(20) NOT NULL,
+	email varchar (50) NOT NULL,
+	first_name varchar(20),
+	last_name varchar(20),
 	password_hash varchar(200) NOT NULL,
-	role user_role NOT NULL,
+	role varchar(20) NOT NULL,
 	picture_url varchar (200),
 	CONSTRAINT PK_user PRIMARY KEY (user_id),
-	CONSTRAINT proper_email CHECK (user_email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
+	CONSTRAINT proper_email CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );
 
 CREATE SEQUENCE seq_restrictions

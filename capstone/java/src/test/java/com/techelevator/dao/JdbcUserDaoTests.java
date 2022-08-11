@@ -29,10 +29,10 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 //        sut.findIdByEmail(null);
 //    }
 //
-//    @Test(expected = UsernameNotFoundException.class)
-//    public void findIdByUsername_given_invalid_username_throws_exception() {
-//        sut.findIdByEmail("invalid");
-//    }
+    @Test(expected = UserNotFoundException.class)
+    public void findIdByUsername_given_invalid_username_throws_exception() {
+        sut.getIdByEmail("invalid");
+    }
 //
 //    @Test
 //    public void findIdByEmail_given_valid_user_returns_user_id() {

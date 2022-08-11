@@ -82,7 +82,7 @@ export default {
         role: "USER",
       },
       registrationErrors: false,
-      registrationErrorMsg: "There were problems registering this user.",
+      registrationErrorMsg: "Uh-oh! There were problems registering this user.",
     };
   },
   methods: {
@@ -112,14 +112,15 @@ export default {
     },
     clearErrors() {
       this.registrationErrors = false;
-      this.registrationErrorMsg = "There were problems registering this user.";
+      this.registrationErrorMsg =
+        "Uh-oh! There were problems registering this user.";
     },
     resetForm() {
       this.user = {};
     },
   },
 };
-</script>npm
+</script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
@@ -206,5 +207,10 @@ input::placeholder {
 
 input {
   text-indent: 10px;
+}
+
+.alert-danger {
+  text-align: center;
+  color: #f58634;
 }
 </style>

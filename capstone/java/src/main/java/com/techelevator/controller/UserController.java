@@ -1,10 +1,9 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.UserDao;
-import com.techelevator.model.UpdateUserProfileDTO;
+import com.techelevator.model.UserDTO;
 import com.techelevator.model.User;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/{userId}") //Does not include means to update first name, last name, role, or password.
-    public User updateUserProfile(@PathVariable int userId, @RequestBody UpdateUserProfileDTO updatedUser) {
+    public User updateUserProfile(@PathVariable int userId, @RequestBody UserDTO updatedUser) {
         return userDao.updateUserProfile(userId, updatedUser);
     }
 

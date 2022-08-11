@@ -1,8 +1,8 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, restrictions, user_restrictions;
+DROP TABLE IF EXISTS users, restrictions, user_restrictions, pluck;
 
-DROP SEQUENCE IF EXISTS seq_user_id, seq_restrictions;
+DROP SEQUENCE IF EXISTS seq_user_id, seq_restrictions, seq_pluck;
 
 DROP TYPE IF EXISTS user_role;
 
@@ -43,6 +43,37 @@ CREATE TABLE user_restrictions(
 	CONSTRAINT PK_user_restrictions PRIMARY KEY (restriction_id, user_id),
 	CONSTRAINT FK_user_restrictions_restriction FOREIGN KEY (restriction_id) REFERENCES restrictions (restriction_id),
 	CONSTRAINT FK_user_restrictions_user FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE SEQUENCE seq_pluck_id
+  INCREMENT BY 1
+  START WITH 3001
+  NO MAXVALUE;
+  
+CREATE TABLE pluck(
+	pluck_id int NOT NULL DEFAULT nextval('seq_pluck_id'),
+	pluck_name varchar(50) NOT NULL,
+	pluck_description varchar(500),
+	pluck_date_time timestamp NOT NULL,
+	pluck_place varchar(50) NOT NULL,
+	CONSTRAINT PK_pluck PRIMARY KEY (pluck_id)
+);
+
+CREATE SEQUENCE seq_dish_id
+  INCREMENT BY 1
+  START WITH 4001
+  NO MAXVALUE;
+
+CREATE TABLE pluck_dish(
+	dish_id int NOT NULL DEFAULT nextval('seq_dish_id'), 
+	pluck_id int NOT NULL,
+	cat_id int, --temporarily allowing null until categories table is created.
+	user_id int NOT NULL,
+	dish_name varchar(25) NOT NULL,
+	CONSTRAINT PK_dish_id PRIMARY KEY (dish_id),
+	CONSTRAINT FK_pluck_dish_id FOREIGN KEY (pluck_id) REFERENCES pluck (pluck_id),
+	CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
+	--CONSTRAINT FK_dish_cat FOREIGN KEY (cat_id) REFERENCES categories (cat_id),
 );
 
 COMMIT TRANSACTION;

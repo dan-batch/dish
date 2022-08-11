@@ -58,7 +58,7 @@
           <input
             type="checkbox"
             :value="restriction.id"
-            v-model="selectedItems"
+            v-model="selectedRestrictions"
           />
         </li>
       </ul>
@@ -71,8 +71,8 @@
 </template>
 
 <script>
-// import userService from "../services/UserService";
-// import dietaryRestrictionsService from "../services/DietaryRestrictionsService";
+import userService from "../services/UserService";
+import dietaryRestrictionsService from "../services/DietaryRestrictionsService";
 export default {
   name: "my-profile",
   data() {
@@ -88,37 +88,40 @@ export default {
 
   methods: {
     saveProfileChanges() {
-      // let userID = this.$store.state.user.userID;
-      // const updatedUser = {
-      //   email: this.email,
-      //   imageURL: this.imageURL,
-      // };
-      // userService.updateUser(userID, updatedUser)
-      // .then((response) => {
-      //   if (response.status === 200) {
-      //     this.saveDietaryChanges();
-      //   }
-      // })
-      // .catch(alert("Update to Profile was NOT SUCCESSFUL."));
-      this.$store.commit("UPDATE_DIETARY_RESTRICTIONS", this.selectedItems);
-      this.$store.commit("UPDATE_USER_EMAIL", this.userEmail);
-      console.log(this.$store.state.user.email);
-      this.$store.commit("UPDATE_USER_IMAGE_URL", this.userImageURL);
-      console.log(this.$store.state.user.imageURL);
-      this.$store.commit("UPDATE_USER_FIRST_NAME", this.firstName);
-      console.log(this.$store.state.user.firstName);
-      this.$store.commit("UPDATE_USER_LAST_NAME", this.lastName);
-      console.log(this.$store.state.user.lastName);
+      let userID = this.$store.state.user.id;
+      let updatedUser = {
+        authorities: this.$store.state.user.authorities,
+        email: this.userEmail,
+        id: userID,
+        imageURL: this.userImageURL,
+      };
+      updatedUser.authorities = this.$store.state.user.authorities;
+      userService
+        .updateUser(userID, updatedUser)
+        .then((response) => {
+          if (response.status === 200) {
+            this.saveDietaryChanges();
+          }
+        })
+        .catch((e) => {
+          alert(e.message + " update user");
+        });
+      this.$store.commit(
+        "UPDATE_DIETARY_RESTRICTIONS",
+        this.selectedRestrictions
+      );
+      this.$store.commit("SET_USER", updatedUser);
     },
     saveDietaryChanges() {
-      // dietaryRestrictionService
-      //   .updateForUser(userID, this.dietaryRestrictions)
-      //   .then((r) => {
-      //     if (r.status === 200) {
-      //       alert("SUCCESSFUL Update to Profile.");
-      //     }
-      //   })
-      //   .catch(alert("Update to Profile was NOT SUCCESSFUL."));
+      let userID = this.$store.state.user.id;
+      dietaryRestrictionsService
+        .updateForUser(userID, this.selectedRestrictions)
+        .then((r) => {
+          alert(r.statusText + "SUCCESSFUL update to profile.");
+        })
+        .catch((e) => {
+          alert(e.message);
+        });
     },
     cancelProfileChanges() {
       this.userEmail = this.$store.state.user.email;

@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.UserDao;
+import com.techelevator.model.UpdateUserProfileDTO;
 import com.techelevator.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,24 +11,32 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
 
     private UserDao userDao;
 
-    private UserController(UserDao userDao){
+    private UserController(UserDao userDao) {
         this.userDao = userDao;
     }
 
     @GetMapping(path = "")
-    public List<User> findAll() { return userDao.findAll(); }
+    public List<User> findAll() {
+        return userDao.findAll();
+    }
 
     @GetMapping(path = "/{userId}")
-    public User getUserById (@PathVariable int userId){
+    public User getUserById(@PathVariable int userId) {
         return userDao.getUserById(userId);
     }
 
+    @PutMapping(path = "/{userId}") //Does not include means to update first name, last name, role, or password.
+    public User updateUserProfile(@PathVariable int userId, @RequestBody UpdateUserProfileDTO updatedUser) {
+        return userDao.updateUserProfile(userId, updatedUser);
+    }
+
     @GetMapping(path = "/email")
-    public User findByEmail(@RequestParam String email){
+    public User findByEmail(@RequestParam String email) {
         return userDao.findByEmail(email);
     }
 
@@ -38,7 +47,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")
-    public boolean create(String email, String password, String role){
+    public boolean create(String email, String password, String role) {
         return userDao.create(email, password, role);
 
     }

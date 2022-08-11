@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface RestrictionDao {
 
-    boolean addRestrictionToUser(int restrictionId, Principal principal);
+    boolean updateUserRestrictions(int userId, List<Integer> restrictionIdList);
 
-    List<Restriction> setRestrictionActive(int userId);
+    List<Restriction> getUserRestrictions(int userId);
 
 }

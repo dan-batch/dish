@@ -11,8 +11,8 @@ export default {
         return axios.get(`/user/${id}/restrictions`)
     },
 
-    updateForUser(id, restrictions) {
-        return axios.put(`/user/${id}/restrictions`, restrictions);
+    updateForUser(id, restrictionIDList) {
+        return axios.put(`/user/${id}/restrictions`, restrictionIDList);
     },
 
 }

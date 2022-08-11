@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.techelevator.model.UpdateUserProfileDTO;
 import com.techelevator.model.UserNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,9 +49,20 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
+    public User updateUserProfile(int userId, UpdateUserProfileDTO updatedUser) {
+        String sql = "UPDATE users\n" +
+                "SET user_email = ?,\n" +
+                "picture_url = ?\n" +
+                "WHERE user_id = ?;";
+        jdbcTemplate.update(sql,updatedUser.getEmail(),updatedUser.getImageURL(),userId);
+
+        return getUserById(userId);
+    }
+
+    @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+        String sql = "SELECT * FROM users;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -65,11 +77,11 @@ public class JdbcUserDao implements UserDao {
     public User findByEmail(String email) {
         if (email == null) throw new IllegalArgumentException("Email cannot be null");
 
-        for (User user : this.findAll()) {
+        for (User user : findAll()) {
             if (user.getEmail().equalsIgnoreCase(email)) {
                 return user;
             }
-            throw new UserNotFoundException();
+//            throw new UserNotFoundException();
         }
         return null;
 
@@ -100,8 +112,9 @@ public class JdbcUserDao implements UserDao {
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getInt("user_id"));
-        user.setEmail(rs.getString("email"));
+        user.setEmail(rs.getString("user_email"));
         user.setPassword(rs.getString("password_hash"));
+        user.setImageURL(rs.getString("picture_url"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;

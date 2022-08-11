@@ -11,6 +11,7 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
+const currentUserDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
 
 if (currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
@@ -25,12 +26,12 @@ export default new Vuex.Store({
       firstName: 'Carly',
       lastName: 'Trimboli',
     }, //ADDED email property to empty user object to test mutation. Can be removed if necessary, just be sure to comment out UPDATE_USER_EMAIL mutation.
-    dietaryRestrictions: [
+    dietaryRestrictions: currentUserDietaryRestrictions || [
       {
         id: 2001,
         name: "Dairy-free",
         abbreviation: "df",
-        active: true
+        active: false
       }, {
         id: 2002,
         name: "Gluten-free",
@@ -55,7 +56,7 @@ export default new Vuex.Store({
         id: 2006,
         name: "Nut-free",
         abbreviation: "nf",
-        active: true
+        active: false
       }, {
         id: 2007,
         name: "Vegan",
@@ -87,31 +88,20 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    SET_USER_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
+    SET_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
       state.dietaryRestrictions = dietaryRestrictions;
+      localStorage.setItem('dietaryRestrictions', JSON.stringify(dietaryRestrictions));
     },
-    UPDATE_DIETARY_RESTRICTIONS(state, selectedItems) {
-      state.dietaryRestrictions.forEach(r => {
-        if (selectedItems.includes(r.id)) {
+    UPDATE_DIETARY_RESTRICTIONS(state, selectedRestrictions) {
+      state.dietaryRestrictions.forEach((r) => {
+        if (selectedRestrictions.includes(r.id)) {
           r.active = true;
+        } else {
+          r.active = false;
         }
       });
-    },
-    UPDATE_USER_EMAIL(state, userEmail) {
-      state.user.email = userEmail;
-      console.log('UPDATE_USER_EMAIL');
-    },
-    UPDATE_USER_IMAGE_URL(state, userImageURL) {
-      state.user.imageURL = userImageURL;
-      console.log('UPDATE_USER_IMAGE_URL');
-    },
-    UPDATE_USER_FIRST_NAME(state, firstName) {
-      state.user.firstName = firstName;
-      console.log('UPDATE_USER_FIRST_NAME')
-    },
-    UPDATE_USER_LAST_NAME(state, lastName) {
-      state.user.firstName = lastName;
-      console.log('UPDATE_USER_LAST_NAME')
+      localStorage.setItem('dietaryRestrictions', JSON.stringify(state.dietaryRestrictions));
+
     }
   }
 })

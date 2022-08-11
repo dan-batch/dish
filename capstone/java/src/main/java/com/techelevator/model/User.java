@@ -10,6 +10,7 @@ public class User {
 
    private int id;
    private String email;
+   private String imageURL;
    @JsonIgnore
    private String password;
    @JsonIgnore
@@ -48,6 +49,14 @@ public class User {
 
    public void setPassword(String password) {
       this.password = password;
+   }
+
+   public void setImageURL(String imageURL) {
+      this.imageURL = imageURL;
+   }
+
+   public String getImageURL() {
+      return imageURL;
    }
 
    public boolean isActivated() {
@@ -98,6 +107,7 @@ public class User {
               ", email='" + email + '\'' +
               ", activated=" + activated +
               ", authorities=" + authorities +
+              ", picture_url=" + imageURL +
               '}';
    }
 }

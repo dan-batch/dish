@@ -68,8 +68,10 @@ public class JdbcUserDao implements UserDao {
         for (User user : this.findAll()) {
             if (user.getEmail().equalsIgnoreCase(email)) {
                 return user;
-            }throw new UserNotFoundException();
-        } return null;
+            }
+            throw new UserNotFoundException();
+        }
+        return null;
 
     }
 
@@ -79,16 +81,21 @@ public class JdbcUserDao implements UserDao {
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        return jdbcTemplate.update(insertUserSql, email, password_hash, ssRole) == 1;
+        return jdbcTemplate.update(insertUserSql, email, password_hash, ssRole) == 1; //todo: why ==1?
     }
 
     @Override
-    public int getIdByEmail(String email){
+    public int getIdByEmail(String email) throws NullPointerException{
         String sql = "SELECT user_id FROM users WHERE email = ?;";
-
-        return jdbcTemplate.queryForObject(sql, Integer.class, email);
-
+        int userId;
+        try {
+            userId = jdbcTemplate.queryForObject(sql, Integer.class, email);
+            return userId;
+        } catch (EmptyResultDataAccessException e) {
+            throw new UserNotFoundException();
+        }
     }
+
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();

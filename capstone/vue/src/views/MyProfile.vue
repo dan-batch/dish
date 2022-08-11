@@ -80,7 +80,7 @@ export default {
       userEmail: this.$store.state.user.email,
       userImageURL: this.$store.state.user.imageURL,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
-      selectedItems: this.selectRestrictions(),
+      selectedRestrictions: this.selectRestrictions(),
       firstName: this.$store.state.user.firstName,
       lastName: this.$store.state.user.lastName,
     };
@@ -94,6 +94,8 @@ export default {
         email: this.userEmail,
         id: userID,
         imageURL: this.userImageURL,
+        firstName: this.firstName,
+        lastName: this.lastName,
       };
       updatedUser.authorities = this.$store.state.user.authorities;
       userService

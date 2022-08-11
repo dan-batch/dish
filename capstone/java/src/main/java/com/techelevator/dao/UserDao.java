@@ -1,13 +1,13 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.UpdateUserProfileDTO;
+import com.techelevator.model.UserDTO;
 import com.techelevator.model.User;
 
 import java.util.List;
 
 public interface UserDao {
 
-    User updateUserProfile(int userId, UpdateUserProfileDTO updatedUser);
+    User updateUserProfile(int userId, UserDTO updatedUser);
 
     List<User> findAll();
 

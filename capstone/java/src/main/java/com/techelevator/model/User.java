@@ -11,6 +11,8 @@ public class User {
    private int id;
    private String email;
    private String imageURL;
+   private String firstName;
+   private String lastName;
    @JsonIgnore
    private String password;
    @JsonIgnore
@@ -25,6 +27,22 @@ public class User {
       this.password = password;
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
+   }
+
+   public String getFirstName() {
+      return firstName;
+   }
+
+   public void setFirstName(String firstName) {
+      this.firstName = firstName;
+   }
+
+   public String getLastName() {
+      return lastName;
+   }
+
+   public void setLastName(String lastName) {
+      this.lastName = lastName;
    }
 
    public int getId() {
@@ -108,6 +126,8 @@ public class User {
               ", activated=" + activated +
               ", authorities=" + authorities +
               ", picture_url=" + imageURL +
+              ", firstName=" + firstName +
+              ", lastName=" + lastName +
               '}';
    }
 }

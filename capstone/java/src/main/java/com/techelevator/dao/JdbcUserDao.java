@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.techelevator.model.UpdateUserProfileDTO;
+import com.techelevator.model.UserDTO;
 import com.techelevator.model.UserNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,12 +49,15 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User updateUserProfile(int userId, UpdateUserProfileDTO updatedUser) {
+    public User updateUserProfile(int userId, UserDTO updatedUser) {
         String sql = "UPDATE users\n" +
                 "SET user_email = ?,\n" +
-                "picture_url = ?\n" +
+                "picture_url = ?,\n" +
+                "first_name = ?,\n" +
+                "last_name = ?\n" +
                 "WHERE user_id = ?;";
-        jdbcTemplate.update(sql,updatedUser.getEmail(),updatedUser.getImageURL(),userId);
+        jdbcTemplate.update(sql,updatedUser.getEmail(),updatedUser.getImageURL(),
+                updatedUser.getFirstName(),updatedUser.getLastName(),userId);
 
         return getUserById(userId);
     }
@@ -115,6 +118,8 @@ public class JdbcUserDao implements UserDao {
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password_hash"));
         user.setImageURL(rs.getString("picture_url"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;

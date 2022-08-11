@@ -31,6 +31,19 @@
         <label for="email" id="email-label">E-mail address:</label>
         <input type="email" name="email" id="email" v-model="userEmail" />
       </div>
+      <div class="firstName">
+        <label for="firstName" id="first-name-label">First Name:</label>
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          v-model="firstName"
+        />
+      </div>
+      <div class="lastName">
+        <label for="firstName" id="last-name-label">Last Name:</label>
+        <input type="text" name="lastName" id="lastName" v-model="lastName" />
+      </div>
       <h3 class="dietary-restrictions">My Dietary Restrictions:</h3>
       <ul class="dietary-restriction-list">
         <li v-for="restriction in dietaryRestrictions" :key="restriction.id">
@@ -68,6 +81,8 @@ export default {
       userImageURL: this.$store.state.user.imageURL,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
       selectedItems: this.selectRestrictions(),
+      firstName: this.$store.state.user.firstName,
+      lastName: this.$store.state.user.lastName,
     };
   },
 
@@ -90,6 +105,10 @@ export default {
       console.log(this.$store.state.user.email);
       this.$store.commit("UPDATE_USER_IMAGE_URL", this.userImageURL);
       console.log(this.$store.state.user.imageURL);
+      this.$store.commit("UPDATE_USER_FIRST_NAME", this.firstName);
+      console.log(this.$store.state.user.firstName);
+      this.$store.commit("UPDATE_USER_LAST_NAME", this.lastName);
+      console.log(this.$store.state.user.lastName);
     },
     saveDietaryChanges() {
       // dietaryRestrictionService
@@ -105,6 +124,8 @@ export default {
       this.userEmail = this.$store.state.user.email;
       this.userImageURL = this.$store.state.user.imageURL;
       this.selectedItems = this.selectRestrictions();
+      this.firstName = this.$store.state.user.firstName;
+      this.lastName = this.$store.state.user.lastName;
       console.log("cancelProfileChanges");
     },
     selectRestrictions() {
@@ -172,7 +193,7 @@ form {
   border-radius: 10px;
   background-color: white;
   height: 40px;
-  width: 500px;
+  width: 225px;
   border: none;
   border-radius: 20px;
   margin: 5px;
@@ -186,7 +207,7 @@ form {
   border-radius: 10px;
   background-color: white;
   height: 40px;
-  width: 500px;
+  width: 225px;
   border: none;
   border-radius: 20px;
   margin: 5px;
@@ -198,6 +219,48 @@ form {
 
 .emailEntry {
   grid-area: ga-emailEntry;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#firstName {
+  border-radius: 10px;
+  background-color: white;
+  height: 40px;
+  width: 225px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+}
+
+#first-name-label {
+  text-indent: 15px;
+}
+
+.firstName {
+  grid-area: ga-firstName;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#lastName {
+  border-radius: 10px;
+  background-color: white;
+  height: 40px;
+  width: 225px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+}
+
+#last-name-label {
+  text-indent: 15px;
+}
+
+.lastName {
+  grid-area: ga-lastName;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -285,20 +348,20 @@ li {
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "ga-logo      ga-logo"
-    " ga-title    ga-title"
+    "ga-title     ga-title"
     "ga-formGrid  ga-formGrid";
   column-gap: 50px;
 }
 
 form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr;
   grid-template-areas:
-    "ga-infoTitle   ga-restrictionsTitle"
-    "ga-profilePic  ga-list"
-    "ga-urlEntry    ga-list"
-    "ga-emailEntry  ga-list"
-    "ga-buttonGrid ga-buttonGrid";
+    "ga-infoTitle   ga-infoTitle   ga-restrictionsTitle"
+    "ga-profilePic  ga-profilePic  ga-list"
+    "ga-urlEntry    ga-emailEntry  ga-list"
+    "ga-firstName   ga-lastName    ga-list"
+    "ga-buttonGrid  ga-buttonGrid  ga-buttonGrid";
   justify-items: center;
 }
 

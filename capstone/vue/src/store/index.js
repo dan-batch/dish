@@ -21,7 +21,9 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {
       email: 'carly@user.com',
-      imageURL: 'https://media-exp1.licdn.com/dms/image/C5603AQG11wYnSQ28ug/profile-displayphoto-shrink_800_800/0/1625681037290?e=1665619200&v=beta&t=YYcwiDfDxqJeZNyfPrxqKQMP5_9yZnLeiY1LxM85JfI'
+      imageURL: 'https://media-exp1.licdn.com/dms/image/C5603AQG11wYnSQ28ug/profile-displayphoto-shrink_800_800/0/1625681037290?e=1665619200&v=beta&t=YYcwiDfDxqJeZNyfPrxqKQMP5_9yZnLeiY1LxM85JfI',
+      firstName: 'Carly',
+      lastName: 'Trimboli',
     }, //ADDED email property to empty user object to test mutation. Can be removed if necessary, just be sure to comment out UPDATE_USER_EMAIL mutation.
     dietaryRestrictions: [
       {
@@ -102,6 +104,14 @@ export default new Vuex.Store({
     UPDATE_USER_IMAGE_URL(state, userImageURL) {
       state.user.imageURL = userImageURL;
       console.log('UPDATE_USER_IMAGE_URL');
+    },
+    UPDATE_USER_FIRST_NAME(state, firstName) {
+      state.user.firstName = firstName;
+      console.log('UPDATE_USER_FIRST_NAME')
+    },
+    UPDATE_USER_LAST_NAME(state, lastName) {
+      state.user.firstName = lastName;
+      console.log('UPDATE_USER_LAST_NAME')
     }
   }
 })

@@ -10,7 +10,7 @@
       v-on:reset.prevent="cancelProfileChanges()"
     >
       <h3 class="personal-info">Personal Info:</h3>
-      <div>
+      <div class="pfp-border">
         <img
           :src="this.$store.state.user.imageURL"
           class="profile-pic"
@@ -276,7 +276,7 @@ li {
   font-size: 18px;
   color: white;
   height: 32px;
-  width: 125px;
+  width: 175px;
   background-color: #f58634;
 }
 
@@ -311,8 +311,14 @@ form {
 
 .profile-pic {
   max-width: 150px;
+  /* border: 3px solid #6b3e0a; */
   border-radius: 15px;
+}
+
+.pfp-border {
   border: 3px solid #6b3e0a;
+  border-radius: 18px;
+  background-color: #6b3e0a;
 }
 </style>
 

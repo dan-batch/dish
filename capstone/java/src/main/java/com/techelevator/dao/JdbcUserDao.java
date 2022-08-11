@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.techelevator.model.UpdateUserProfileDTO;
 import com.techelevator.model.UserNotFoundException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -49,9 +49,20 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
+    public User updateUserProfile(int userId, UpdateUserProfileDTO updatedUser) {
+        String sql = "UPDATE users\n" +
+                "SET user_email = ?,\n" +
+                "picture_url = ?\n" +
+                "WHERE user_id = ?;";
+        jdbcTemplate.update(sql,updatedUser.getEmail(),updatedUser.getImageURL(),userId);
+
+        return getUserById(userId);
+    }
+
+    @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+        String sql = "SELECT * FROM users;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -75,12 +86,12 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean create(String username, String password, String role) {
-        String insertUserSql = "insert into users (username,password_hash,role) values (?,?,?)";
+    public boolean create(String user_email, String password, String role) {
+        String insertUserSql = "insert into users (user_email,password_hash,role) values (?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole) == 1;
+        return jdbcTemplate.update(insertUserSql, user_email, password_hash, ssRole) == 1;
     }
 
     @Override
@@ -96,6 +107,7 @@ public class JdbcUserDao implements UserDao {
         user.setId(rs.getInt("user_id"));
         user.setEmail(rs.getString("user_email"));
         user.setPassword(rs.getString("password_hash"));
+        user.setImageURL(rs.getString("picture_url"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;

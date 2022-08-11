@@ -25,7 +25,7 @@ public class RestrictionController {
         this.userDao = userDao;
     }
 
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping(path = "/{userId}/restrictions")
     public boolean addRestrictionToUser(@PathVariable int userId, @RequestBody List<Integer> restrictionIdList){
         return restrictionDao.updateUserRestrictions(userId, restrictionIdList);

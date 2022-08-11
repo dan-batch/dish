@@ -54,7 +54,7 @@
 </template>
 
 <script>
-// import userService from "../services/UserService";
+import userService from "../services/UserService";
 import dietaryRestrictionsService from "../services/DietaryRestrictionsService";
 export default {
   name: "my-profile",
@@ -69,20 +69,23 @@ export default {
 
   methods: {
     saveProfileChanges() {
-      // let userID = this.$store.state.user.userID;
-      // const updatedUser = {
-      //   email: this.email,
-      //   imageURL: this.imageURL,
-      // };
-      // userService
-      //   .updateUser(userID, updatedUser)
-      //   .then((response) => {
-      //     if (response.status === 200) {
-      //       this.saveDietaryChanges();
-      //     }
-      //   })
-      //   .catch(alert("Update to Profile was NOT SUCCESSFUL."));
-      this.saveDietaryChanges();
+      let userID = this.$store.state.user.id;
+      const updatedUser = {
+        id: this.userID,
+        email: this.userEmail,
+        imageURL: this.userImageURL,
+      };
+      userService
+        .updateUser(userID, updatedUser)
+        .then((response) => {
+          if (response.status === 200) {
+            this.saveDietaryChanges();
+          }
+        })
+        .catch((e) => {
+          alert(e.message);
+        });
+      // this.saveDietaryChanges();
       this.$store.commit(
         "UPDATE_DIETARY_RESTRICTIONS",
         this.selectedRestrictions
@@ -97,9 +100,7 @@ export default {
       dietaryRestrictionsService
         .updateForUser(userID, this.selectedRestrictions)
         .then((r) => {
-          if (r.status == 202) {
-            alert("SUCCESSFUL Update to Profile.");
-          }
+          alert(r.statusText + "SUCCESSFUL update to profile.");
         })
         .catch((e) => {
           alert(e.message);

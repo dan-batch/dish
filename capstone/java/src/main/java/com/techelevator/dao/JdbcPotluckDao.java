@@ -14,12 +14,9 @@ import java.util.List;
 public class JdbcPotluckDao implements PotluckDao {
     private final JdbcTemplate jdbcTemplate;
 
-
-
-    public JdbcPotluckDao(JdbcTemplate jdbcTemplate, PotluckDao potluckDao) {
+    public JdbcPotluckDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 
     @Override
     public List<Potluck> getAllPlucks() {
@@ -78,6 +75,9 @@ public class JdbcPotluckDao implements PotluckDao {
     public Potluck getPluckById(int pluckId) {
         String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
                 "FROM pluck WHERE pluck_id = ?";
+
+        SqlRowSet pluckById = jdbcTemplate.queryForRowSet(sql, pluckId);
+
         for (Potluck pluck : getAllPlucks()) {
             if (pluck.getPluckId() == pluckId) {
                 return pluck;
@@ -90,12 +90,14 @@ public class JdbcPotluckDao implements PotluckDao {
     public Potluck getPluckByName(String pluckName){
         String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
                 "FROM pluck WHERE pluck_name = ?";
-        for (Potluck pluck : getAllPlucks()) {
-            if (pluck.getPluckName() == pluckName) {
-                return pluck;
-            }
+
+        SqlRowSet pluckByName = jdbcTemplate.queryForRowSet(sql, pluckName);
+
+        if (pluckByName.next()){
+            return (mapRowToPluck(pluckByName));
+        } else {
+            return null;
         }
-        return null;
 
     }
 

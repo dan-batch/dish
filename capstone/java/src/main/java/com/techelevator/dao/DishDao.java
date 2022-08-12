@@ -11,6 +11,9 @@ public interface DishDao {
     List<Dish> getAllDishes();
    //list of all dishes added across whole site
 
+    Boolean createDish(int pluckId, int catId, int userId, String dishName);
+    //create a new dish
+
     Dish getDishById(int dishId);
     //one specific dish
 
@@ -33,7 +36,7 @@ public interface DishDao {
     //what pluck a dish is associated with (returns whole pluck object)
 
 
-    Boolean addRestriction(int restrictionId);
+    Boolean addRestriction(int dishId, int restrictionId);
     //adds restriction to dish
 
 

@@ -16,7 +16,7 @@ public class JdbcPotluckDao implements PotluckDao {
 
 
 
-    public JdbcPotluckDao(JdbcTemplate jdbcTemplate, PotluckDao potluckDao) {
+    public JdbcPotluckDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

@@ -78,6 +78,7 @@ CREATE SEQUENCE seq_dish_id
 	user_id int NOT NULL,
 	dish_name varchar(25) NOT NULL,
 	servings int NOT NULL,
+	description varchar(500),
 	CONSTRAINT PK_dish_id PRIMARY KEY (dish_id),
 	CONSTRAINT FK_pluck_dish_id FOREIGN KEY (pluck_id) REFERENCES pluck (pluck_id),
 	CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users (user_id),
@@ -100,6 +101,14 @@ CREATE TABLE pluck_user(
 	CONSTRAINT PK_pluck_user PRIMARY KEY (pluck_id, user_id),
 	CONSTRAINT FK_pluck_id FOREIGN KEY (pluck_id) REFERENCES pluck (pluck_id), 
 	CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE dish_restrictions(
+	dish_id int NOT NULL, 
+	restriction_id int, 
+	CONSTRAINT PK_dish_restrictions_id PRIMARY KEY (dish_id), 
+	CONSTRAINT FK_dish_restrictions_dish_id FOREIGN KEY (dish_id) REFERENCES pluck_dish (dish_id),
+	CONSTRAINT FK_dish_restrictions_restriction_id FOREIGN KEY (restriction_id) REFERENCES restrictions (restriction_id)
 );
 
 COMMIT TRANSACTION;

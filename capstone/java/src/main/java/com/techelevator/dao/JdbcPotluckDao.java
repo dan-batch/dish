@@ -14,7 +14,8 @@ public class JdbcPotluckDao implements PotluckDao {
     private final JdbcTemplate jdbcTemplate;
     private PotluckDao potluckDao;
 
-    public JdbcPotluckDao(JdbcTemplate jdbcTemplate, PotluckDao potluckDao) {
+
+    public JdbcPotluckDao(JdbcTemplate jdbcTemplate, PotluckDao potluckDao){
         this.jdbcTemplate = jdbcTemplate;
         this.potluckDao = potluckDao;
     }
@@ -40,7 +41,9 @@ public class JdbcPotluckDao implements PotluckDao {
                 "JOIN tablename AS abbrev ON abbrev.pluck_id = pluck.pluck_id " +
                 "WHERE abbrev.user_id = ?";
 
+        return null;
     }
+
 
 
     @Override
@@ -85,9 +88,10 @@ public class JdbcPotluckDao implements PotluckDao {
         }System.err.println("Couldn't update potluck " + pluckId);
         return false;
     }
-//
-//    @Override
-//    public Boolean addCat(int pluckId, int catId){return null;}
+
+        @Override
+        public Boolean addCat(int pluckId, int catId){return null;}
+
 
     private Potluck mapRowToPluck(SqlRowSet pluckRowSet) {
         Potluck pluck = new Potluck();
@@ -102,5 +106,6 @@ public class JdbcPotluckDao implements PotluckDao {
         pluck.setPluckPlace(pluckRowSet.getString("pluck_place"));
         return pluck;
     }
+    
 
 }

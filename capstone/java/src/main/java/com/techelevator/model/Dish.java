@@ -12,6 +12,7 @@ public class Dish {
     private List<Integer> dishRestrictions;
     private int dishCatId;
     private int dishPluckId;
+    private int servings;
 
 
     public Dish(int dishId, String dishName, int dishUserId, int dishCatId) {
@@ -85,5 +86,13 @@ public class Dish {
 
     public void setDishPluckId(int dishPluckId) {
         this.dishPluckId = dishPluckId;
+    }
+
+    public int getServings() {
+        return servings;
+    }
+
+    public void setServings(int servings) {
+        this.servings = servings;
     }
 }

@@ -8,4 +8,10 @@ INSERT INTO restrictions (restriction_abbrev, restriction_name) VALUES ('df', 'D
 
 INSERT INTO user_restrictions (user_id, restriction_id) VALUES (1001, 2001), (1001, 2002), (1001, 2008);
 
+INSERT INTO category (cat_name) VALUES ('sides & snacks');
+INSERT INTO category (cat_name) VALUES ('main dishes');
+INSERT INTO category (cat_name) VALUES ('drinks');
+INSERT INTO category (cat_name) VALUES ('desserts');
+INSERT INTO category (cat_name) VALUES ('utensils, etc.');
+
 COMMIT TRANSACTION;

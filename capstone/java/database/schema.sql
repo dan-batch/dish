@@ -77,6 +77,7 @@ CREATE SEQUENCE seq_dish_id
 	cat_id int, 
 	user_id int NOT NULL,
 	dish_name varchar(25) NOT NULL,
+	servings int NOT NULL,
 	CONSTRAINT PK_dish_id PRIMARY KEY (dish_id),
 	CONSTRAINT FK_pluck_dish_id FOREIGN KEY (pluck_id) REFERENCES pluck (pluck_id),
 	CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users (user_id),

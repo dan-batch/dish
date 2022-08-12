@@ -4,8 +4,9 @@
     color: #6b3e0a;
 }
 footer{
-    position: fixed; 
+    /* position: fixed;  */
     width: 100%;
     bottom: 0px;
     text-align: center;
+    
 }

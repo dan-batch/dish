@@ -12,17 +12,15 @@ public interface PotluckDao {
 
     List<Potluck> getAllPlucksByUser(int userId);
 
-    Boolean createPluck (int pluckId, String pluckName,
-                        String pluckPlace, LocalDateTime pluckTime);
+    Boolean createPluck (String pluckName,
+                         LocalDateTime pluckTime, String pluckPlace);
 
-    Potluck updatePluck(int pluckId, String pluckName,
-                        String pluckPlace, String pluckDescription,
-                        LocalDateTime pluckTime, List<Integer> pluckDishes, List<Integer> pluckCats);
+    Boolean updatePluck(int pluckId, String pluckName, String pluckDescription, LocalDateTime pluckTime,  String pluckPlace);
 
     Potluck getPluckById(int pluckId);
 
-    Boolean addDish(int dishId);
+    Boolean addDish(int dishId, int pluckId, int cat_id, int user_id, String dish_name);
 
-    Boolean addCat(int catId);
+    Boolean addCat(int pluckId, int catId);
 
 }

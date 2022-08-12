@@ -9,7 +9,7 @@ public class Potluck {
     private String pluckName;
     private String pluckPlace;
     private LocalDateTime pluckTime;
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private String pluckDescription = "";
     private List<Integer> pluckDishes;
     private List<Integer> pluckCats;

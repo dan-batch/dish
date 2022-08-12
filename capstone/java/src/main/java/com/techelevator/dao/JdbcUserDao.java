@@ -96,7 +96,7 @@ public class JdbcUserDao implements UserDao {
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        return jdbcTemplate.update(insertUserSql, email, password_hash, ssRole) == 1; //todo: why ==1?
+        return jdbcTemplate.update(insertUserSql, email, password_hash, ssRole) == 1;
     }
 
     @Override

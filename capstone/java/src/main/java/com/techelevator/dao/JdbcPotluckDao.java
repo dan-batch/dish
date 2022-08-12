@@ -1,55 +1,106 @@
-//package com.techelevator.dao;
-//
-//import com.techelevator.model.Potluck;
-//import org.springframework.jdbc.core.JdbcTemplate;
-//import org.springframework.jdbc.support.rowset.SqlRowSet;
-//import org.springframework.stereotype.Component;
-//
-//import java.time.LocalDateTime;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Component
-//public class JdbcPotluckDao implements PotluckDao {
-//    private final JdbcTemplate jdbcTemplate;
-//    private PotluckDao potluckDao;
-//
-//    public JdbcPotluckDao(JdbcTemplate jdbcTemplate, PotluckDao potluckDao){
-//        this.jdbcTemplate = jdbcTemplate;
-//        this.potluckDao = potluckDao;
-//    }
-//
+package com.techelevator.dao;
+
+import com.techelevator.model.Potluck;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class JdbcPotluckDao implements PotluckDao {
+    private final JdbcTemplate jdbcTemplate;
+    private PotluckDao potluckDao;
+
+    public JdbcPotluckDao(JdbcTemplate jdbcTemplate, PotluckDao potluckDao) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.potluckDao = potluckDao;
+    }
+
+
+    @Override
+    public List<Potluck> getAllPlucks() {
+        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
+                "FROM pluck";
+        SqlRowSet allPlucks = jdbcTemplate.queryForRowSet(sql);
+        List<Potluck> pluckList = new ArrayList<>();
+
+        while (allPlucks.next()) {
+            pluckList.add(mapRowToPluck(allPlucks));
+        }
+        return pluckList;
+    }
+
+        @Override
+    public List<Potluck> getAllPlucksByUser(int userId){
+        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
+                "FROM pluck " +
+                "JOIN tablename AS abbrev ON abbrev.pluck_id = pluck.pluck_id " +
+                "WHERE abbrev.user_id = ?";
+
+    }
+
+
+    @Override
+    public Boolean createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace) {
+        String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place) values (?,?,?)";
+        if (jdbcTemplate.update(sql, pluckName, pluckPlace) == 1) {
+            return true;
+        }
+        System.err.println("Couldn't create new potluck");
+
+        return false;
+    }
+
+    @Override
+    public Boolean updatePluck(int pluckId, String pluckName, String pluckDescription, LocalDateTime pluckTime, String pluckPlace) {
+        String sql = "UPDATE pluck SET pluck_name = ?, pluck_date_time = ?, pluck_place = ? " +
+                "WHERE pluck_id = ?";
+        if (jdbcTemplate.update(sql, pluckName, pluckDescription, pluckTime, pluckPlace, pluckId) == 1) {
+            return true;
+        }
+        System.err.println("Couldn't update potluck " + pluckId);
+        return false;
+
+    }
+
+    @Override
+    public Potluck getPluckById(int pluckId) {
+        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
+                "FROM pluck WHERE pluck_id = ?";
+        for (Potluck pluck : getAllPlucks()){
+            if (pluck.getPluckId() == pluckId){
+                return pluck;
+            }
+        } return null;
+    }
+
+    @Override //todo: in controller, this will have to happen AFTER dish is added to dish table in order to get dishId
+    public Boolean addDish(int dishId, int pluckId, int cat_id, int user_id, String dish_name){
+        String sql = "INSERT INTO pluck_dish (dish_id, pluck_id, cat_id, user_id, dish_name) VALUES (?,?,?,?,?)";
+        if (jdbcTemplate.update(sql, dishId, pluckId, cat_id, user_id, dish_name) == 1){
+            return true;
+        }System.err.println("Couldn't update potluck " + pluckId);
+        return false;
+    }
 //
 //    @Override
-//    public List<Potluck> getAllPlucks() {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<Potluck> getAllPlucksByUser(int userId){
-//        return null;
-//    }
-//
-//
-//    @Override
-//    public Boolean createPluck(int pluckId, String pluckName, String pluckPlace, LocalDateTime pluckTime) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Potluck updatePluck(int pluckId, String pluckName, String pluckPlace, String pluckDescription, LocalDateTime pluckTime, List<Integer> pluckDishes, List<Integer> pluckCats) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Potluck getPluckById(int pluckId) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Boolean addDish(int dishId){return null;}
-//
-//    @Override
-//    public Boolean addCat(int catId){return null;}
-//
-//}
+//    public Boolean addCat(int pluckId, int catId){return null;}
+
+    private Potluck mapRowToPluck(SqlRowSet pluckRowSet) {
+        Potluck pluck = new Potluck();
+        pluck.setPluckId(pluckRowSet.getInt("pluck_id"));
+        pluck.setPluckName(pluckRowSet.getString("pluck_name"));
+        pluck.setPluckDescription(pluckRowSet.getString("pluck_description"));
+        if (pluckRowSet.getTimestamp("pluck_date_time") != null) {
+            pluck.setPluckTime(pluckRowSet.getTimestamp("pluck_date_time").toLocalDateTime());
+        } else {
+            pluck.setPluckTime(null);
+        }
+        pluck.setPluckPlace(pluckRowSet.getString("pluck_place"));
+        return pluck;
+    }
+
+}

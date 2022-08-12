@@ -13,5 +13,5 @@ public interface CategoryDao {
     Category getCatById(int catId);
 
     int getCatLimitByPluck (int pluckId, int catId);
-    
+
 }

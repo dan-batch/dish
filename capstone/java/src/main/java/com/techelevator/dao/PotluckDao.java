@@ -21,4 +21,8 @@ public interface PotluckDao {
 
     Potluck getPluckById(int pluckId);
 
+    Boolean addDish(int dishId);
+
+    Boolean addCat(int catId);
+
 }

@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.rmi.activation.ActivationGroup_Stub;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +13,11 @@ import java.util.List;
 @Component
 public class JdbcPotluckDao implements PotluckDao {
     private final JdbcTemplate jdbcTemplate;
-    private PotluckDao potluckDao;
 
 
-    public JdbcPotluckDao(JdbcTemplate jdbcTemplate, PotluckDao potluckDao){
+
+    public JdbcPotluckDao(JdbcTemplate jdbcTemplate, PotluckDao potluckDao) {
         this.jdbcTemplate = jdbcTemplate;
-        this.potluckDao = potluckDao;
     }
 
 
@@ -34,16 +34,21 @@ public class JdbcPotluckDao implements PotluckDao {
         return pluckList;
     }
 
-        @Override
-    public List<Potluck> getAllPlucksByUser(int userId){
+    @Override
+    public List<Potluck> getAllPlucksByUser(int userId) {
         String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
                 "FROM pluck " +
-                "JOIN tablename AS abbrev ON abbrev.pluck_id = pluck.pluck_id " +
-                "WHERE abbrev.user_id = ?";
+                "JOIN pluck_user AS pu ON pu.pluck_id = pluck.pluck_id " +
+                "WHERE pu.user_id = ?";
 
-        return null;
+       SqlRowSet plucksByUser = jdbcTemplate.queryForRowSet(sql);
+       List<Potluck> pluckList = new ArrayList<>();
+
+       while (plucksByUser.next()){
+           pluckList.add(mapRowToPluck(plucksByUser));
+       }
+       return pluckList;
     }
-
 
 
     @Override
@@ -73,24 +78,46 @@ public class JdbcPotluckDao implements PotluckDao {
     public Potluck getPluckById(int pluckId) {
         String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
                 "FROM pluck WHERE pluck_id = ?";
-        for (Potluck pluck : getAllPlucks()){
-            if (pluck.getPluckId() == pluckId){
+        for (Potluck pluck : getAllPlucks()) {
+            if (pluck.getPluckId() == pluckId) {
                 return pluck;
             }
-        } return null;
+        }
+        return null;
+    }
+
+    @Override
+    public Potluck getPluckByName(String pluckName){
+        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
+                "FROM pluck WHERE pluck_name = ?";
+        for (Potluck pluck : getAllPlucks()) {
+            if (pluck.getPluckName() == pluckName) {
+                return pluck;
+            }
+        }
+        return null;
+
     }
 
     @Override //todo: in controller, this will have to happen AFTER dish is added to dish table in order to get dishId
-    public Boolean addDish(int dishId, int pluckId, int cat_id, int user_id, String dish_name){
+    public Boolean addDish(int dishId, int pluckId, int cat_id, int user_id, String dish_name) {
         String sql = "INSERT INTO pluck_dish (dish_id, pluck_id, cat_id, user_id, dish_name) VALUES (?,?,?,?,?)";
-        if (jdbcTemplate.update(sql, dishId, pluckId, cat_id, user_id, dish_name) == 1){
+        if (jdbcTemplate.update(sql, dishId, pluckId, cat_id, user_id, dish_name) == 1) {
             return true;
-        }System.err.println("Couldn't update potluck " + pluckId);
+        }
+        System.err.println("Couldn't update potluck " + pluckId);
         return false;
     }
 
-        @Override
-        public Boolean addCat(int pluckId, int catId){return null;}
+    @Override
+    public Boolean addCat(int pluckId, int catId) {
+        String sql = "INSERT INTO pluck_cat (pluck_id, cat_id) VALUES (?,?)";
+        if (jdbcTemplate.update(sql, pluckId, catId) == 1){
+            return true;
+        }
+        System.err.println("Couldn't update potluck " + pluckId);
+        return false;
+    }
 
 
     private Potluck mapRowToPluck(SqlRowSet pluckRowSet) {
@@ -106,6 +133,6 @@ public class JdbcPotluckDao implements PotluckDao {
         pluck.setPluckPlace(pluckRowSet.getString("pluck_place"));
         return pluck;
     }
-    
+
 
 }

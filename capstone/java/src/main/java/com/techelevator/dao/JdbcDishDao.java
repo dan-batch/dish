@@ -30,6 +30,17 @@ public class JdbcDishDao implements DishDao {
     }
 
     @Override
+    public Boolean createDish(int pluckId, int catId, int userId, String dishName){
+        String sql = "INSERT INTO pluck_dish (pluck_id, cat_id, user_id, dish_name) VALUES (?,?,?,?)";
+        if (jdbcTemplate.update(sql, pluckId, catId, userId, dishName)==1){
+            return true;
+        } else {
+            System.err.println("The dish could not be created");
+            return false;
+        }
+    }
+
+    @Override
     public Dish getDishById(int dishId) {
         String sql = "SELECT dish_id, pluck_id, cat_id, dish_name, servings, dish_description FROM pluck_dish " +
                 "WHERE dish_id = ?";
@@ -39,6 +50,7 @@ public class JdbcDishDao implements DishDao {
         if (dishById.next()) {
             return (mapRowToDish(dishById));
         } else {
+            System.err.println("The dish could not be found");
             return null;
         }
     }
@@ -55,6 +67,7 @@ public class JdbcDishDao implements DishDao {
             dishList.add(mapRowToDish(dishById));
             return dishList;
         } else {
+            System.err.println("The dishes could not be found");
             return null;
         }
     }
@@ -71,6 +84,7 @@ public class JdbcDishDao implements DishDao {
             dishList.add(mapRowToDish(dishById));
             return dishList;
         } else {
+            System.err.println("The dishes could not be found");
             return null;
         }
     }
@@ -87,6 +101,7 @@ public class JdbcDishDao implements DishDao {
             dishList.add(mapRowToDish(dishById));
             return dishList;
         } else {
+            System.err.println("The dishes could not be found");
             return null;
         }
     }
@@ -100,7 +115,7 @@ public class JdbcDishDao implements DishDao {
 
         if (catByDish.next()) {
             return (mapRowToCat(catByDish));
-        }
+        } System.err.println("The category could not be found");
         return null;
 
     }
@@ -114,13 +129,18 @@ public class JdbcDishDao implements DishDao {
 
         if (pluckByDish.next()) {
             return (mapRowToPluck(pluckByDish));
-        }
+        } System.err.println("The potluck could not be found");
         return null;
     }
 
     @Override
-    public Boolean addRestriction(int restrictionId) {
-        return null;
+    public Boolean addRestriction(int dishId, int restrictionId) {
+        String sql = "INSERT INTO dish_restrictions (dish_id, restriction_id) " +
+                "VALUES (?,?)";
+        if (jdbcTemplate.update(sql, dishId, restrictionId) == 1){
+            return true;
+        }System.err.println("The restriction could not be added");
+        return false;
     }
 
     private Dish mapRowToDish(SqlRowSet dishRowSet) {

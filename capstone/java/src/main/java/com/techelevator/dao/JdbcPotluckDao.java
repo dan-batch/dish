@@ -4,6 +4,7 @@ import com.techelevator.model.Potluck;
 import com.techelevator.model.exceptions.CategoryNotFoundException;
 import com.techelevator.model.exceptions.PotluckNotFoundException;
 import com.techelevator.model.exceptions.UserNotFoundException;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -69,7 +70,6 @@ public class JdbcPotluckDao implements PotluckDao {
         }
     }
 
-
     @Override
     public Boolean createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace) {
         String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place) values (?,?,?)";
@@ -83,7 +83,7 @@ public class JdbcPotluckDao implements PotluckDao {
 
     @Override
     public Boolean updatePluck(int pluckId, String pluckName, String pluckDescription, LocalDateTime pluckTime, String pluckPlace) {
-        String sql = "UPDATE pluck SET pluck_name = ?, pluck_date_time = ?, pluck_place = ? " +
+        String sql = "UPDATE pluck SET pluck_name = ?, pluck_description = ?, pluck_date_time = ?, pluck_place = ? "  +
                 "WHERE pluck_id = ?";
         if (jdbcTemplate.update(sql, pluckName, pluckDescription, pluckTime, pluckPlace, pluckId) == 1) {
             return true;

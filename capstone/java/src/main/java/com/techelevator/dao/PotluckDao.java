@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Potluck;
+import org.springframework.beans.factory.annotation.Required;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

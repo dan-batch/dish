@@ -6,8 +6,6 @@ INSERT INTO users (email,first_name,last_name,password_hash,role) VALUES ('user2
 
 INSERT INTO restrictions (restriction_abbrev, restriction_name) VALUES ('df', 'Dairy Free'),('gf', 'Gluten Free'),('h', 'Halal'),('k', 'Kosher'),('lc', 'Low-carb'),('nf', 'Nut Free'),('vn', 'Vegan'),('v', 'Vegetarian');
 
-INSERT INTO user_restrictions (user_id, restriction_id) VALUES (1001, 2001), (1001, 2002), (1001, 2008);
-
 INSERT INTO category (cat_name) VALUES ('sides & snacks');
 INSERT INTO category (cat_name) VALUES ('main dishes');
 INSERT INTO category (cat_name) VALUES ('drinks');

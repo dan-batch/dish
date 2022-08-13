@@ -35,6 +35,21 @@ public class JdbcPotluckDao implements PotluckDao {
     }
 
     @Override
+    public Potluck getPluckById(int pluckId) {
+        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
+                "FROM pluck WHERE pluck_id = ?";
+
+        SqlRowSet pluckById = jdbcTemplate.queryForRowSet(sql, pluckId);
+
+        for (Potluck pluck : getAllPlucks()) {
+            if (pluck.getPluckId() == pluckId) {
+                return pluck;
+            }
+        }
+        throw new PotluckNotFoundException();
+    }
+
+    @Override
     public List<Potluck> getAllPlucksByUser(int userId) {
         String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
                 "FROM pluck " +
@@ -58,7 +73,7 @@ public class JdbcPotluckDao implements PotluckDao {
     @Override
     public Boolean createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace) {
         String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place) values (?,?,?)";
-        if (jdbcTemplate.update(sql, pluckName, pluckPlace) == 1) {
+        if (jdbcTemplate.update(sql, pluckName, pluckTime, pluckPlace) == 1) {
             return true;
         }
         System.err.println("Couldn't create new potluck");
@@ -77,20 +92,7 @@ public class JdbcPotluckDao implements PotluckDao {
 
     }
 
-    @Override
-    public Potluck getPluckById(int pluckId) {
-        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
-                "FROM pluck WHERE pluck_id = ?";
 
-        SqlRowSet pluckById = jdbcTemplate.queryForRowSet(sql, pluckId);
-
-        for (Potluck pluck : getAllPlucks()) {
-            if (pluck.getPluckId() == pluckId) {
-                return pluck;
-            }
-        }
-        throw new PotluckNotFoundException();
-    }
 
     @Override
     public Potluck getPluckByName(String pluckName) {

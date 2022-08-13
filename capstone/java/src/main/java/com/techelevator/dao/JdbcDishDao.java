@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Category;
 import com.techelevator.model.Dish;
 import com.techelevator.model.Potluck;
+import com.techelevator.model.exceptions.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -30,13 +31,21 @@ public class JdbcDishDao implements DishDao {
     }
 
     @Override
-    public Boolean createDish(int pluckId, int catId, int userId, String dishName){
+    public Boolean createDish(int pluckId, int catId, int userId, String dishName) {
         String sql = "INSERT INTO pluck_dish (pluck_id, cat_id, user_id, dish_name) VALUES (?,?,?,?)";
-        if (jdbcTemplate.update(sql, pluckId, catId, userId, dishName)==1){
-            return true;
-        } else {
-            System.err.println("The dish could not be created");
-            return false;
+        try {
+            if (jdbcTemplate.update(sql, pluckId, catId, userId, dishName) == 1) {
+                return true;
+            } else {
+                System.err.println("The dish could not be created");
+                return false;
+            }
+        } catch (PotluckNotFoundException p){
+            throw new PotluckNotFoundException();
+        }catch (CategoryNotFoundException c){
+            throw new CategoryNotFoundException();
+        }catch (UserNotFoundException u){
+            throw new UserNotFoundException();
         }
     }
 
@@ -50,8 +59,7 @@ public class JdbcDishDao implements DishDao {
         if (dishById.next()) {
             return (mapRowToDish(dishById));
         } else {
-            System.err.println("The dish could not be found");
-            return null;
+            throw new DishNotFoundException();
         }
     }
 
@@ -63,12 +71,18 @@ public class JdbcDishDao implements DishDao {
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, userId, pluckId);
         List<Dish> dishList = new ArrayList<>();
 
-        if (dishById.next()) {
-            dishList.add(mapRowToDish(dishById));
-            return dishList;
-        } else {
-            System.err.println("The dishes could not be found");
-            return null;
+        try {
+            if (dishById.next()) {
+                dishList.add(mapRowToDish(dishById));
+                return dishList;
+            } else {
+                System.err.println("The dishes could not be found");
+                return null;
+            }
+        } catch (UserNotFoundException u) {
+            throw new UserNotFoundException();
+        } catch (PotluckNotFoundException p) {
+            throw new PotluckNotFoundException();
         }
     }
 
@@ -80,12 +94,16 @@ public class JdbcDishDao implements DishDao {
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, pluckId);
         List<Dish> dishList = new ArrayList<>();
 
-        if (dishById.next()) {
-            dishList.add(mapRowToDish(dishById));
-            return dishList;
-        } else {
-            System.err.println("The dishes could not be found");
-            return null;
+        try {
+            if (dishById.next()) {
+                dishList.add(mapRowToDish(dishById));
+                return dishList;
+            } else {
+                System.err.println("The dishes could not be found");
+                return null;
+            }
+        } catch (PotluckNotFoundException p){
+            throw new PotluckNotFoundException();
         }
     }
 
@@ -97,12 +115,18 @@ public class JdbcDishDao implements DishDao {
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, catId, pluckId);
         List<Dish> dishList = new ArrayList<>();
 
-        if (dishById.next()) {
-            dishList.add(mapRowToDish(dishById));
-            return dishList;
-        } else {
-            System.err.println("The dishes could not be found");
-            return null;
+        try {
+            if (dishById.next()) {
+                dishList.add(mapRowToDish(dishById));
+                return dishList;
+            } else {
+                System.err.println("The dishes could not be found");
+                return null;
+            }
+        } catch (PotluckNotFoundException p){
+            throw new PotluckNotFoundException();
+        } catch (CategoryNotFoundException c){
+            throw new CategoryNotFoundException();
         }
     }
 
@@ -113,10 +137,14 @@ public class JdbcDishDao implements DishDao {
                 "WHERE pd.dish_id = ?";
         SqlRowSet catByDish = jdbcTemplate.queryForRowSet(sql, dishId);
 
-        if (catByDish.next()) {
-            return (mapRowToCat(catByDish));
-        } System.err.println("The category could not be found");
-        return null;
+       try {
+           if (catByDish.next()) {
+               return (mapRowToCat(catByDish));
+           }
+           throw new CategoryNotFoundException();
+       } catch (DishNotFoundException d){
+           throw new DishNotFoundException();
+       }
 
     }
 
@@ -127,20 +155,29 @@ public class JdbcDishDao implements DishDao {
                 "WHERE pd.dish_id = ?";
         SqlRowSet pluckByDish = jdbcTemplate.queryForRowSet(sql, dishId);
 
-        if (pluckByDish.next()) {
-            return (mapRowToPluck(pluckByDish));
-        } System.err.println("The potluck could not be found");
-        return null;
+        try {
+            if (pluckByDish.next()) {
+                return (mapRowToPluck(pluckByDish));
+            }
+            throw new PotluckNotFoundException();
+        } catch (DishNotFoundException d){
+            throw new DishNotFoundException();
+        }
     }
 
     @Override
     public Boolean addRestriction(int dishId, int restrictionId) {
         String sql = "INSERT INTO dish_restrictions (dish_id, restriction_id) " +
                 "VALUES (?,?)";
-        if (jdbcTemplate.update(sql, dishId, restrictionId) == 1){
-            return true;
-        }System.err.println("The restriction could not be added");
-        return false;
+        try {
+            if (jdbcTemplate.update(sql, dishId, restrictionId) == 1) {
+                return true;
+            }
+            System.err.println("The restriction could not be added");
+            return false;
+        } catch (RestrictionNotFoundException r){
+            throw new RestrictionNotFoundException();
+        }
     }
 
     private Dish mapRowToDish(SqlRowSet dishRowSet) {

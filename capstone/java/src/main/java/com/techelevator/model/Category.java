@@ -5,6 +5,7 @@ public class Category {
     private String catName;
     private int limit;
 
+    //todo: in controller, set limits for 1-10, then limit "11" = no limit
     public Category(int catId, String catName, int limit) {
         this.catId = catId;
         this.catName = catName;

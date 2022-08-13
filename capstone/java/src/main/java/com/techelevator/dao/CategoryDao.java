@@ -10,8 +10,12 @@ public interface CategoryDao {
 
     List<Category> getAllCatsByPluck(int pluckId);
 
+    Boolean addCatToPluck(int pluckId, int catId, int limit);
+
+    Boolean updateLimit(int pluckId, int catId, int limit);
+
     Category getCatById(int catId);
 
-    int getCatLimitByPluck (int pluckId, int catId);
+    Category getCatByPluck (int pluckId, int catId);
 
 }

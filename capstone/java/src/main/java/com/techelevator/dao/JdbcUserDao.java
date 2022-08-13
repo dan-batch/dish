@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.techelevator.model.UserDTO;
-import com.techelevator.model.UserNotFoundException;
+import com.techelevator.model.exceptions.UserNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;

@@ -1,6 +1,8 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Restriction;
+import com.techelevator.model.exceptions.RestrictionNotFoundException;
+import com.techelevator.model.exceptions.UserNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -22,18 +24,24 @@ public class JdbcRestrictionDao implements RestrictionDao {
     @Override
     public boolean updateUserRestrictions(int userId, List<Integer> restrictionIdList) {
         List<Restriction> userRestrictions = getUserRestrictions(userId);
-        for (Restriction restriction : userRestrictions) {
-            if (!restriction.isActive() && restrictionIdList.contains(restriction.getId())) {
-                String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) " +
-                        "VALUES (?, ?);";
-                jdbcTemplate.update(userRestrictionSql, userId, restriction.getId());
-            } else if (restriction.isActive() && !restrictionIdList.contains((restriction.getId()))) {
-                String sql = "DELETE FROM user_restrictions\n" +
-                        "WHERE user_id = ? AND restriction_id = ?;";
-                jdbcTemplate.update(sql,userId,restriction.getId());
+        try {
+            for (Restriction restriction : userRestrictions) {
+                if (!restriction.isActive() && restrictionIdList.contains(restriction.getId())) {
+                    String userRestrictionSql = "INSERT INTO user_restrictions(user_id, restriction_id) " +
+                            "VALUES (?, ?);";
+                    jdbcTemplate.update(userRestrictionSql, userId, restriction.getId());
+                } else if (restriction.isActive() && !restrictionIdList.contains((restriction.getId()))) {
+                    String sql = "DELETE FROM user_restrictions\n" +
+                            "WHERE user_id = ? AND restriction_id = ?;";
+                    jdbcTemplate.update(sql, userId, restriction.getId());
+                }
             }
+            return true;
+        } catch (UserNotFoundException u){
+            throw new UserNotFoundException();
+        } catch (RestrictionNotFoundException r){
+            throw new RestrictionNotFoundException();
         }
-        return true;
     }
 
     @Override
@@ -50,18 +58,22 @@ public class JdbcRestrictionDao implements RestrictionDao {
         List<Integer> userRestrictionIds = new ArrayList<>();
         List<Restriction> userRestrictionObjects = new ArrayList<>();
 
-        while(userRestrictionResults.next()){
-            userRestrictionIds.add(userRestrictionResults.getInt("restriction_id"));
-        }
+        try {
+            while (userRestrictionResults.next()) {
+                userRestrictionIds.add(userRestrictionResults.getInt("restriction_id"));
+            }
 
-        while(allRestrictionsResults.next()){
-            userRestrictionObjects.add(mapRowToRestriction(allRestrictionsResults));
-        }
+            while (allRestrictionsResults.next()) {
+                userRestrictionObjects.add(mapRowToRestriction(allRestrictionsResults));
+            }
 
-        for(Restriction restriction : userRestrictionObjects){
-            restriction.setActive(userRestrictionIds.contains(restriction.getId()));
+            for (Restriction restriction : userRestrictionObjects) {
+                restriction.setActive(userRestrictionIds.contains(restriction.getId()));
+            }
+            return userRestrictionObjects;
+        } catch (UserNotFoundException u){
+            throw new UserNotFoundException();
         }
-        return userRestrictionObjects;
     }
 
     private Restriction mapRowToRestriction(SqlRowSet sql){

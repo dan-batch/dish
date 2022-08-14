@@ -15,7 +15,7 @@ public interface PotluckDao {
 
 
     Boolean createPluck (String pluckName,
-                         LocalDateTime pluckTime, String pluckPlace);
+                         LocalDateTime pluckTime, String pluckPlace, String pluckDescription);
 
     Boolean updatePluck(int pluckId, String pluckName, String pluckDescription, LocalDateTime pluckTime,  String pluckPlace);
 

@@ -71,9 +71,9 @@ public class JdbcPotluckDao implements PotluckDao {
     }
 
     @Override
-    public Boolean createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace) {
-        String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place) values (?,?,?)";
-        if (jdbcTemplate.update(sql, pluckName, pluckTime, pluckPlace) == 1) {
+    public Boolean createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace, String pluckDescription) {
+        String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place, pluck_description) values (?,?,?,?)";
+        if (jdbcTemplate.update(sql, pluckName, pluckTime, pluckPlace, pluckDescription) == 1) {
             return true;
         }
         System.err.println("Couldn't create new potluck");

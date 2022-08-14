@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form v-on:submit.prevent="" v-on:reset.prevent="">
+    <form v-on:submit.prevent="createPotluck()" v-on:reset.prevent="">
       <div id="event-details">
         <div>
           <label for="pluckName">Name your event</label><br />
@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import potluckService from "../services/PotluckService";
 export default {
   data() {
     return {
@@ -106,6 +107,15 @@ export default {
       this.selectedBanner = bannerID;
       this.$forceUpdate();
       console.log(bannerID);
+    },
+    createPotluck() {
+      let newPotluck = {
+        pluckName: this.potluckName,
+        pluckPlace: this.potluckLocation,
+        pluckTime: this.potluckDateTime,
+        pluckDescription: this.potluckDescription,
+      };
+      potluckService.createPotluck(newPotluck);
     },
   },
   computed: {

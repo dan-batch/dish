@@ -45,7 +45,7 @@ public class PotluckController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")
     public boolean createPluck(@Valid @RequestBody Potluck potluck) {
-        return potluckDao.createPluck(potluck.getPluckName(), potluck.getPluckTime(), potluck.getPluckPlace());
+        return potluckDao.createPluck(potluck.getPluckName(), potluck.getPluckTime(), potluck.getPluckPlace(), potluck.getPluckDescription());
     }
 
     @ResponseStatus(HttpStatus.OK)

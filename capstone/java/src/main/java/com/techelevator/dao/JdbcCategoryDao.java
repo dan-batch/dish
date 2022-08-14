@@ -10,6 +10,7 @@ import java.rmi.activation.ActivationGroup_Stub;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcCategoryDao implements CategoryDao {
     private final JdbcTemplate jdbcTemplate;
 

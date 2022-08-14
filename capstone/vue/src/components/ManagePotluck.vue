@@ -4,7 +4,12 @@
       <div id="event-details">
         <div>
           <label for="pluckName">Name your event</label><br />
-          <input type="text" name="pluckName" id="pluckName-input" />
+          <input
+            type="text"
+            name="pluckName"
+            id="pluckName-input"
+            v-model="potluckName"
+          />
         </div>
         <div>
           <label for="dateTime">Date &amp; Time</label><br />
@@ -12,11 +17,17 @@
             type="datetime-local"
             name="pluckDateTime"
             id="pluckDateTime-input"
+            v-model="potluckDateTime"
           />
         </div>
         <div>
           <label for="pluckLocation">Event location</label><br />
-          <input type="text" name="pluckLocation" id="pluckLocation-input" />
+          <input
+            type="text"
+            name="pluckLocation"
+            id="pluckLocation-input"
+            v-model="potluckLocation"
+          />
         </div>
         <div>
           <label for="pluckDescription">Event description</label><br />
@@ -24,6 +35,7 @@
             type="text"
             name="pluckDescription"
             id="pluckDescription-input"
+            v-model="potluckDescription"
           />
         </div>
       </div>
@@ -79,6 +91,7 @@ export default {
       potluckName: "",
       potluckDescription: "",
       potluckLocation: "",
+      potluckDateTime: "",
       selectedCategories: [],
       categoryOptions: this.$store.state.categories,
       bannerImages: this.$store.state.bannerImages,

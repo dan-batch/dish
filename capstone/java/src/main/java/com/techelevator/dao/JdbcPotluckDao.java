@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class JdbcPotluckDao implements PotluckDao {
     private final JdbcTemplate jdbcTemplate;
-    
+
     public JdbcPotluckDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

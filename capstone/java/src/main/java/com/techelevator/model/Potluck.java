@@ -1,16 +1,26 @@
 package com.techelevator.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Potluck {
     private int pluckId;
+    @NotEmpty
     private String pluckName;
+    @NotEmpty
     private String pluckPlace;
+    @NotNull
     private LocalDateTime pluckTime;
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-    private String pluckDescription = "";
+    private String pluckDescription;
     private List<Integer> pluckDishes;
     private List<Integer> pluckCats;
 

@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, restrictions, user_restrictions, pluck, pluck_dish, category, pluck_cat, pluck_user;
+DROP TABLE IF EXISTS users, restrictions, user_restrictions, pluck, pluck_dish, category, pluck_cat, pluck_user, dish_restrictions;
 
 DROP SEQUENCE IF EXISTS seq_user_id, seq_restrictions, seq_pluck_id, seq_dish_id, seq_cat_id;
 
@@ -74,10 +74,10 @@ CREATE SEQUENCE seq_dish_id
  CREATE TABLE pluck_dish(
 	dish_id int NOT NULL DEFAULT nextval('seq_dish_id'), 
 	pluck_id int NOT NULL,
-	cat_id int, 
+	cat_id int NOT NULL, 
 	user_id int NOT NULL,
 	dish_name varchar(25) NOT NULL,
-	servings int NOT NULL,
+	servings int,
 	description varchar(500),
 	CONSTRAINT PK_dish_id PRIMARY KEY (dish_id),
 	CONSTRAINT FK_pluck_dish_id FOREIGN KEY (pluck_id) REFERENCES pluck (pluck_id),
@@ -106,7 +106,7 @@ CREATE TABLE pluck_user(
 CREATE TABLE dish_restrictions(
 	dish_id int NOT NULL, 
 	restriction_id int, 
-	CONSTRAINT PK_dish_restrictions_id PRIMARY KEY (dish_id), 
+	CONSTRAINT PK_dish_restrictions_id PRIMARY KEY (dish_id, restriction_id), 
 	CONSTRAINT FK_dish_restrictions_dish_id FOREIGN KEY (dish_id) REFERENCES pluck_dish (dish_id),
 	CONSTRAINT FK_dish_restrictions_restriction_id FOREIGN KEY (restriction_id) REFERENCES restrictions (restriction_id)
 );

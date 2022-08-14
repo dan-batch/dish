@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="body">
+    <div id="grid" class="body">
       <div class="header-img">
         <img
           src="../assets/Dish_Logo_Cropped.png"
@@ -9,26 +9,28 @@
         />
       </div>
       <!-- Router Link is for Demo -->
-      <div class="well-container">
-        <router-link to="/myProfile" class="well"
-          ><img src="../assets/bullet_point_arrow.png" class="bullet" />
-          View & edit your user profile
-        </router-link>
-        <br />
-        <router-link to="/plan_event" class="well"
-          ><img src="../assets/bullet_point_arrow.png" class="bullet" />Plan
-          your next potluck event</router-link
-        >
-        <br />
-        <router-link to="/upcoming_events" class="well"
-          ><img src="../assets/bullet_point_arrow.png" class="bullet" />View
-          upcoming potluck events</router-link
-        >
-        <br />
-        <router-link to="/past_events" class="well"
-          ><img src="../assets/bullet_point_arrow.png" class="bullet" />View
-          past potluck events</router-link
-        >
+      <div id="content">
+        <div class="well-container">
+          <router-link to="/myProfile" class="well"
+            ><img src="../assets/bullet_point_arrow.png" class="bullet" />
+            View & edit your user profile
+          </router-link>
+          <br />
+          <router-link to="/plan_event" class="well"
+            ><img src="../assets/bullet_point_arrow.png" class="bullet" />Plan
+            your next potluck event</router-link
+          >
+          <br />
+          <router-link to="/upcoming_events" class="well"
+            ><img src="../assets/bullet_point_arrow.png" class="bullet" />View
+            upcoming potluck events</router-link
+          >
+          <br />
+          <router-link to="/past_events" class="well"
+            ><img src="../assets/bullet_point_arrow.png" class="bullet" />View
+            past potluck events</router-link
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -41,7 +43,7 @@ export default {
 </script>
 
 <style scoped>
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   .logo {
     height: 10em;
   }
@@ -82,15 +84,19 @@ export default {
     width: 2em;
     margin-left: 5px;
   }
+
+  #content {
+    background-color: transparent;
+    grid-area: ga-content;
+  }
 }
 
-@media only screen and (min-width: 768) and (max-width: 1199px) {
+@media only screen and (min-width: 768px) {
   .logo {
-    display: none;
+    height: 20em;
   }
-
   .header-img {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: transparent;
@@ -100,10 +106,9 @@ export default {
     display: flex;
     background-color: transparent;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     flex-grow: 1;
-    margin: 100px;
-    margin-right: 150px;
+    margin: 8em;
   }
 
   .well {
@@ -121,19 +126,20 @@ export default {
   }
 
   .body {
-    background-color: transparent;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-color: #9dcd5a;
     display: flex;
     flex-direction: column;
     height: 90vh;
   }
 
   .bullet {
-    height: 5px;
-    width: 35px;
+    height: 2em;
+    width: 2em;
     margin-left: 5px;
+  }
+
+  #content {
+    background-color: #9dcd5a;
   }
 }
 
@@ -157,9 +163,9 @@ export default {
     flex-direction: column;
     align-items: flex-end;
     flex-grow: 1;
-    margin: 17em;
+    margin-top: 7em;
+    margin-bottom: 3em;
     margin-right: 2em;
-    grid-area: links;
   }
 
   .well {
@@ -182,18 +188,29 @@ export default {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    /* display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-      "empty  logo   empty"
-      "empty  empty  links";
-    gap: 10px; */
   }
 
   .bullet {
     height: 35px;
     width: 35px;
     margin-left: 5px;
+  }
+
+  #content {
+    background-color: transparent;
+    grid-area: ga-content;
+  }
+
+  #grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    row-gap: 20px;
+    column-gap: 50px;
+    align-items: center;
+    grid-template-areas:
+      "ga-empty     ga-empty     ga-empty "
+      "ga-empty     ga-empty     ga-content "
+      "ga-empty     ga-empty     ga-empty";
   }
 }
 </style>

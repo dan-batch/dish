@@ -25,7 +25,7 @@ export default new Vuex.Store({
       imageURL: 'https://media-exp1.licdn.com/dms/image/C5603AQG11wYnSQ28ug/profile-displayphoto-shrink_800_800/0/1625681037290?e=1665619200&v=beta&t=YYcwiDfDxqJeZNyfPrxqKQMP5_9yZnLeiY1LxM85JfI',
       firstName: 'Carly',
       lastName: 'Trimboli',
-    }, //ADDED email property to empty user object to test mutation. Can be removed if necessary, just be sure to comment out UPDATE_USER_EMAIL mutation.
+    },
     dietaryRestrictions: currentUserDietaryRestrictions || [
       {
         id: 2001,
@@ -70,6 +70,38 @@ export default new Vuex.Store({
       },
 
     ],
+    categories: [
+      {
+        cat_id: 5001,
+        cat_name: "sides & snacks",
+        quantity: 0,
+        active: false,
+      },
+      {
+        cat_id: 5002,
+        cat_name: "main dishes",
+        quantity: 0,
+        active: false,
+      },
+      {
+        cat_id: 5003,
+        cat_name: "drinks",
+        quantity: 0,
+        active: false,
+      },
+      {
+        cat_id: 5004,
+        cat_name: "desserts",
+        quantity: 0,
+        active: false,
+      },
+      {
+        cat_id: 5005,
+        cat_name: "utensils, etc.",
+        quantity: 0,
+        active: false,
+      },
+    ]
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {

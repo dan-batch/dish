@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import MyProfile from '../views/MyProfile'
+import CreatePotluck from '../views/CreatePotluck'
 import store from '../store/index'
 
 Vue.use(Router)
@@ -55,6 +56,14 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/createPotluck",
+      name: "create-potluck",
+      component: CreatePotluck,
       meta: {
         requiresAuth: false
       }

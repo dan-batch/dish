@@ -109,7 +109,8 @@ public class JdbcPotluckDao implements PotluckDao {
 
     }
 
-    @Override //todo: in controller, this will have to happen AFTER dish is added to dish table in order to get dishId
+    @Override /*todo: in controller, this will have to happen AFTER dish is added to dish table in order to get dishId.
+    todo: Possibly better to put in Dish controller since all these values are in Dish object*/
     public Boolean addDish(int dishId, int pluckId, int cat_id, int user_id, String dish_name) {
         String sql = "INSERT INTO pluck_dish (dish_id, pluck_id, cat_id, user_id, dish_name) VALUES (?,?,?,?,?)";
         try {

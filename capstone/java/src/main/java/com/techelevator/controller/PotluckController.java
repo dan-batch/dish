@@ -1,9 +1,9 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.PotluckDao;
-import com.techelevator.dao.UserDao;
+import com.techelevator.model.Category;
+import com.techelevator.model.Dish;
 import com.techelevator.model.Potluck;
-import com.techelevator.model.User;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -21,11 +21,10 @@ import java.util.List;
 @CrossOrigin
 public class PotluckController {
     private PotluckDao potluckDao;
-    private UserDao userDao;
 
-    public PotluckController(PotluckDao potluckDao, UserDao userDao) {
+
+    public PotluckController(PotluckDao potluckDao) {
         this.potluckDao = potluckDao;
-        this.userDao = userDao;
     }
 
     @GetMapping(path = "")
@@ -58,6 +57,16 @@ public class PotluckController {
     @GetMapping(path = "/name_{pluckName}")
     public Potluck getPluckByName(@PathVariable String pluckName) {
         return potluckDao.getPluckByName(pluckName);
+    }
+
+    @PutMapping(path = "/addDish") //not tested
+    public boolean addDish(@Valid @RequestBody Dish dish) {
+        return potluckDao.addDish(dish.getDishId(), dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName());
+    }
+
+    @PutMapping(path = "/addCat") //not tested
+    public  boolean addCat(@Valid @RequestBody Potluck pluck, Category cat) {
+        return potluckDao.addCat(pluck.getPluckId(), cat.getCatId());
     }
 
 

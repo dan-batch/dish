@@ -101,6 +101,24 @@ export default new Vuex.Store({
         quantity: 0,
         active: false,
       },
+    ],
+    bannerImages: [
+      {
+        id: 1,
+        url: "https://bakingamoment.com/wp-content/uploads/2020/01/IMG_7173-white-bread-2-500x500.jpg"
+      },
+      {
+        id: 2,
+        url: "https://images.timberland.com/is/image/timberland/10361024-ALT4?wid=500&hei=500"
+      },
+      {
+        id: 3,
+        url: "https://veenaazmanov.com/wp-content/uploads/2020/04/Pizza-Margherita14-500x500.jpg"
+      },
+      {
+        id: 4,
+        url: "https://i.ebayimg.com/images/g/IV0AAOSwb4JiLOQ5/s-l500.jpg"
+      },
     ]
   },
   mutations: {

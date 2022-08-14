@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form action="" method="post">
+    <form v-on:submit.prevent="" v-on:reset.prevent="">
       <div id="event-details">
         <div>
           <label for="pluckName">Name your event</label><br />
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div id="dish-requirements">
-        <h3>Choose categories and limits:</h3>
+        <h4>Choose categories and limits:</h4>
         <div v-for="category in categoryOptions" :key="category.cat_id">
           <label>{{ category.cat_name }}</label>
           <input
@@ -53,6 +53,20 @@
           </select>
         </div>
       </div>
+      <div id="banner-image-selector">
+        <h4>Choose event banner:</h4>
+        <img
+          v-for="image in bannerImages"
+          :key="image.id"
+          :src="image.url"
+          :value="image.id"
+          @click="selectBanner(image.id)"
+        />
+      </div>
+      <div id="save-or-cancel">
+        <input type="submit" value="Save Changes" />
+        <input type="reset" value="Cancel" />
+      </div>
     </form>
   </div>
 </template>
@@ -67,11 +81,18 @@ export default {
       potluckLocation: "",
       selectedCategories: [],
       categoryOptions: this.$store.state.categories,
+      bannerImages: this.$store.state.bannerImages,
+      selectedBanner: 1,
     };
   },
   methods: {
     catIsSelected(catID) {
       return this.selectedCategories.includes(catID);
+    },
+    selectBanner(bannerID) {
+      this.selectedBanner = bannerID;
+      this.$forceUpdate();
+      console.log(bannerID);
     },
   },
   computed: {

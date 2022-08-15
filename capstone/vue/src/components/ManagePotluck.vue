@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form v-on:submit.prevent="createPotluck()" v-on:reset.prevent="">
+    <form v-on:submit.prevent="createPotluck()" @reset="resetCategories()">
       <div id="event-details">
         <div>
           <label for="pluckName">Name your event</label><br />
@@ -42,7 +42,7 @@
         <div id="dish-requirements">
           <h4>Choose categories &amp; limits:</h4>
           <div
-            v-for="category in categoryOptions"
+            v-for="category in potluckCategories"
             :key="category.catId"
             class="list"
           >
@@ -52,7 +52,7 @@
               :name="category.catId + '-checkbox'"
               :id="category.catId + '-checkbox'"
               :value="category.catId"
-              v-model="selectedCategories"
+              v-model="category.active"
             />
             <select
               :name="category.catId + '-selector'"
@@ -99,14 +99,13 @@ export default {
       potluckDescription: "",
       potluckLocation: "",
       potluckDateTime: "",
-      selectedCategories: [],
-      categoryOptions: this.$store.state.categories,
+      potluckCategories: this.$store.state.categories,
       bannerImages: this.$store.state.bannerImages,
       selectedBanner: 1,
     };
   },
   mounted() {
-    console.log("getCategoryOptions");
+    console.log("getPotluckCategories");
     categoryService
       .getAllCategories()
       .then((r) => {
@@ -118,12 +117,23 @@ export default {
   },
   methods: {
     catIsSelected(catID) {
-      return this.selectedCategories.includes(catID);
+      return this.potluckCategories.find((c) => c.catId === catID).active;
+    },
+    selectCatQuantity(catID, quantity) {
+      console.log("selectCatQuantity");
+      let cat = this.potluckCategories.find((c) => c.catId === catID);
+      cat.active = true;
+      cat.limit = quantity;
     },
     selectBanner(bannerID) {
       this.selectedBanner = bannerID;
       this.$forceUpdate();
       console.log(bannerID);
+    },
+    resetCategories() {
+      this.potluckCategories.forEach((c) => {
+        c.active = false;
+      });
     },
     createPotluck() {
       let newPotluck = {
@@ -132,7 +142,27 @@ export default {
         pluckTime: this.potluckDateTime,
         pluckDescription: this.potluckDescription,
       };
-      potluckService.createPotluck(newPotluck);
+      potluckService
+        .createPotluck(newPotluck)
+        .then((r) => {
+          this.potluckCategories.forEach((c) => {
+            let newCat = {
+              pluckId: r.data,
+              catId: c.catId,
+              limit: c.limit,
+            };
+            if (c.active) {
+              potluckService.addCatToPluck(newCat).then((r) => {
+                console.log(r.statusText);
+              });
+            }
+          });
+          alert("Successfully created event");
+          this.$router.push("/");
+        })
+        .catch((e) => {
+          alert(e.message);
+        });
     },
   },
   computed: {

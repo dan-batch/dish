@@ -19,7 +19,7 @@ export default {
     },
 
     addCatToPluck(newCat) {
-        return axios.post('/addCat', newCat)
+        return axios.post('pluck/addCat', newCat)
     }
 
 }

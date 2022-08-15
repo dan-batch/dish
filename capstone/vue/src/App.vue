@@ -8,7 +8,7 @@
         >Logout</router-link
       >
     </div>
-    <router-view />
+    <router-view style="margin-bottom: 50px" />
     <footer>
       ©2022 Potluck Planner | Tech Elevator Capstone | Dan Batchelder - Robyn
       Florentz - Conor Smith - Bob Weeks

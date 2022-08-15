@@ -194,6 +194,30 @@ export default {
     grid-area: dishes;
   }
 
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dish-name {
+    display: flex;
+    flex-grow: 1;
+  }
+  select {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    height: 3em;
+    width: 5em;
+    margin-left: 1em;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 1em;
+    grid-area: checkbox;
+  }
+
   #banner-image-selector {
     text-indent: 1.25em;
     grid-area: banner;
@@ -300,6 +324,30 @@ export default {
 
   #dish-requirements {
     grid-area: dishes;
+  }
+
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dish-name {
+    display: flex;
+    flex-grow: 1;
+  }
+  select {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    height: 3em;
+    width: 5em;
+    margin-left: 1em;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 1em;
+    grid-area: checkbox;
   }
 
   #banner-image-selector {

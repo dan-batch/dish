@@ -62,6 +62,7 @@
             >
               {{ quantity }}
             </option>
+            <option value="11">any</option>
           </select>
         </div>
       </div>
@@ -137,7 +138,6 @@ export default {
       for (let i = 1; i <= maxQuantity; i++) {
         quantities.push(i);
       }
-      quantities.push("any");
       return quantities;
     },
   },

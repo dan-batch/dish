@@ -17,6 +17,7 @@ public class AddCatToPluckDTO {
     public AddCatToPluckDTO(int pluckId, int catId, int limit) {
         this.pluckId = pluckId;
         this.catId = catId;
+        this.limit = limit;
     }
 
     public AddCatToPluckDTO() {

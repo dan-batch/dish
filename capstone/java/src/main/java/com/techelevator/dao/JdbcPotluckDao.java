@@ -4,12 +4,10 @@ import com.techelevator.model.Potluck;
 import com.techelevator.model.exceptions.CategoryNotFoundException;
 import com.techelevator.model.exceptions.PotluckNotFoundException;
 import com.techelevator.model.exceptions.UserNotFoundException;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.rmi.activation.ActivationGroup_Stub;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,14 +69,11 @@ public class JdbcPotluckDao implements PotluckDao {
     }
 
     @Override
-    public Boolean createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace, String pluckDescription) {
-        String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place, pluck_description) values (?,?,?,?)";
-        if (jdbcTemplate.update(sql, pluckName, pluckTime, pluckPlace, pluckDescription) == 1) {
-            return true;
-        }
-        System.err.println("Couldn't create new potluck");
-
-        return false;
+    public Integer createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace, String pluckDescription) {
+        String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place, pluck_description) " +
+                "VALUES (?,?,?,?) " +
+                "RETURNING pluck_id";
+        return jdbcTemplate.queryForObject(sql,Integer.class,pluckName,pluckTime,pluckPlace,pluckDescription);
     }
 
     @Override

@@ -41,14 +41,14 @@
       </div>
       <div id="dish-requirements">
         <h4>Choose categories &amp; limits:</h4>
-        <div v-for="category in categoryOptions" :key="category.catId">
+        <div v-for="category in potluckCategories" :key="category.catId">
           <label>{{ category.catName }}</label>
           <input
             type="checkbox"
             :name="category.catId + '-checkbox'"
             :id="category.catId + '-checkbox'"
             :value="category.catId"
-            v-model="selectedCategories"
+            v-model="category.active"
           />
           <select
             :name="category.catId + '-selector'"
@@ -96,15 +96,13 @@ export default {
       potluckDescription: "",
       potluckLocation: "",
       potluckDateTime: "",
-      selectedCategories: [],
-      pluckCategories: [],
-      categoryOptions: this.$store.state.categories,
+      potluckCategories: this.$store.state.categories,
       bannerImages: this.$store.state.bannerImages,
       selectedBanner: 1,
     };
   },
   mounted() {
-    console.log("getCategoryOptions");
+    console.log("getPotluckCategories");
     categoryService
       .getAllCategories()
       .then((r) => {
@@ -116,11 +114,11 @@ export default {
   },
   methods: {
     catIsSelected(catID) {
-      return this.selectedCategories.includes(catID);
+      return this.potluckCategories.find((c) => c.catId === catID).active;
     },
     selectCatQuantity(catID, quantity) {
       console.log("selectCatQuantity");
-      let cat = this.categoryOptions.find((c) => c.catId === catID);
+      let cat = this.potluckCategories.find((c) => c.catId === catID);
       cat.selected = true;
       cat.limit = quantity;
     },

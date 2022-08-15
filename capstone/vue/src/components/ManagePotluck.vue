@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form v-on:submit.prevent="createPotluck()" v-on:reset.prevent="">
+    <form v-on:submit.prevent="createPotluck()">
       <div id="event-details">
         <div>
           <label for="pluckName">Name your event</label><br />
@@ -119,7 +119,7 @@ export default {
     selectCatQuantity(catID, quantity) {
       console.log("selectCatQuantity");
       let cat = this.potluckCategories.find((c) => c.catId === catID);
-      cat.selected = true;
+      cat.active = true;
       cat.limit = quantity;
     },
     selectBanner(bannerID) {
@@ -134,14 +134,27 @@ export default {
         pluckTime: this.potluckDateTime,
         pluckDescription: this.potluckDescription,
       };
-      potluckService.createPotluck(newPotluck);
-      // .then(r => {
-      //   let newCat = {
-      //     pluckId: r.data,
-      //     catId =
-      //   }
-      //   potluckService.addCatToPluck(r.data)
-      // });
+      potluckService
+        .createPotluck(newPotluck)
+        .then((r) => {
+          this.potluckCategories.forEach((c) => {
+            let newCat = {
+              pluckId: r.data,
+              catId: c.catId,
+              limit: c.limit,
+            };
+            if (c.active) {
+              potluckService.addCatToPluck(newCat).then((r) => {
+                console.log(r.statusText);
+                alert("Successfully created event");
+              });
+              this.$router.push("/");
+            }
+          });
+        })
+        .catch((e) => {
+          alert(e.message);
+        });
     },
   },
   computed: {

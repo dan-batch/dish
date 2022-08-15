@@ -16,7 +16,7 @@
             View & edit your user profile
           </router-link>
           <br />
-          <router-link to="/plan_event" class="well"
+          <router-link to="/createPotluck" class="well"
             ><img src="../assets/bullet_point_arrow.png" class="bullet" />Plan
             your next potluck event</router-link
           >

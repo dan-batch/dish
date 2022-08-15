@@ -16,6 +16,10 @@ export default {
 
     createPotluck(newPotluck) {
         return axios.post('/pluck/create', newPotluck)
+    },
+
+    addCatToPluck(newCat) {
+        return axios.post('/addCat', newCat)
     }
 
 }

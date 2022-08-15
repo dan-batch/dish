@@ -54,6 +54,7 @@
             :name="category.catId + '-selector'"
             :id="category.catId + '-selector'"
             :disabled="!catIsSelected(category.catId)"
+            v-model="category.limit"
           >
             <option
               v-for="quantity in catQuantities"
@@ -96,6 +97,7 @@ export default {
       potluckLocation: "",
       potluckDateTime: "",
       selectedCategories: [],
+      pluckCategories: [],
       categoryOptions: this.$store.state.categories,
       bannerImages: this.$store.state.bannerImages,
       selectedBanner: 1,
@@ -116,6 +118,12 @@ export default {
     catIsSelected(catID) {
       return this.selectedCategories.includes(catID);
     },
+    selectCatQuantity(catID, quantity) {
+      console.log("selectCatQuantity");
+      let cat = this.categoryOptions.find((c) => c.catId === catID);
+      cat.selected = true;
+      cat.limit = quantity;
+    },
     selectBanner(bannerID) {
       this.selectedBanner = bannerID;
       this.$forceUpdate();
@@ -129,6 +137,13 @@ export default {
         pluckDescription: this.potluckDescription,
       };
       potluckService.createPotluck(newPotluck);
+      // .then(r => {
+      //   let newCat = {
+      //     pluckId: r.data,
+      //     catId =
+      //   }
+      //   potluckService.addCatToPluck(r.data)
+      // });
     },
   },
   computed: {

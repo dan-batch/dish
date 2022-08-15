@@ -61,7 +61,7 @@ const router = new Router({
       }
     },
     {
-      path: "/createPotluck",
+      path: "/plan_event",
       name: "create-potluck",
       component: CreatePotluck,
       meta: {

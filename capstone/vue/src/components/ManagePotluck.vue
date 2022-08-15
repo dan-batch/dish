@@ -38,47 +38,47 @@
             v-model="potluckDescription"
           />
         </div>
-      </div>
-      <div id="dish-requirements">
-        <h4>Choose categories &amp; limits:</h4>
-        <div v-for="category in categoryOptions" :key="category.catId">
-          <label>{{ category.catName }}</label>
-          <input
-            type="checkbox"
-            :name="category.catId + '-checkbox'"
-            :id="category.catId + '-checkbox'"
-            :value="category.catId"
-            v-model="selectedCategories"
-          />
-          <select
-            :name="category.catId + '-selector'"
-            :id="category.catId + '-selector'"
-            :disabled="!catIsSelected(category.catId)"
-          >
-            <option
-              v-for="quantity in catQuantities"
-              :key="quantity"
-              :value="quantity"
+
+        <div id="dish-requirements">
+          <h4>Choose categories &amp; limits:</h4>
+          <div v-for="category in categoryOptions" :key="category.catId">
+            <label>{{ category.catName }}</label>
+            <input
+              type="checkbox"
+              :name="category.catId + '-checkbox'"
+              :id="category.catId + '-checkbox'"
+              :value="category.catId"
+              v-model="selectedCategories"
+            />
+            <select
+              :name="category.catId + '-selector'"
+              :id="category.catId + '-selector'"
+              :disabled="!catIsSelected(category.catId)"
             >
-              {{ quantity }}
-            </option>
-            <option value="11">any</option>
-          </select>
+              <option
+                v-for="quantity in catQuantities"
+                :key="quantity"
+                :value="quantity"
+              >
+                {{ quantity }}
+              </option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div id="banner-image-selector">
-        <h4>Choose event banner:</h4>
-        <img
-          v-for="image in bannerImages"
-          :key="image.id"
-          :src="image.url"
-          :value="image.id"
-          @click="selectBanner(image.id)"
-        />
-      </div>
-      <div id="save-or-cancel">
-        <input type="submit" value="Save Changes" />
-        <input type="reset" value="Cancel" />
+        <div id="banner-image-selector">
+          <h4>Choose event banner:</h4>
+          <img
+            v-for="image in bannerImages"
+            :key="image.id"
+            :src="image.url"
+            :value="image.id"
+            @click="selectBanner(image.id)"
+          />
+        </div>
+        <div id="save-or-cancel">
+          <input type="submit" value="Save Changes" id="save" />
+          <input type="reset" value="Cancel" id="cancel" />
+        </div>
       </div>
     </form>
   </div>
@@ -144,5 +144,324 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+@media only screen and (max-width: 768px) {
+  #pluckName-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: name;
+  }
+
+  #pluckDateTime-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: when;
+  }
+
+  #pluckLocation-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: location;
+  }
+
+  #pluckDescription-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: description;
+  }
+
+  #dish-requirements {
+    grid-area: dishes;
+  }
+
+  #banner-image-selector {
+    text-indent: 1.25em;
+    grid-area: banner;
+  }
+
+  img {
+    border-radius: 15px;
+    width: 3em;
+    height: 3em;
+    margin: 0.25em;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+  }
+  #save-or-cancel {
+    grid-area: save-or-cancel;
+  }
+
+  #save {
+    background-color: #9dcd5a;
+    border-radius: 15px;
+    border-style: none;
+    width: 10em;
+    height: 3em;
+    margin: 0.25em;
+  }
+
+  input[type="submit"] {
+    font-weight: 900;
+    color: white;
+  }
+
+  input[type="reset"] {
+    font-weight: 900;
+    color: white;
+  }
+  #cancel {
+    background-color: #f58634;
+    border-radius: 15px;
+    border-style: none;
+    width: 10em;
+    height: 3em;
+    margin: 0.25em;
+  }
+
+  #event-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    column-gap: 50px;
+    align-items: center;
+    justify-items: center;
+    grid-template-areas:
+      "name"
+      "when"
+      "location"
+      "description"
+      "dishes"
+      "banner"
+      "save-or-cancel";
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #pluckName-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: name;
+  }
+
+  #pluckDateTime-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: when;
+  }
+
+  #pluckLocation-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: location;
+  }
+
+  #pluckDescription-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: description;
+  }
+
+  #dish-requirements {
+    grid-area: dishes;
+  }
+
+  #banner-image-selector {
+    text-indent: 1.25em;
+    grid-area: banner;
+  }
+
+  img {
+    border-radius: 15px;
+    width: 3em;
+    height: 3em;
+    margin: 0.25em;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+  }
+  #save-or-cancel {
+    grid-area: save-or-cancel;
+  }
+
+  #save {
+    background-color: #9dcd5a;
+    border-radius: 15px;
+    border-style: none;
+    width: 10em;
+    height: 3em;
+    margin: 0.25em;
+  }
+
+  input[type="submit"] {
+    font-weight: 900;
+    color: white;
+  }
+
+  input[type="reset"] {
+    font-weight: 900;
+    color: white;
+  }
+  #cancel {
+    background-color: #f58634;
+    border-radius: 15px;
+    border-style: none;
+    width: 10em;
+    height: 3em;
+    margin: 0.25em;
+  }
+
+  #event-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+    column-gap: 50px;
+    align-items: center;
+    justify-items: center;
+    grid-template-areas:
+      "name             dishes"
+      "when             dishes"
+      "location         dishes"
+      "description      banner"
+      "save-or-cancel   banner";
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #pluckName-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: name;
+  }
+
+  #pluckDateTime-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: when;
+  }
+
+  #pluckLocation-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: location;
+  }
+
+  #pluckDescription-input {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    width: 20em;
+    height: 3em;
+    margin: 0.25em;
+    grid-area: description;
+  }
+
+  #dish-requirements {
+    grid-area: dishes;
+  }
+
+  #banner-image-selector {
+    text-indent: 1.25em;
+    grid-area: banner;
+  }
+
+  img {
+    border-radius: 15px;
+    width: 3em;
+    height: 3em;
+    margin: 0.25em;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+  }
+  #save-or-cancel {
+    grid-area: save-or-cancel;
+  }
+
+  #save {
+    background-color: #9dcd5a;
+    border-radius: 15px;
+    border-style: none;
+    width: 10em;
+    height: 3em;
+    margin: 0.25em;
+  }
+
+  input[type="submit"] {
+    font-weight: 900;
+    color: white;
+  }
+
+  input[type="reset"] {
+    font-weight: 900;
+    color: white;
+  }
+  #cancel {
+    background-color: #f58634;
+    border-radius: 15px;
+    border-style: none;
+    width: 10em;
+    height: 3em;
+    margin: 0.25em;
+  }
+
+  #event-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+    column-gap: 50px;
+    align-items: center;
+    justify-items: center;
+    grid-template-areas:
+      "name             dishes"
+      "when             dishes"
+      "location         dishes"
+      "description      banner"
+      "save-or-cancel   banner";
+  }
+}
 </style>

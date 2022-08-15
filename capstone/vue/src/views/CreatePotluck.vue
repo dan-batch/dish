@@ -18,5 +18,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+h1 {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
 </style>

@@ -462,7 +462,7 @@ li {
   font-weight: bold;
 }
 
-#hl-icon {
+#h-icon {
   background-color: #d44f02;
   color: #6b3e0a;
   width: 24px;

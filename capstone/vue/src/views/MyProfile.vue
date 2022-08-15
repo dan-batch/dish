@@ -300,8 +300,6 @@ li {
 }
 
 .dietary-restriction-icon {
-  background-color: white;
-  border: 1px solid black;
   width: 20px;
   border-radius: 50%;
   margin-left: 5px;
@@ -348,45 +346,92 @@ li {
   background-color: #f58634;
 }
 
-.my-profile {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "ga-logo      ga-logo"
-    "ga-title     ga-title"
-    "ga-formGrid  ga-formGrid";
-  column-gap: 50px;
+@media only screen and (max-width: 768px) {
+  .my-profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "ga-logo"
+      "ga-title"
+      "ga-formGrid";
+    column-gap: 50px;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "ga-infoTitle    ga-restrictionsTitle"
+      "ga-profilePic   ga-list"
+      "ga-urlEntry    ga-list"
+      "ga-emailEntry  ga-list"
+      "ga-firstName   ga-list"
+      "ga-lastName    ga-list"
+      "ga-buttonGrid  ga-buttonGrid";
+    justify-items: center;
+  }
+
+  .buttonGrid {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 3fr;
+    column-gap: 30px;
+    grid-template-areas: ". ga-submit  ga-cancel  .";
+  }
+
+  .profile-pic {
+    max-width: 150px;
+    /* border: 3px solid #6b3e0a; */
+    border-radius: 15px;
+  }
+
+  .pfp-border {
+    border: 3px solid #6b3e0a;
+    border-radius: 18px;
+    background-color: #6b3e0a;
+  }
 }
 
-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
-  grid-template-areas:
-    "ga-infoTitle   ga-infoTitle   ga-restrictionsTitle"
-    "ga-profilePic  ga-profilePic  ga-list"
-    "ga-urlEntry    ga-emailEntry  ga-list"
-    "ga-firstName   ga-lastName    ga-list"
-    "ga-buttonGrid  ga-buttonGrid  ga-buttonGrid";
-  justify-items: center;
-}
+@media only screen and (min-width: 768px) {
+  .my-profile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "ga-logo      ga-logo"
+      "ga-title     ga-title"
+      "ga-formGrid  ga-formGrid";
+    column-gap: 50px;
+  }
 
-.buttonGrid {
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr 3fr;
-  column-gap: 30px;
-  grid-template-areas: ". ga-submit  ga-cancel  .";
-}
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-areas:
+      "ga-infoTitle   ga-infoTitle   ga-restrictionsTitle"
+      "ga-profilePic  ga-profilePic  ga-list"
+      "ga-urlEntry    ga-emailEntry  ga-list"
+      "ga-firstName   ga-lastName    ga-list"
+      "ga-buttonGrid  ga-buttonGrid  ga-buttonGrid";
+    justify-items: center;
+  }
 
-.profile-pic {
-  max-width: 150px;
-  /* border: 3px solid #6b3e0a; */
-  border-radius: 15px;
-}
+  .buttonGrid {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 3fr;
+    column-gap: 30px;
+    grid-template-areas: ". ga-submit  ga-cancel  .";
+  }
 
-.pfp-border {
-  border: 3px solid #6b3e0a;
-  border-radius: 18px;
-  background-color: #6b3e0a;
+  .profile-pic {
+    max-width: 150px;
+    /* border: 3px solid #6b3e0a; */
+    border-radius: 15px;
+  }
+
+  .pfp-border {
+    border: 3px solid #6b3e0a;
+    border-radius: 18px;
+    background-color: #6b3e0a;
+  }
 }
 </style>
 
@@ -417,7 +462,7 @@ form {
   font-weight: bold;
 }
 
-#hl-icon {
+#h-icon {
   background-color: #d44f02;
   color: #6b3e0a;
   width: 24px;

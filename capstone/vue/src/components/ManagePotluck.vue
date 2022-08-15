@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form v-on:submit.prevent="createPotluck()">
+    <form v-on:submit.prevent="createPotluck()" @reset="resetCategories()">
       <div id="event-details">
         <div>
           <label for="pluckName">Name your event</label><br />
@@ -52,7 +52,7 @@
               :name="category.catId + '-checkbox'"
               :id="category.catId + '-checkbox'"
               :value="category.catId"
-              v-model="selectedCategories"
+              v-model="category.active"
             />
             <select
               :name="category.catId + '-selector'"
@@ -129,6 +129,11 @@ export default {
       this.selectedBanner = bannerID;
       this.$forceUpdate();
       console.log(bannerID);
+    },
+    resetCategories() {
+      this.potluckCategories.forEach((c) => {
+        c.active = false;
+      });
     },
     createPotluck() {
       let newPotluck = {

@@ -108,13 +108,13 @@ export default {
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
-    margin: 8em;
+    margin: 4em;
   }
 
   .well {
     background-color: white;
     border-radius: 15px;
-    width: 450px;
+    width: 475px;
     height: 100px;
     margin: 5px;
     display: flex;
@@ -126,7 +126,7 @@ export default {
   }
 
   .body {
-    background-color: #9dcd5a;
+    background-color: #f3fadc;
     display: flex;
     flex-direction: column;
     height: 90vh;
@@ -139,7 +139,7 @@ export default {
   }
 
   #content {
-    background-color: #9dcd5a;
+    background-color: #f3fadc;
   }
 }
 

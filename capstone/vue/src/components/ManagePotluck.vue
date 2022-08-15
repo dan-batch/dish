@@ -154,11 +154,11 @@ export default {
             if (c.active) {
               potluckService.addCatToPluck(newCat).then((r) => {
                 console.log(r.statusText);
-                alert("Successfully created event");
               });
-              this.$router.push("/");
             }
           });
+          alert("Successfully created event");
+          this.$router.push("/");
         })
         .catch((e) => {
           alert(e.message);

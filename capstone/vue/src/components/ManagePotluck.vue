@@ -400,8 +400,18 @@ export default {
     grid-area: description;
   }
 
-  #dish-requirements {
-    grid-area: dishes;
+  select {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    height: 3em;
+    width: 5em;
+    margin-left: 1em;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 1em;
+    grid-area: checkbox;
   }
 
   #banner-image-selector {
@@ -462,6 +472,17 @@ export default {
       "location         dishes"
       "description      banner"
       "save-or-cancel   banner";
+  }
+
+  #dish-requirements-grid {
+    font-weight: 900;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 5px;
+    column-gap: 10px;
+    align-items: center;
+    justify-items: center;
+    grid-template-areas: "type    checkbox   dropdown";
   }
 }
 </style>

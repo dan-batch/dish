@@ -27,6 +27,6 @@ public interface PotluckDao {
 
     Boolean addDish(int dishId, int pluckId, int cat_id, int user_id, String dish_name);
 
-    Boolean addCat(int pluckId, int catId);
+    Boolean addCat(int pluckId, int catId, int limit);
 
 }

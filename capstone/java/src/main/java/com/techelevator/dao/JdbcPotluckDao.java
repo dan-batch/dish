@@ -127,10 +127,10 @@ public class JdbcPotluckDao implements PotluckDao {
     }
 
     @Override
-    public Boolean addCat(int pluckId, int catId) {
-        String sql = "INSERT INTO pluck_cat (pluck_id, cat_id) VALUES (?,?)";
+    public Boolean addCat(int pluckId, int catId, int limit) {
+        String sql = "INSERT INTO pluck_cat (pluck_id, cat_id, cat_limit) VALUES (?,?,?)";
         try {
-            if (jdbcTemplate.update(sql, pluckId, catId) == 1) {
+            if (jdbcTemplate.update(sql, pluckId, catId, limit) == 1) {
                 return true;
             }
             System.err.println("Couldn't update potluck " + pluckId);

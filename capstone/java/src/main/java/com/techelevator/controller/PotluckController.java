@@ -65,9 +65,9 @@ public class PotluckController {
         return potluckDao.addDish(dish.getDishId(), dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName());
     }
 
-    @PutMapping(path = "/addCat")
+    @PostMapping(path = "/addCat")
     public boolean addCat(@RequestBody AddCatToPluckDTO newCat){
-        return potluckDao.addCat(newCat.getPluckId(), newCat.getCatId());
+        return potluckDao.addCat(newCat.getPluckId(), newCat.getCatId(), newCat.getLimit());
     }
 
 

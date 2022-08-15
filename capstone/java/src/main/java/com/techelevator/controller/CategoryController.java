@@ -33,14 +33,9 @@ public class CategoryController {
         return categoryDao.getAllCatsByPluck(pluckId);
     }
 
-    @PostMapping(path = "/addCat")
-    public boolean addCat(@RequestBody AddCatToPluckDTO newCat){
-        return categoryDao.addCatToPluck(newCat.getPluckId(), newCat.getCatId());
-    }
-
-    @PutMapping(path = "/updateLimit") //todo: test with values in DB
-    public boolean updateLimit(int pluckId, @RequestBody @Valid Category cat) {
-        return categoryDao.updateLimit(pluckId, cat.getCatId(), cat.getLimit());
+    @PutMapping(path = "/updateLimit")
+    public boolean updateLimit(@RequestBody AddCatToPluckDTO update) {
+        return categoryDao.updateLimit(update.getPluckId(), update.getCatId(), update.getLimit());
     }
 
     @GetMapping(path = "/cat{catId}")
@@ -48,7 +43,7 @@ public class CategoryController {
         return categoryDao.getCatById(catId);
     }
 
-    @GetMapping(path = "/pluck{pluckId}cat{catId}")//todo: test with values in DB
+    @GetMapping(path = "/pluck{pluckId}/cat{catId}")
     public Category getCatByPluck(@PathVariable int pluckId, @PathVariable int catId) {
         return categoryDao.getCatByPluck(pluckId, catId);
     }

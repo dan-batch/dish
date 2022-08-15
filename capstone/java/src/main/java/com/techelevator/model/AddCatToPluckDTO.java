@@ -11,7 +11,10 @@ public class AddCatToPluckDTO {
     @NotNull
     private int catId;
 
-    public AddCatToPluckDTO(int pluckId, int catId) {
+    @NotNull
+    private int limit;
+
+    public AddCatToPluckDTO(int pluckId, int catId, int limit) {
         this.pluckId = pluckId;
         this.catId = catId;
     }
@@ -33,5 +36,13 @@ public class AddCatToPluckDTO {
 
     public void setCatId(int catId) {
         this.catId = catId;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }

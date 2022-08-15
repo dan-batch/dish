@@ -51,25 +51,8 @@ public class JdbcCategoryDao implements CategoryDao {
     }
 
     @Override
-    public Boolean addCatToPluck(int pluckId, int catId, int limit) {
-        String sql = "INSERT INTO pluck_cat (pluck_id, cat_id, cat_limit) VALUES (?,?,?)";
-
-        try {
-            if (jdbcTemplate.update(sql, pluckId, catId, limit) == 1) {
-                return true;
-            }
-            System.err.println("The category could not be added");
-            return false;
-        } catch (PotluckNotFoundException p) {
-            throw new PotluckNotFoundException();
-        } catch (CategoryNotFoundException c) {
-            throw new CategoryNotFoundException();
-        }
-    }
-
-    @Override
     public Boolean updateLimit(int pluckId, int catId, int limit) {
-        String sql = "UPDATE pluck_cat SET limit = ? WHERE pluck_id = ? AND cat_id = ?";
+        String sql = "UPDATE pluck_cat SET cat_limit = ? WHERE pluck_id = ? AND cat_id = ?";
 
         try {
             if (jdbcTemplate.update(sql, limit, pluckId, catId) == 1) {

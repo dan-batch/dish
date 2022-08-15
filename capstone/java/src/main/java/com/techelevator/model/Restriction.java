@@ -7,9 +7,10 @@ public class Restriction {
     private String abbreviation;
     private boolean isActive;
 
-    public Restriction(){}
+    public Restriction() {
+    }
 
-    public Restriction(int id, String name, String abbreviation, boolean isActive){
+    public Restriction(int id, String name, String abbreviation, boolean isActive) {
         this.id = id;
         this.name = name;
         this.abbreviation = abbreviation;

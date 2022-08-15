@@ -138,7 +138,6 @@ export default {
       for (let i = 1; i <= maxQuantity; i++) {
         quantities.push(i);
       }
-      quantities.push("any");
       return quantities;
     },
   },

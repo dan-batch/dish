@@ -38,33 +38,36 @@
             v-model="potluckDescription"
           />
         </div>
-      </div>
-      <div id="dish-requirements">
-        <h4>Choose categories &amp; limits:</h4>
-        <div v-for="category in potluckCategories" :key="category.catId">
-          <label>{{ category.catName }}</label>
-          <input
-            type="checkbox"
-            :name="category.catId + '-checkbox'"
-            :id="category.catId + '-checkbox'"
-            :value="category.catId"
-            v-model="category.active"
-          />
-          <select
-            :name="category.catId + '-selector'"
-            :id="category.catId + '-selector'"
-            :disabled="!catIsSelected(category.catId)"
-            v-model="category.limit"
+
+        <div id="dish-requirements">
+          <h4>Choose categories &amp; limits:</h4>
+          <div
+            v-for="category in categoryOptions"
+            :key="category.catId"
+            class="list"
           >
-            <option
-              v-for="quantity in catQuantities"
-              :key="quantity"
-              :value="quantity"
+            <label class="dish-name">{{ category.catName }}</label>
+            <input
+              type="checkbox"
+              :name="category.catId + '-checkbox'"
+              :id="category.catId + '-checkbox'"
+              :value="category.catId"
+              v-model="selectedCategories"
+            />
+            <select
+              :name="category.catId + '-selector'"
+              :id="category.catId + '-selector'"
+              :disabled="!catIsSelected(category.catId)"
             >
-              {{ quantity }}
-            </option>
-            <option value="11">any</option>
-          </select>
+              <option
+                v-for="quantity in catQuantities"
+                :key="quantity"
+                :value="quantity"
+              >
+                {{ quantity }}
+              </option>
+            </select>
+          </div>
         </div>
         <div id="banner-image-selector">
           <h4>Choose event banner:</h4>
@@ -96,13 +99,14 @@ export default {
       potluckDescription: "",
       potluckLocation: "",
       potluckDateTime: "",
-      potluckCategories: this.$store.state.categories,
+      selectedCategories: [],
+      categoryOptions: this.$store.state.categories,
       bannerImages: this.$store.state.bannerImages,
       selectedBanner: 1,
     };
   },
   mounted() {
-    console.log("getPotluckCategories");
+    console.log("getCategoryOptions");
     categoryService
       .getAllCategories()
       .then((r) => {
@@ -114,13 +118,7 @@ export default {
   },
   methods: {
     catIsSelected(catID) {
-      return this.potluckCategories.find((c) => c.catId === catID).active;
-    },
-    selectCatQuantity(catID, quantity) {
-      console.log("selectCatQuantity");
-      let cat = this.potluckCategories.find((c) => c.catId === catID);
-      cat.selected = true;
-      cat.limit = quantity;
+      return this.selectedCategories.includes(catID);
     },
     selectBanner(bannerID) {
       this.selectedBanner = bannerID;
@@ -135,13 +133,6 @@ export default {
         pluckDescription: this.potluckDescription,
       };
       potluckService.createPotluck(newPotluck);
-      // .then(r => {
-      //   let newCat = {
-      //     pluckId: r.data,
-      //     catId =
-      //   }
-      //   potluckService.addCatToPluck(r.data)
-      // });
     },
   },
   computed: {
@@ -413,6 +404,21 @@ export default {
     grid-area: description;
   }
 
+  #dish-requirements-grid {
+    font-weight: 900;
+    grid-area: dishes;
+  }
+
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dish-name {
+    display: flex;
+    flex-grow: 1;
+  }
   select {
     background-color: white;
     border-radius: 15px;
@@ -485,17 +491,6 @@ export default {
       "location         dishes"
       "description      banner"
       "save-or-cancel   banner";
-  }
-
-  #dish-requirements-grid {
-    font-weight: 900;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    row-gap: 5px;
-    column-gap: 10px;
-    align-items: center;
-    justify-items: center;
-    grid-template-areas: "type    checkbox   dropdown";
   }
 }
 </style>

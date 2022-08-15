@@ -22,7 +22,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public List<Dish> getAllDishes() {
-        String sql = "SELECT dish_id, pluck_id, cat_id, dish_name, servings, dish_description FROM pluck_dish";
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish";
         SqlRowSet allDishes = jdbcTemplate.queryForRowSet(sql);
         List<Dish> dishList = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public Dish getDishById(int dishId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, dish_name, servings, dish_description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
                 "WHERE dish_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, dishId);
@@ -67,43 +67,36 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public List<Dish> getDishesByUserAndPluck(int userId, int pluckId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, dish_name, servings, dish_description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
                 "WHERE user_id = ? AND pluck_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, userId, pluckId);
         List<Dish> dishList = new ArrayList<>();
 
         try {
-            if (dishById.next()) {
+            while (dishById.next()) {
                 dishList.add(mapRowToDish(dishById));
                 return dishList;
-            } else {
-                System.err.println("The dishes could not be found");
-                return null;
             }
         } catch (UserNotFoundException u) {
             throw new UserNotFoundException();
         } catch (PotluckNotFoundException p) {
             throw new PotluckNotFoundException();
-        }
+        } return null;
     }
 
     @Override
     public List<Dish> getDishesByPluckId(int pluckId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, dish_name, servings, dish_description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
                 "WHERE pluck_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, pluckId);
         List<Dish> dishList = new ArrayList<>();
 
         try {
-            if (dishById.next()) {
+            while (dishById.next()) {
                 dishList.add(mapRowToDish(dishById));
-                return dishList;
-            } else {
-                System.err.println("The dishes could not be found");
-                return null;
-            }
+            }return dishList;
         } catch (PotluckNotFoundException p){
             throw new PotluckNotFoundException();
         }
@@ -111,20 +104,17 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public List<Dish> getDishesByCatAndPluck(int catId, int pluckId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, dish_name, servings, dish_description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
                 "WHERE cat_id = ? AND pluck_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, catId, pluckId);
         List<Dish> dishList = new ArrayList<>();
 
         try {
-            if (dishById.next()) {
+            while (dishById.next()) {
                 dishList.add(mapRowToDish(dishById));
-                return dishList;
-            } else {
-                System.err.println("The dishes could not be found");
-                return null;
-            }
+
+            }return dishList;
         } catch (PotluckNotFoundException p){
             throw new PotluckNotFoundException();
         } catch (CategoryNotFoundException c){
@@ -134,7 +124,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public Category getCategoryByDishId(int dishId) {
-        String sql = "SELECT cat_id, cat_name FROM category " +
+        String sql = "SELECT category.cat_id, cat_name FROM category " +
                 "JOIN pluck_dish AS pd ON pd.cat_id = category.cat_id " +
                 "WHERE pd.dish_id = ?";
         SqlRowSet catByDish = jdbcTemplate.queryForRowSet(sql, dishId);
@@ -152,8 +142,8 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public Potluck getPluckByDishId(int dishId) {
-        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
-                "FROM pluck JOIN pluck_dish AS pd ON pd.pluck_id = pluck.pluck-id " +
+        String sql = "SELECT pluck.pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
+                "FROM pluck JOIN pluck_dish AS pd ON pd.pluck_id = pluck.pluck_id " +
                 "WHERE pd.dish_id = ?";
         SqlRowSet pluckByDish = jdbcTemplate.queryForRowSet(sql, dishId);
 
@@ -190,7 +180,7 @@ public class JdbcDishDao implements DishDao {
         dish.setDishUserId(dishRowSet.getInt("user_id"));
         dish.setDishName(dishRowSet.getString("dish_name"));
         dish.setServings(dishRowSet.getInt("servings"));
-        dish.setDishDescription(dishRowSet.getString("dish_description"));
+        dish.setDishDescription(dishRowSet.getString("description"));
         return dish;
     }
 

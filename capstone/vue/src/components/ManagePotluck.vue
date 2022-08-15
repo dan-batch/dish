@@ -38,32 +38,33 @@
             v-model="potluckDescription"
           />
         </div>
-
-        <div id="dish-requirements">
-          <h4>Choose categories &amp; limits:</h4>
-          <div v-for="category in categoryOptions" :key="category.catId">
-            <label>{{ category.catName }}</label>
-            <input
-              type="checkbox"
-              :name="category.catId + '-checkbox'"
-              :id="category.catId + '-checkbox'"
-              :value="category.catId"
-              v-model="selectedCategories"
-            />
-            <select
-              :name="category.catId + '-selector'"
-              :id="category.catId + '-selector'"
-              :disabled="!catIsSelected(category.catId)"
+      </div>
+      <div id="dish-requirements">
+        <h4>Choose categories &amp; limits:</h4>
+        <div v-for="category in potluckCategories" :key="category.catId">
+          <label>{{ category.catName }}</label>
+          <input
+            type="checkbox"
+            :name="category.catId + '-checkbox'"
+            :id="category.catId + '-checkbox'"
+            :value="category.catId"
+            v-model="category.active"
+          />
+          <select
+            :name="category.catId + '-selector'"
+            :id="category.catId + '-selector'"
+            :disabled="!catIsSelected(category.catId)"
+            v-model="category.limit"
+          >
+            <option
+              v-for="quantity in catQuantities"
+              :key="quantity"
+              :value="quantity"
             >
-              <option
-                v-for="quantity in catQuantities"
-                :key="quantity"
-                :value="quantity"
-              >
-                {{ quantity }}
-              </option>
-            </select>
-          </div>
+              {{ quantity }}
+            </option>
+            <option value="11">any</option>
+          </select>
         </div>
         <div id="banner-image-selector">
           <h4>Choose event banner:</h4>
@@ -95,14 +96,13 @@ export default {
       potluckDescription: "",
       potluckLocation: "",
       potluckDateTime: "",
-      selectedCategories: [],
-      categoryOptions: this.$store.state.categories,
+      potluckCategories: this.$store.state.categories,
       bannerImages: this.$store.state.bannerImages,
       selectedBanner: 1,
     };
   },
   mounted() {
-    console.log("getCategoryOptions");
+    console.log("getPotluckCategories");
     categoryService
       .getAllCategories()
       .then((r) => {
@@ -114,7 +114,13 @@ export default {
   },
   methods: {
     catIsSelected(catID) {
-      return this.selectedCategories.includes(catID);
+      return this.potluckCategories.find((c) => c.catId === catID).active;
+    },
+    selectCatQuantity(catID, quantity) {
+      console.log("selectCatQuantity");
+      let cat = this.potluckCategories.find((c) => c.catId === catID);
+      cat.selected = true;
+      cat.limit = quantity;
     },
     selectBanner(bannerID) {
       this.selectedBanner = bannerID;
@@ -129,6 +135,13 @@ export default {
         pluckDescription: this.potluckDescription,
       };
       potluckService.createPotluck(newPotluck);
+      // .then(r => {
+      //   let newCat = {
+      //     pluckId: r.data,
+      //     catId =
+      //   }
+      //   potluckService.addCatToPluck(r.data)
+      // });
     },
   },
   computed: {

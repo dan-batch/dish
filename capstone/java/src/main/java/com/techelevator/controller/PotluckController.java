@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.PotluckDao;
+import com.techelevator.model.AddCatToPluckDTO;
 import com.techelevator.model.Category;
 import com.techelevator.model.Dish;
 import com.techelevator.model.Potluck;
@@ -59,14 +60,14 @@ public class PotluckController {
         return potluckDao.getPluckByName(pluckName);
     }
 
-    @PutMapping(path = "/addDish") //not tested
+    @PostMapping(path = "/addDish")
     public boolean addDish(@Valid @RequestBody Dish dish) {
         return potluckDao.addDish(dish.getDishId(), dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName());
     }
 
-    @PutMapping(path = "/addCat") //not tested
-    public  boolean addCat(@Valid @RequestBody Potluck pluck, Category cat) {
-        return potluckDao.addCat(pluck.getPluckId(), cat.getCatId());
+    @PutMapping(path = "/addCat")
+    public boolean addCat(@RequestBody AddCatToPluckDTO newCat){
+        return potluckDao.addCat(newCat.getPluckId(), newCat.getCatId());
     }
 
 

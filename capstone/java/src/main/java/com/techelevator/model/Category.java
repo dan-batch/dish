@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Category {
     private int catId;
     private String catName;
@@ -11,7 +13,8 @@ public class Category {
         this.catName = catName;
     }
 
-    public Category(){}
+    public Category() {
+    }
 
     public int getCatId() {
         return catId;
@@ -29,11 +32,19 @@ public class Category {
         this.catName = catName;
     }
 
-    public int getLimit(){
+    public int getLimit() {
         return limit;
     }
 
-    public void setLimit(int limit){
-        this.limit=limit;
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public static class AddDishToPluckDTO {
+        @NotEmpty
+        private int pluckId;
+
+        @NotEmpty
+        private int catId;
     }
 }

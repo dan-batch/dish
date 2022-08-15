@@ -7,7 +7,6 @@ import com.techelevator.model.Potluck;
 import java.util.List;
 
 public interface DishDao {
-
     List<Dish> getAllDishes();
    //list of all dishes added across whole site
 

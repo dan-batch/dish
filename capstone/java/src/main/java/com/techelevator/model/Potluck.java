@@ -20,7 +20,7 @@ public class Potluck {
     private String pluckPlace;
     @NotNull
     //https://stackoverflow.com/questions/61202937/json-parse-error-cannot-deserialize-value-of-type-java-time-localdatetime-fro
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime pluckTime;
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private String pluckDescription;

@@ -22,7 +22,8 @@ public class Dish {
         this.dishCatId = dishCatId;
     }
 
-    public Dish(){}
+    public Dish() {
+    }
 
     public int getDishId() {
         return dishId;

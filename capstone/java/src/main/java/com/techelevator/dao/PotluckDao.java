@@ -2,11 +2,13 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Potluck;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Component
 public interface PotluckDao {
 
     List<Potluck> getAllPlucks();

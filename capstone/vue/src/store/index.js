@@ -12,6 +12,9 @@ Vue.use(Vuex)
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 const currentUserDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+const defaultCategories = JSON.parse(localStorage.getItem('categories'));
+
+
 
 if (currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
@@ -70,38 +73,7 @@ export default new Vuex.Store({
       },
 
     ],
-    categories: [
-      {
-        cat_id: 5001,
-        cat_name: "sides & snacks",
-        quantity: 0,
-        active: false,
-      },
-      {
-        cat_id: 5002,
-        cat_name: "main dishes",
-        quantity: 0,
-        active: false,
-      },
-      {
-        cat_id: 5003,
-        cat_name: "drinks",
-        quantity: 0,
-        active: false,
-      },
-      {
-        cat_id: 5004,
-        cat_name: "desserts",
-        quantity: 0,
-        active: false,
-      },
-      {
-        cat_id: 5005,
-        cat_name: "utensils, etc.",
-        quantity: 0,
-        active: false,
-      },
-    ],
+    categories: defaultCategories || [],
     bannerImages: [
       {
         id: 1,
@@ -151,7 +123,10 @@ export default new Vuex.Store({
         }
       });
       localStorage.setItem('dietaryRestrictions', JSON.stringify(state.dietaryRestrictions));
-
+    },
+    SET_CATEGORIES(state, categories) {
+      state.categories = categories;
+      localStorage.setItem('categories', JSON.stringify(state.categories));
     }
   }
 })

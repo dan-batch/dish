@@ -51,7 +51,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public User updateUserProfile(int userId, UserDTO updatedUser) {
         String sql = "UPDATE users\n" +
-                "SET user_email = ?,\n" +
+                "SET email = ?,\n" +
                 "picture_url = ?,\n" +
                 "first_name = ?,\n" +
                 "last_name = ?\n" +

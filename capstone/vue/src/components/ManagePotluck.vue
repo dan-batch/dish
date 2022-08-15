@@ -40,20 +40,20 @@
         </div>
       </div>
       <div id="dish-requirements">
-        <h4>Choose categories and limits:</h4>
-        <div v-for="category in categoryOptions" :key="category.cat_id">
-          <label>{{ category.cat_name }}</label>
+        <h4>Choose categories &amp; limits:</h4>
+        <div v-for="category in categoryOptions" :key="category.catId">
+          <label>{{ category.catName }}</label>
           <input
             type="checkbox"
-            :name="category.cat_id + '-checkbox'"
-            :id="category.cat_id + '-checkbox'"
-            :value="category.cat_id"
+            :name="category.catId + '-checkbox'"
+            :id="category.catId + '-checkbox'"
+            :value="category.catId"
             v-model="selectedCategories"
           />
           <select
-            :name="category.cat_id + '-selector'"
-            :id="category.cat_id + '-selector'"
-            :disabled="!catIsSelected(category.cat_id)"
+            :name="category.catId + '-selector'"
+            :id="category.catId + '-selector'"
+            :disabled="!catIsSelected(category.catId)"
           >
             <option
               v-for="quantity in catQuantities"
@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import categoryService from "../services/CategoryService";
 import potluckService from "../services/PotluckService";
 export default {
   data() {
@@ -98,6 +99,17 @@ export default {
       bannerImages: this.$store.state.bannerImages,
       selectedBanner: 1,
     };
+  },
+  mounted() {
+    console.log("getCategoryOptions");
+    categoryService
+      .getAllCategories()
+      .then((r) => {
+        this.$store.commit("SET_CATEGORIES", r.data);
+      })
+      .catch((e) => {
+        console.log(e.statusMessage);
+      });
   },
   methods: {
     catIsSelected(catID) {

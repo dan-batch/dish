@@ -11,7 +11,9 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
+const currentDish = JSON.parse(localStorage.getItem('dish'));
 const currentUserDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+const currentDishDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
 const defaultCategories = JSON.parse(localStorage.getItem('categories'));
 
 
@@ -29,7 +31,58 @@ export default new Vuex.Store({
       firstName: 'Carly',
       lastName: 'Trimboli',
     },
+    dish: currentDish || {
+      userName: 'Carly',
+      dishName: 'Spinach Puffs',
+      servings: 10,
+      description: "Healthy and delicious!"
+
+    },
     dietaryRestrictions: currentUserDietaryRestrictions || [
+      {
+        id: 2001,
+        name: "Dairy-free",
+        abbreviation: "df",
+        active: false
+      }, {
+        id: 2002,
+        name: "Gluten-free",
+        abbreviation: "gf",
+        active: false
+      }, {
+        id: 2003,
+        name: "Halal",
+        abbreviation: "hl",
+        active: false
+      }, {
+        id: 2004,
+        name: "Kosher",
+        abbreviation: "k",
+        active: false
+      }, {
+        id: 2005,
+        name: "Low-carb",
+        abbreviation: "lc",
+        active: false
+      }, {
+        id: 2006,
+        name: "Nut-free",
+        abbreviation: "nf",
+        active: false
+      }, {
+        id: 2007,
+        name: "Vegan",
+        abbreviation: "vn",
+        active: false
+      }, {
+        id: 2008,
+        name: "Vegetarian",
+        abbreviation: "v",
+        active: false
+      },
+
+    ],
+    DishDietaryRestrictions: currentDishDietaryRestrictions || [
       {
         id: 2001,
         name: "Dairy-free",

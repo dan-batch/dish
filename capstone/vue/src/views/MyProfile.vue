@@ -300,8 +300,6 @@ li {
 }
 
 .dietary-restriction-icon {
-  background-color: white;
-  border: 1px solid black;
   width: 20px;
   border-radius: 50%;
   margin-left: 5px;
@@ -417,7 +415,7 @@ form {
   font-weight: bold;
 }
 
-#hl-icon {
+#h-icon {
   background-color: #d44f02;
   color: #6b3e0a;
   width: 24px;

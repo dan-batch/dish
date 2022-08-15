@@ -38,33 +38,36 @@
             v-model="potluckDescription"
           />
         </div>
-      </div>
-      <div id="dish-requirements">
-        <h4>Choose categories &amp; limits:</h4>
-        <div v-for="category in potluckCategories" :key="category.catId">
-          <label>{{ category.catName }}</label>
-          <input
-            type="checkbox"
-            :name="category.catId + '-checkbox'"
-            :id="category.catId + '-checkbox'"
-            :value="category.catId"
-            v-model="category.active"
-          />
-          <select
-            :name="category.catId + '-selector'"
-            :id="category.catId + '-selector'"
-            :disabled="!catIsSelected(category.catId)"
-            v-model="category.limit"
+
+        <div id="dish-requirements">
+          <h4>Choose categories &amp; limits:</h4>
+          <div
+            v-for="category in potluckCategories"
+            :key="category.catId"
+            class="list"
           >
-            <option
-              v-for="quantity in catQuantities"
-              :key="quantity"
-              :value="quantity"
+            <label class="dish-name">{{ category.catName }}</label>
+            <input
+              type="checkbox"
+              :name="category.catId + '-checkbox'"
+              :id="category.catId + '-checkbox'"
+              :value="category.catId"
+              v-model="selectedCategories"
+            />
+            <select
+              :name="category.catId + '-selector'"
+              :id="category.catId + '-selector'"
+              :disabled="!catIsSelected(category.catId)"
             >
-              {{ quantity }}
-            </option>
-            <option value="11">any</option>
-          </select>
+              <option
+                v-for="quantity in catQuantities"
+                :key="quantity"
+                :value="quantity"
+              >
+                {{ quantity }}
+              </option>
+            </select>
+          </div>
         </div>
         <div id="banner-image-selector">
           <h4>Choose event banner:</h4>
@@ -216,6 +219,30 @@ export default {
     grid-area: dishes;
   }
 
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dish-name {
+    display: flex;
+    flex-grow: 1;
+  }
+  select {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    height: 3em;
+    width: 5em;
+    margin-left: 1em;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 1em;
+    grid-area: checkbox;
+  }
+
   #banner-image-selector {
     text-indent: 1.25em;
     grid-area: banner;
@@ -324,6 +351,30 @@ export default {
     grid-area: dishes;
   }
 
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dish-name {
+    display: flex;
+    flex-grow: 1;
+  }
+  select {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    height: 3em;
+    width: 5em;
+    margin-left: 1em;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 1em;
+    grid-area: checkbox;
+  }
+
   #banner-image-selector {
     text-indent: 1.25em;
     grid-area: banner;
@@ -426,8 +477,33 @@ export default {
     grid-area: description;
   }
 
-  #dish-requirements {
+  #dish-requirements-grid {
+    font-weight: 900;
     grid-area: dishes;
+  }
+
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dish-name {
+    display: flex;
+    flex-grow: 1;
+  }
+  select {
+    background-color: white;
+    border-radius: 15px;
+    border-style: none;
+    height: 3em;
+    width: 5em;
+    margin-left: 1em;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 1em;
+    grid-area: checkbox;
   }
 
   #banner-image-selector {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Create Your Event</h1>
-    <manage-potluck @load="getCategoryOptions"></manage-potluck>
+    <manage-potluck></manage-potluck>
   </div>
 </template>
 

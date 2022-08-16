@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <h2>{{ category }}</h2>
+    <h2>{{ title }}</h2>
     <div class="dishes">
       <div
         class="dish"

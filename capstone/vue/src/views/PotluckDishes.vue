@@ -9,7 +9,11 @@
     </div>
     <div class="categories-description">
       <!-- Placeholders -->
-      <div class="description-container">
+      <!-- <div
+        v-for="column in testCategoryColumns"
+        :key="column"
+        class="description-container"
+      >
         <h4 class="description-header">description:</h4>
         <p class="description-body">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -20,59 +24,14 @@
         <p class="description-body">
           Beatae quam temporibus non quod dicta doloremque ea necessitatibus?
         </p>
-      </div>
+      </div> -->
 
-      <div class="description-container">
-        <h4 class="description-header">description:</h4>
-        <p class="description-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </p>
-        <p class="description-body">
-          Eum numquam consequuntur perferendis reprehenderit.
-        </p>
-        <p class="description-body">
-          Beatae quam temporibus non quod dicta doloremque ea necessitatibus?
-        </p>
-      </div>
-
-      <div class="description-container">
-        <h4 class="description-header">description:</h4>
-        <p class="description-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </p>
-        <p class="description-body">
-          Eum numquam consequuntur perferendis reprehenderit.
-        </p>
-        <p class="description-body">
-          Beatae quam temporibus non quod dicta doloremque ea necessitatibus?
-        </p>
-      </div>
-
-      <div class="description-container">
-        <h4 class="description-header">description:</h4>
-        <p class="description-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </p>
-        <p class="description-body">
-          Eum numquam consequuntur perferendis reprehenderit.
-        </p>
-        <p class="description-body">
-          Beatae quam temporibus non quod dicta doloremque ea necessitatibus?
-        </p>
-      </div>
-
-      <div class="description-container">
-        <h4 class="description-header">description:</h4>
-        <p class="description-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </p>
-        <p class="description-body">
-          Eum numquam consequuntur perferendis reprehenderit.
-        </p>
-        <p class="description-body">
-          Beatae quam temporibus non quod dicta doloremque ea necessitatibus?
-        </p>
-      </div>
+      <dish-column
+        class="dish-column"
+        v-for="column in testCategoryColumns"
+        :key="column"
+        :title="'column #' + column"
+      ></dish-column>
 
       <!-- Actual description -->
       <div class="description-container">
@@ -87,8 +46,11 @@
 
 <script>
 import potluckService from "../services/PotluckService";
+import DishColumn from "../components/DishColumn";
 export default {
-  components: {},
+  components: {
+    DishColumn,
+  },
   data() {
     return {
       potluck: {
@@ -108,6 +70,15 @@ export default {
       let pluckTime = new Date(this.potluck.pluckTime);
       this.potluck.pluckTime = pluckTime;
     });
+  },
+  computed: {
+    testCategoryColumns() {
+      let testArray = [];
+      for (let i = 1; i <= 5; i++) {
+        testArray.push(i);
+      }
+      return testArray;
+    },
   },
 };
 </script>
@@ -141,6 +112,10 @@ export default {
   padding: 5px;
   border: 2px red solid;
   width: 16.6%;
+}
+.dish-column {
+  width: 16.6%;
+  border: 2px red solid;
 }
 .description-header {
   text-align: center;

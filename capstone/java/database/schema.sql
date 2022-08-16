@@ -52,6 +52,7 @@ CREATE TABLE pluck(
 	pluck_description varchar(500),
 	pluck_date_time timestamp NOT NULL,
 	pluck_place varchar(50) NOT NULL,
+	pluck_banner varchar(512),
 	CONSTRAINT PK_pluck PRIMARY KEY (pluck_id)
 );
 

@@ -28,7 +28,7 @@ export default {
   props: ["title", "dishes", "dishID"],
   methods: {
     viewDishDetails(dishID) {
-      this.$router.push(`/pluck/${this.boardID}/dish/${dishID}`);
+      this.$router.push(`/pluck/${this.dishID}/dish/${dishID}`);
     },
   },
 };

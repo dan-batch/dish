@@ -33,6 +33,11 @@ public class DishController {
         return dishDao.createDish(dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName());
     }
 
+    @PutMapping(path="/update/{dishId}")
+    public boolean updateDish(@RequestBody @Valid Dish dish, @PathVariable int dishId){
+        return dishDao.updateDish(dishId, dish.getDishDescription(), dish.getDishName(), dish.getServings());
+    }
+
     @GetMapping(path = "/dish{dishId}")
     public Dish getDishById(@PathVariable int dishId) {
         return dishDao.getDishById(dishId);

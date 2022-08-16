@@ -13,6 +13,8 @@ public interface DishDao {
     Boolean createDish(int pluckId, int catId, int userId, String dishName);
     //create a new dish
 
+    Boolean updateDish(int dishId, String dishDescription, String dishName, int servings);
+
     Dish getDishById(int dishId);
     //one specific dish
 

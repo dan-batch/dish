@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Edit Your Dish</h1>
-    <new-dish-form v-bind:cardID="parseInt($route.params.dishID)" />
+    <new-dish-form></new-dish-form>
   </div>
 </template>
 
@@ -14,3 +14,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+</style>

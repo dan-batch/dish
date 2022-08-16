@@ -1,6 +1,10 @@
 <template>
   <div>
-    <form v-on:submit.prevent="createPotluck()" @reset="resetCategories()">
+    <form
+      name="pluck-mgr"
+      v-on:submit.prevent="createPotluck()"
+      @reset="resetCategories()"
+    >
       <div id="event-details">
         <div>
           <label for="pluckName">Name your event</label><br />
@@ -9,6 +13,7 @@
             name="pluckName"
             id="pluckName-input"
             v-model="potluckName"
+            required
           />
         </div>
         <div>
@@ -18,6 +23,7 @@
             name="pluckDateTime"
             id="pluckDateTime-input"
             v-model="potluckDateTime"
+            required
           />
         </div>
         <div>
@@ -27,6 +33,7 @@
             name="pluckLocation"
             id="pluckLocation-input"
             v-model="potluckLocation"
+            required
           />
         </div>
         <div>
@@ -164,6 +171,20 @@ export default {
           alert(e.message);
         });
     },
+    validateEventName() {
+      let inputs = document.form.getElementById("pluckName-input");
+      for (let index = 0; index < inputs.length; ++index) {
+        if (inputs[index].value == null || inputs[index].value == "") {
+          alert("Don't forget to name your event!");
+          return false;
+        }
+      }
+    },
+    validateCategorySelection() {
+      if (!this.anyChecked) {
+        alert("Please select at least one category for your event!");
+      } else this.createPotluck(this.newPotluck);
+    },
   },
   computed: {
     catQuantities() {
@@ -173,6 +194,9 @@ export default {
         quantities.push(i);
       }
       return quantities;
+    },
+    anyChecked() {
+      return this.potluckCategories.some((c) => c.active);
     },
   },
 };

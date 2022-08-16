@@ -6,7 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import MyProfile from '../views/MyProfile'
 import CreatePotluck from '../views/CreatePotluck'
-import EditDish from '../views/EditDish'
+import CreateDish from '../views/CreateDish'
 import PotluckDishes from '../views/PotluckDishes'
 import store from '../store/index'
 
@@ -73,9 +73,9 @@ const router = new Router({
       },
     },
     {
-      path: "/addDish",
-      name: "add-dish",
-      component: EditDish,
+      path: "/createDish",
+      name: "create-dish",
+      component: CreateDish,
       meta: {
         requiresAuth: false
       },

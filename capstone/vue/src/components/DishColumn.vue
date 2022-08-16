@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <h2>{{ title }}</h2>
+    <h4>{{ title }}</h4>
     <div class="dishes">
       <div
         class="dish"
@@ -9,13 +9,13 @@
         v-on:click="viewDishDetails(dish.id)"
       >
         <div class="username">
-          <h3>{{ dish.userName }}</h3>
+          <p>{{ dish.userName }}</p>
         </div>
         <div class="dish-name">
-          <h3>{{ dish.dishName }}</h3>
+          <p>{{ dish.dishName }}</p>
         </div>
         <div class="servings">
-          <h2>Servings: {{ dish.servings }}</h2>
+          <p>Servings: {{ dish.servings }}</p>
         </div>
       </div>
     </div>
@@ -35,4 +35,16 @@ export default {
 </script>
 
 <style>
+.dish {
+  background-color: white;
+  padding: 5px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+p {
+  background-color: white;
+}
+.servings p {
+  font-size: 0.8rem;
+}
 </style>

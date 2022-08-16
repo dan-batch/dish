@@ -8,7 +8,7 @@
       <h3 class="when">when: {{ potluck.pluckTime.toDateString() }}</h3>
     </div>
     <div class="categories-description">
-      <!-- Placeholders -->
+      <!-- Dishes -->
 
       <dish-column
         class="dish-column"
@@ -20,7 +20,7 @@
         "
       ></dish-column>
 
-      <!-- Actual description -->
+      <!-- Description -->
       <div class="description-container">
         <h4 class="description-header">description:</h4>
         <p class="description-body">
@@ -109,6 +109,8 @@ export default {
 .dish-column {
   width: 16.6%;
   border: 2px red solid;
+  margin: 10px;
+  padding: 5px;
 }
 .description-header {
   text-align: center;

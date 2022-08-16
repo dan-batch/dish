@@ -144,7 +144,7 @@ export default {
       this.selectedItems = this.selectRestrictions();
       this.firstName = this.$store.state.user.firstName;
       this.lastName = this.$store.state.user.lastName;
-      console.log("cancelProfileChanges");
+      // console.log("cancelProfileChanges");
     },
     selectRestrictions() {
       let selected = [];

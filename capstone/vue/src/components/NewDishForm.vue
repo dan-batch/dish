@@ -116,7 +116,7 @@ export default {
     cancelProfileChanges() {
       this.userName = this.$store.state.dish.userName;
       this.dishName = this.$store.state.dish.dishName;
-      this.selectedItems = this.selectRestrictions();
+      this.selectedRestrictions = this.selectRestrictions();
       this.servings = this.$store.state.dish.servings;
       this.description = this.$store.state.dish.description;
       console.log("cancelDishChanges");

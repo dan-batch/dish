@@ -372,23 +372,33 @@ li {
 
   form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "ga-infoTitle    ga-restrictionsTitle"
-      "ga-profilePic   ga-list"
-      "ga-urlEntry    ga-list"
-      "ga-emailEntry  ga-list"
-      "ga-firstName   ga-list"
-      "ga-lastName    ga-list"
-      "ga-buttonGrid  ga-buttonGrid";
+      "ga-infoTitle"
+      "ga-profilePic"
+      "ga-urlEntry"
+      "ga-emailEntry"
+      "ga-firstName"
+      "ga-lastName"
+      "ga-restrictionsTitle"
+      "ga-list"
+      "ga-list"
+      "ga-list"
+      "ga-list"
+      "ga-list"
+      "ga-buttonGrid"
+      "ga-buttonGrid";
     justify-items: center;
   }
 
   .buttonGrid {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 3fr;
+    grid-template-columns: 1fr;
     column-gap: 30px;
-    grid-template-areas: ". ga-submit  ga-cancel  .";
+    row-gap: 5px;
+    grid-template-areas:
+      "ga-submit"
+      "ga-cancel";
   }
 
   .profile-pic {
@@ -401,6 +411,17 @@ li {
     border: 3px solid #6b3e0a;
     border-radius: 18px;
     background-color: #6b3e0a;
+  }
+
+  #cancelButton {
+    display: flex;
+    justify-content: center;
+  }
+
+  #submitButton {
+    display: flex;
+    justify-content: center;
+    margin-left: 13px;
   }
 }
 

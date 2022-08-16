@@ -187,6 +187,21 @@ public class JdbcDishDao implements DishDao {
         }
     }
 
+
+    @Override
+    public Boolean deleteDish(int dishId){
+        String sql = "DELETE FROM pluck_dish WHERE dish_id = ?";
+        try {
+            if (jdbcTemplate.update(sql, dishId) == 1) {
+                return true;
+            }
+            System.err.println("The dish could not be deleted");
+            return false;
+        } catch (DishNotFoundException d){
+            throw new DishNotFoundException();
+        }
+    }
+
     private Dish mapRowToDish(SqlRowSet dishRowSet) {
         Dish dish = new Dish();
         dish.setDishId(dishRowSet.getInt("dish_id"));

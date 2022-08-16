@@ -73,5 +73,8 @@ public class DishController {
         return dishDao.addRestriction(newCat.getDishId(), newCat.getRestrictionId());
     }
 
+    @DeleteMapping(path = "/delete/{dishId}")
+    public boolean deleteDish(@PathVariable int dishId){return dishDao.deleteDish(dishId);}
+
 
 }

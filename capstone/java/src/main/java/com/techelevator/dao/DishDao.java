@@ -40,5 +40,7 @@ public interface DishDao {
     Boolean addRestriction(int dishId, int restrictionId);
     //adds restriction to dish
 
+    Boolean deleteDish(int dishId);
+
 
 }

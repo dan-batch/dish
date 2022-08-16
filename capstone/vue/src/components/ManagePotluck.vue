@@ -87,7 +87,12 @@
           />
         </div>
         <div id="save-or-cancel">
-          <input type="submit" value="Save Changes" id="save" />
+          <input
+            type="submit"
+            value="Save Changes"
+            id="save"
+            @click="validateEventName, validateCategorySelection"
+          />
           <input type="reset" value="Cancel" id="cancel" />
         </div>
       </div>
@@ -183,7 +188,7 @@ export default {
     validateCategorySelection() {
       if (!this.anyChecked) {
         alert("Please select at least one category for your event!");
-      } else this.createPotluck(this.newPotluck);
+      } else this.createPotluck;
     },
   },
   computed: {

@@ -52,6 +52,21 @@ public class JdbcDishDao implements DishDao {
     }
 
     @Override
+    public Boolean updateDish(int dishId, String dishDescription, String dishName, int servings) {
+        String sql = "UPDATE pluck_dish SET description=?, dish_name=?, servings=? WHERE dishId=?";
+        try {
+            if (jdbcTemplate.update(sql, dishDescription, dishName, servings, dishId) == 1) {
+                return true;
+            } else {
+                System.err.println("The dish could not be updated");
+                return false;
+            }
+        } catch (DishNotFoundException d){
+            throw new DishNotFoundException();
+        }
+    }
+
+    @Override
     public Dish getDishById(int dishId) {
         String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
                 "WHERE dish_id = ?";

@@ -196,13 +196,7 @@ export default {
       return quantities;
     },
     anyChecked() {
-      const form = document.querySelector(".category.catId + '-checkbox'");
-      const checkboxes = form.querySelectorAll("input[type=checkbox]");
-      const checkboxLength = checkboxes.length;
-      for (let i = 0; i < checkboxLength; i++) {
-        if (checkboxes[i].checked) return true;
-      }
-      return false;
+      return this.potluckCategories.some((c) => c.active);
     },
   },
 };

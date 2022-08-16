@@ -156,6 +156,10 @@ export default new Vuex.Store({
       state.user = user;
       localStorage.setItem('user', JSON.stringify(user));
     },
+    SET_DISH(state, dish) {
+      state.dish = dish;
+      localStorage.setItem('dish', JSON.stringify(dish));
+    },
     LOGOUT(state) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -167,7 +171,21 @@ export default new Vuex.Store({
       state.dietaryRestrictions = dietaryRestrictions;
       localStorage.setItem('dietaryRestrictions', JSON.stringify(dietaryRestrictions));
     },
+    SET_DISH_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
+      state.DishDietaryRestrictions = dietaryRestrictions;
+      localStorage.setItem('dietaryRestrictions', JSON.stringify(dietaryRestrictions));
+    },
     UPDATE_DIETARY_RESTRICTIONS(state, selectedRestrictions) {
+      state.dietaryRestrictions.forEach((r) => {
+        if (selectedRestrictions.includes(r.id)) {
+          r.active = true;
+        } else {
+          r.active = false;
+        }
+      });
+      localStorage.setItem('dietaryRestrictions', JSON.stringify(state.dietaryRestrictions));
+    },
+    UPDATE_DISH_DIETARY_RESTRICTIONS(state, selectedRestrictions) {
       state.dietaryRestrictions.forEach((r) => {
         if (selectedRestrictions.includes(r.id)) {
           r.active = true;

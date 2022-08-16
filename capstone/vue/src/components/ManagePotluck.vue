@@ -13,6 +13,7 @@
             name="pluckName"
             id="pluckName-input"
             v-model="potluckName"
+            required
           />
         </div>
         <div>
@@ -22,6 +23,7 @@
             name="pluckDateTime"
             id="pluckDateTime-input"
             v-model="potluckDateTime"
+            required
           />
         </div>
         <div>
@@ -31,6 +33,7 @@
             name="pluckLocation"
             id="pluckLocation-input"
             v-model="potluckLocation"
+            required
           />
         </div>
         <div>

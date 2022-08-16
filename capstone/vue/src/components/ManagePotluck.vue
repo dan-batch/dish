@@ -180,7 +180,7 @@ export default {
     validateCategorySelection() {
       if (!this.anyChecked) {
         alert("Please select at least one category for your event!");
-      } else this.createPotluck;
+      } else this.createPotluck(this.newPotluck);
     },
   },
   computed: {

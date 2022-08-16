@@ -7,7 +7,10 @@ import Register from '../views/Register.vue'
 import MyProfile from '../views/MyProfile'
 import CreatePotluck from '../views/CreatePotluck'
 import EditDish from '../views/EditDish'
+import PotluckDishes from '../views/PotluckDishes'
 import store from '../store/index'
+
+
 
 Vue.use(Router)
 
@@ -76,7 +79,12 @@ const router = new Router({
       meta: {
         requiresAuth: false
       },
-    }
+    },
+    {
+      path: '/potluck/:id/dishes',
+      name: 'potluck-dishes',
+      component: PotluckDishes,
+    },
   ]
 })
 

@@ -29,7 +29,13 @@
       </div>
       <div class="emailEntry">
         <label for="email" id="email-label">E-mail address:</label>
-        <input type="email" name="email" id="email" v-model="userEmail" />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          v-model="userEmail"
+          required
+        />
       </div>
       <div class="firstName">
         <label for="firstName" id="first-name-label">First Name:</label>
@@ -38,11 +44,18 @@
           name="firstName"
           id="firstName"
           v-model="firstName"
+          required
         />
       </div>
       <div class="lastName">
         <label for="firstName" id="last-name-label">Last Name:</label>
-        <input type="text" name="lastName" id="lastName" v-model="lastName" />
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          v-model="lastName"
+          required
+        />
       </div>
       <h3 class="dietary-restrictions">My Dietary Restrictions:</h3>
       <ul class="dietary-restriction-list">
@@ -131,7 +144,7 @@ export default {
       this.selectedItems = this.selectRestrictions();
       this.firstName = this.$store.state.user.firstName;
       this.lastName = this.$store.state.user.lastName;
-      console.log("cancelProfileChanges");
+      // console.log("cancelProfileChanges");
     },
     selectRestrictions() {
       let selected = [];

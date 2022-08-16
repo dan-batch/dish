@@ -20,6 +20,12 @@ export default {
 
     addCatToPluck(newCat) {
         return axios.post('pluck/addCat', newCat)
-    }
+    },
+
+    getPotluck(pluckID) {
+        return axios.get(`pluck/pluck${pluckID}`)
+    },
+
+
 
 }

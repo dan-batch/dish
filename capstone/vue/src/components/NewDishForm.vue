@@ -1,26 +1,34 @@
 <template>
   <form v-on:submit.prevent="submitForm" class="newDishForm">
-    <div>
-      <div>
-        <label for="userName">Tell 'em who's bringing this dish!</label><br />
-        <input type="text" name="userName" id="userName-input" />
-      </div>
-      <div>
-        <label for="dishName">Name Your Dish:</label><br />
-        <input type="text" name="dishName" id="dishName-input" />
-      </div>
-      <div>
-        <label for="servings">How Many Servings?</label><br />
-        <input type="text" name="servings" id="servings-input" />
-      </div>
-      <div>
-        <label for="details">Anything Else to Add?</label><br />
-        <input
-          type="text"
-          name="userName"
-          id="userName-input"
-          placeholder="Add details, list ingredients, share recipe..."
-        />
+    <div class="wholeDamnThing">
+      <div class="leftSide">
+        <div class="UserName">
+          <label for="userName" id="userNameLabel"
+            >Tell 'em who's bringing this dish!</label
+          ><br />
+          <input type="text" name="userName" id="userName-input" required />
+        </div>
+        <div class="DishName">
+          <label for="dishName" id="dishNameLabel">Name Your Dish:</label><br />
+          <input type="text" name="dishName" id="dishName-input" required />
+        </div>
+        <div class="Servings">
+          <label for="servings" id="servingsLabel">How Many Servings?</label
+          ><br />
+          <input type="text" name="servings" id="servings-input" />
+        </div>
+        <div class="Details">
+          <label for="details" id="detailsLabel">Anything Else to Add?</label
+          ><br />
+          <textarea
+            name="details"
+            id="details-input"
+            placeholder=" Add details!
+   List ingredients!
+   Share your recipe!"
+            rows="3"
+          />
+        </div>
       </div>
     </div>
     <div class="restrictions">
@@ -51,17 +59,51 @@
 </template>
 
 <script>
+import dishService from "../services/DishService";
 import dietaryRestrictionsService from "../services/DietaryRestrictionsService";
 export default {
+  name: "my-profile",
   data() {
     return {
+      userName: this.$store.state.dish.userName,
+      dishName: this.$store.state.dish.dishName,
+      servings: this.$store.state.dish.servings,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
       selectedRestrictions: this.selectRestrictions(),
+      details: this.$store.state.dish.details,
     };
   },
+
   methods: {
+    saveProfileChanges() {
+      let dishID = this.$store.state.dish.id;
+      let updatedDish = {
+        authorities: this.$store.state.dish.authorities,
+        userName: this.userName,
+        id: dishID,
+        dishName: this.dishName,
+        servings: this.servings,
+        description: this.description,
+      };
+      updatedDish.authorities = this.$store.state.dish.authorities;
+      dishService
+        .updateDish(dishID, updatedDish)
+        .then((response) => {
+          if (response.status === 200) {
+            this.saveDietaryChanges();
+          }
+        })
+        .catch((e) => {
+          alert(e.message + " update dish");
+        });
+      this.$store.commit(
+        "UPDATE_DIETARY_RESTRICTIONS",
+        this.selectedRestrictions
+      );
+      this.$store.commit("SET_DISH", updatedDish);
+    },
     saveDietaryChanges() {
-      let dishId = this.$store.state.dish.id;
+      let dishId = this.$store.state.user.id;
       dietaryRestrictionsService
         .updateForUser(dishId, this.selectedRestrictions)
         .then((r) => {
@@ -71,9 +113,198 @@ export default {
           alert(e.message);
         });
     },
+    cancelProfileChanges() {
+      this.userName = this.$store.state.dish.userName;
+      this.dishName = this.$store.state.dish.dishName;
+      this.selectedItems = this.selectRestrictions();
+      this.servings = this.$store.state.dish.servings;
+      this.description = this.$store.state.dish.description;
+      console.log("cancelDishChanges");
+    },
+    selectRestrictions() {
+      let selected = [];
+      this.$store.state.dietaryRestrictions.forEach((r) => {
+        if (r.active) {
+          selected.push(r.id);
+        }
+      });
+      return selected;
+    },
   },
+  computed: {},
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.wholeDamnThing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.newDishForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leftSide {
+  margin-top: 0%;
+  text-indent: 10px;
+}
+.UserName {
+  grid-area: "ga-UserName";
+}
+
+#userName-input {
+  border-radius: 10px;
+  background-color: white;
+  height: 40px;
+  width: 225px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+}
+.DishName {
+  grid-area: "ga-DishName";
+}
+
+#dishName-input {
+  border-radius: 10px;
+  background-color: white;
+  height: 40px;
+  width: 225px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+}
+.Servings {
+  grid-area: "ga-Servings";
+}
+#servings-input {
+  border-radius: 10px;
+  background-color: white;
+  height: 40px;
+  width: 225px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+}
+.Details {
+  grid-area: "ga-Details";
+}
+#details-input {
+  border-radius: 10px;
+  background-color: white;
+  height: 225px;
+  width: 225px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+}
+.restrictions {
+  grid-area: "ga-Restrictions";
+}
+ul {
+  grid-area: ga-list;
+  padding-left: 0%;
+  padding-top: 0%;
+}
+
+li {
+  list-style: none;
+  display: flex;
+}
+
+.restrictionBorder {
+  background-color: white;
+  border-radius: 15px;
+  width: 150px;
+  height: 35px;
+  margin: 5px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.dietary-restriction-icon {
+  width: 20px;
+  border-radius: 50%;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.dietary-restriction-name {
+  background-color: white;
+  padding-left: 5px;
+  margin-top: 6px;
+  font-weight: bold;
+}
+.buttonGrid {
+  grid-area: "ga-ButtonGrid";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#submitButton {
+  grid-area: "ga-submit";
+  background-color: #9dcd5a;
+  border-radius: 15px;
+  border-style: none;
+  width: 10em;
+  height: 3em;
+  margin: 0.25em;
+  color: white;
+  font-weight: 900;
+}
+#cancelButton {
+  grid-area: "ga-cancel";
+  background-color: #f58634;
+  border-radius: 15px;
+  border-style: none;
+  width: 10em;
+  height: 3em;
+  margin: 0.25em;
+  color: white;
+  font-weight: 900;
+}
+
+@media only screen and (max-width: 768px) {
+  .newDishForm {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "ga-UserName"
+      "ga-DishName"
+      "ga-Details"
+      "ga-Restrictions"
+      "ga-buttonGrid";
+    justify-content: center;
+    align-items: center;
+  }
+  .restrictions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .newDishForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "ga-UserName  ga-Restrictions"
+      "ga-DishName  ga-Restrictions"
+      "ga-Details ga-Restrictions"
+      "ga-buttonGrid  ga-buttonGrid";
+    justify-content: center;
+    align-items: center;
+  }
+  .buttonGrid {
+    padding-left: 600px;
+  }
+}
 </style>

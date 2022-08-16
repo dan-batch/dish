@@ -305,6 +305,7 @@ li {
   }
   .buttonGrid {
     padding-left: 600px;
+    padding-bottom: 25px;
   }
 }
 </style>

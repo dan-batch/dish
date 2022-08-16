@@ -337,6 +337,7 @@ export default {
       "dishes"
       "banner"
       "save-or-cancel";
+    padding-bottom: 25px;
   }
 }
 

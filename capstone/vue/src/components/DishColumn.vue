@@ -25,7 +25,7 @@
 <script>
 export default {
   name: "dish-column",
-  props: ["title", "dishes", "dishID"],
+  props: ["title", "dishes", "dishID", "categoryID"],
   methods: {
     viewDishDetails(dishID) {
       this.$router.push(`/pluck/${this.dishID}/dish/${dishID}`);

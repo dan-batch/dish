@@ -9,28 +9,15 @@
     </div>
     <div class="categories-description">
       <!-- Placeholders -->
-      <!-- <div
-        v-for="column in testCategoryColumns"
-        :key="column"
-        class="description-container"
-      >
-        <h4 class="description-header">description:</h4>
-        <p class="description-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </p>
-        <p class="description-body">
-          Eum numquam consequuntur perferendis reprehenderit.
-        </p>
-        <p class="description-body">
-          Beatae quam temporibus non quod dicta doloremque ea necessitatibus?
-        </p>
-      </div> -->
 
       <dish-column
         class="dish-column"
-        v-for="column in testCategoryColumns"
-        :key="column"
-        :title="'column #' + column"
+        v-for="category in categories"
+        :key="category.catId"
+        :title="category.catName"
+        :dishes="
+          potluck.pluckDishes.filter((d) => d.dishCatId === category.catId)
+        "
       ></dish-column>
 
       <!-- Actual description -->
@@ -59,9 +46,10 @@ export default {
         pluckPlace: "",
         pluckTime: null,
         pluckDescription: "",
-        pluckDishes: null,
+        pluckDishes: [],
         pluckCats: null,
       },
+      categories: this.$store.state.categories,
     };
   },
   created() {
@@ -69,6 +57,10 @@ export default {
       this.potluck = r.data;
       let pluckTime = new Date(this.potluck.pluckTime);
       this.potluck.pluckTime = pluckTime;
+    });
+
+    potluckService.getPluckDishes(this.$route.params.id).then((r) => {
+      this.potluck.pluckDishes = r.data;
     });
   },
   computed: {
@@ -80,6 +72,7 @@ export default {
       return testArray;
     },
   },
+  methods: {},
 };
 </script>
 

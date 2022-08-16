@@ -26,6 +26,10 @@ export default {
         return axios.get(`pluck/pluck${pluckID}`)
     },
 
+    getPluckDishes(pluckID) {
+        return axios.get(`dish/pluck${pluckID}`)
+    },
+
 
 
 }

@@ -32,10 +32,10 @@ export default new Vuex.Store({
       lastName: 'Trimboli',
     },
     dish: currentDish || {
-      userName: 'Carly',
+      dishUserName: 'Carly',
       dishName: 'Spinach Puffs',
       servings: 10,
-      description: "Healthy and delicious!"
+      dishDescription: "Healthy and delicious!"
     },
     dietaryRestrictions: currentUserDietaryRestrictions || [
       {

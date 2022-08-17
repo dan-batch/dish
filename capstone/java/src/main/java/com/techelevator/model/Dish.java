@@ -7,7 +7,7 @@ public class Dish {
     private int dishId;
     private String dishDescription;
     private String dishName;
-    private String dishUserName;
+    private String username;
     private int dishUserId;
     private List<Integer> dishRestrictions;
     private int dishCatId;
@@ -49,12 +49,12 @@ public class Dish {
         this.dishName = dishName;
     }
 
-    public String getDishUserName() {
-        return dishUserName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setDishUserName(String dishUserName) {
-        this.dishUserName = dishUserName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getDishUserId() {

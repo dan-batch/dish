@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Dish;
 import com.techelevator.model.Category;
 import com.techelevator.model.Potluck;
+import com.techelevator.model.Restriction;
 
 import java.util.List;
 
@@ -10,10 +11,10 @@ public interface DishDao {
     List<Dish> getAllDishes();
    //list of all dishes added across whole site
 
-    Boolean createDish(int pluckId, int catId, int userId, String dishName);
+    Boolean createDish(int pluckId, int catId, int userId, String dishName, String username);
     //create a new dish
 
-    Boolean updateDish(int dishId, String dishDescription, String dishName, int servings);
+    Boolean updateDish(int dishId, String dishDescription, String dishName, int servings, String username);
 
     Dish getDishById(int dishId);
     //one specific dish
@@ -41,6 +42,7 @@ public interface DishDao {
     //adds restriction to dish
 
     Boolean deleteDish(int dishId);
+
 
 
 }

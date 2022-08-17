@@ -2,16 +2,11 @@
   <form v-on:submit.prevent="submitForm" class="newDishForm">
     <div class="wholeDamnThing">
       <div class="leftSide">
-        <div class="DishUserName">
-          <label for="dishUserName" id="dishUserNameLabel"
+        <div class="username">
+          <label for="username" id="username"
             >Tell 'em who's bringing this dish!</label
           ><br />
-          <input
-            type="text"
-            name="dishUserName"
-            id="dishUserName-input"
-            required
-          />
+          <input type="text" name="username" id="username-input" required />
         </div>
         <div class="DishName">
           <label for="dishName" id="dishNameLabel">Name Your Dish:</label><br />
@@ -71,7 +66,7 @@ export default {
   name: "my-profile",
   data() {
     return {
-      dishUserName: this.$store.state.dish.dishUserName,
+      username: this.$store.state.dish.username,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
@@ -85,7 +80,7 @@ export default {
       let dishID = this.$store.state.dish.id;
       let updatedDish = {
         authorities: this.$store.state.dish.authorities,
-        dishUserName: this.dishUserName,
+        username: this.username,
         dishId: dishID,
         dishName: this.dishName,
         servings: this.servings,
@@ -120,7 +115,7 @@ export default {
         });
     },
     cancelProfileChanges() {
-      this.userName = this.$store.state.dish.userName;
+      this.username = this.$store.state.dish.username;
       this.dishName = this.$store.state.dish.dishName;
       this.selectedRestrictions = this.selectRestrictions();
       this.servings = this.$store.state.dish.servings;
@@ -159,11 +154,11 @@ export default {
   margin-top: 0%;
   text-indent: 10px;
 }
-.UserName {
-  grid-area: "ga-UserName";
+.username {
+  grid-area: "ga-username";
 }
 
-#userName-input {
+#username-input {
   border-radius: 10px;
   background-color: white;
   height: 40px;
@@ -281,7 +276,7 @@ li {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
-      "ga-UserName"
+      "ga-username"
       "ga-DishName"
       "ga-Description"
       "ga-Restrictions"
@@ -302,7 +297,7 @@ li {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "ga-UserName  ga-Restrictions"
+      "ga-username  ga-Restrictions"
       "ga-DishName  ga-Restrictions"
       "ga-Description ga-Restrictions"
       "ga-buttonGrid  ga-buttonGrid";

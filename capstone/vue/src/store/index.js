@@ -32,7 +32,7 @@ export default new Vuex.Store({
       lastName: 'Trimboli',
     },
     dish: currentDish || {
-      dishUserName: 'Carly',
+      username: 'Carly',
       dishName: 'Spinach Puffs',
       servings: 10,
       dishDescription: "Healthy and delicious!"

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2>{{ dish.dishUserName }} is bringing:</h2>
+    <h2>{{ dish.username }} is bringing:</h2>
     <h1>{{ dish.dishName }}</h1>
-    <div>Serving {{ dish.Servings }}</div>
-    <div>{{ dish.dishDescription }}</div>
+    <h3>Serving {{ dish.servings }}</h3>
+    <h3>{{ dish.dishDescription }}</h3>
     <h3 class="dietary-restrictions">This dish will be:</h3>
     <ul class="dietary-restriction-list">
       <li v-for="restriction in selectedRestrictions" :key="restriction.id">
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       dishId: this.$store.state.dish.dishId,
-      dishUserName: this.$store.state.dish.userName,
+      username: this.$store.state.dish.username,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,
       DishDietaryRestrictions: this.$store.state.DishDietaryRestrictions,

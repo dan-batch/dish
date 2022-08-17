@@ -26,6 +26,16 @@
         </p>
       </div>
     </div>
+    <form>
+      <p><label for="guest-list">Guest List</label></p>
+      <textarea id="guests" name="guest-list" rows="8" columns="50">
+To invite guests, enter their email addresses here, separated by a comma: "," </textarea
+      >
+      <div>
+        <input type="email" id="emailButton" value="Email Guests" />
+        <input type="reset" id="resetButton" value="Reset Form" />
+      </div>
+    </form>
   </div>
 </template>
 

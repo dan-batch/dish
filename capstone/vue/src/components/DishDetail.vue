@@ -2,19 +2,17 @@
   <div>
     <h2>{{ dish.userName }} is bringing:</h2>
     <h1>{{ dish.dishName }}</h1>
-    <p>{{ dish.servings }} Servings</p>
-    <p>{{ dish.details }}</p>
+    <div>Serving {{ dish.servings }}</div>
+    <div>{{ dish.description }}</div>
     <h3 class="dietary-restrictions">This dish will be:</h3>
     <ul class="dietary-restriction-list">
       <li v-for="restriction in selectedRestrictions" :key="restriction.id">
-        <div class="restrictionBorder">
-          <span
-            :id="restriction.abbreviation + '-icon'"
-            class="dietary-restriction-icon"
-            >{{ restriction.abbreviation }}</span
-          >
-          <span class="dietary-restriction-name">{{ restriction.name }}</span>
-        </div>
+        <span
+          :id="restriction.abbreviation + '-icon'"
+          class="dietary-restriction-icon"
+          >{{ restriction.abbreviation }}</span
+        >
+        <span class="dietary-restriction-name">{{ restriction.name }}</span>
       </li>
     </ul>
     <router-link
@@ -29,6 +27,7 @@
 </template>
 
 <script>
+import dishService from "../services/DishService";
 export default {
   name: "dish-detail",
   data() {
@@ -37,9 +36,9 @@ export default {
       userName: this.$store.state.dish.userName,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,
-      dietaryRestrictions: this.$store.state.dietaryRestrictions,
+      DishDietaryRestrictions: this.$store.state.DishDietaryRestrictions,
       selectedRestrictions: this.selectRestrictions(),
-      details: this.$store.state.dish.details,
+      description: this.$store.state.dish.description,
     };
   },
   methods: {
@@ -51,6 +50,57 @@ export default {
         }
       });
       return selected;
+    },
+    retrieveDish() {
+      dishService
+        .getDish(this.$route.params.dishId)
+        .then((response) => {
+          this.$store.commit("SET_DISH", response.data);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 404) {
+            alert("Dish not available. This dish may have been deleted.");
+            this.$router.push({ name: "Home" });
+          }
+        });
+    },
+    deleteDish() {
+      if (
+        confirm(
+          "Are you sure you want to delete this dish? This action cannot be undone."
+        )
+      ) {
+        dishService
+          .deleteDish(this.dish.dishId)
+          .then((response) => {
+            if (response.status === 200) {
+              alert("Dish successfully deleted");
+              this.$router.push(`/potluck/${this.potluck.pluckId}/dishes`);
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              this.errorMsg =
+                "Error deleting dish. Response received was '" +
+                error.response.statusText +
+                "'.";
+            } else if (error.request) {
+              this.errorMsg =
+                "Error deleting dish. Server could not be reached.";
+            } else {
+              this.errorMsg =
+                "Error deleting dish. Request could not be created.";
+            }
+          });
+      }
+    },
+  },
+  created() {
+    this.retrieveDish();
+  },
+  computed: {
+    dish() {
+      return this.$store.state.dish;
     },
   },
 };

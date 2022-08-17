@@ -76,6 +76,14 @@ public class JdbcRestrictionDao implements RestrictionDao {
         }
     }
 
+    @Override
+    public List<Restriction> getRestrictionsByDish(int dishId){
+        String sql = "SELECT restriction_id FROM dish_restrictions WHERE dish_id = ?";
+        SqlRowSet dishRests = jdbcTemplate.queryForRowSet(sql, dishId);
+
+        return null;
+    }
+
     private Restriction mapRowToRestriction(SqlRowSet sql){
         Restriction restriction = new Restriction();
         restriction.setId(sql.getInt("restriction_id"));
@@ -83,4 +91,5 @@ public class JdbcRestrictionDao implements RestrictionDao {
         restriction.setName(sql.getString("restriction_name"));
         return restriction;
     }
+
 }

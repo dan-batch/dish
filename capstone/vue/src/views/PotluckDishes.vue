@@ -14,6 +14,7 @@
         class="dish-column"
         v-for="category in pluckCats"
         :key="category.catId"
+        :categoryID="category.catId"
         :title="category.catName"
         :dishes="pluckDishes.filter((d) => d.dishCatId === category.catId)"
         :limit="category.limit"
@@ -91,44 +92,6 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-.potluck-dishes {
-  margin: 30px;
-}
-.header-container {
-  display: grid;
-  justify-content: center;
-  height: 100px;
-  border: 2px #6b3e0a solid;
-  border-radius: 20px;
-  background-image: var(--headerImage);
-}
-.header {
-  padding: 0;
-  background: transparent;
-  text-shadow: 0px 1px, 1px 0px, 1px 1px #fff;
-}
-.where-when {
-  display: flex;
-  justify-content: space-between;
-}
-.categories-description {
-  display: flex;
-  flex-wrap: nowrap;
-}
-.description-container {
-  margin: 10px;
-  padding: 5px;
-  width: 16.6%;
-}
-.dish-column {
-  width: 16.6%;
-  margin: 10px;
-  padding: 5px;
-}
-.description-header {
-  text-align: center;
-=======
 @media only screen and (max-width: 768px) {
   .potluck-dishes {
     margin: 30px;
@@ -206,7 +169,6 @@ export default {
     height: 32px;
     width: 125px;
   }
->>>>>>> ccfb85151b2ffadd730582806802b0b5ec7b6fe0
 }
 
 @media only screen and (min-width: 768px) {

@@ -68,6 +68,7 @@
 import dishService from "../services/DishService";
 import dietaryRestrictionsService from "../services/DietaryRestrictionsService";
 export default {
+  props: ["catID"],
   name: "my-profile",
   data() {
     return {
@@ -176,7 +177,8 @@ export default {
   grid-area: "ga-DishName";
 }
 
-#dishName-input {
+#dishName-input,
+#dishUserName-input {
   border-radius: 10px;
   background-color: white;
   height: 40px;
@@ -200,10 +202,10 @@ export default {
 .Description {
   grid-area: "ga-Description";
 }
-#description-input {
+#dishDescription-input {
   border-radius: 10px;
   background-color: white;
-  height: 225px;
+  height: 175px;
   width: 225px;
   border: none;
   border-radius: 20px;

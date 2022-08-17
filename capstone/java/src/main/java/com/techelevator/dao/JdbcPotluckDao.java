@@ -22,7 +22,7 @@ public class JdbcPotluckDao implements PotluckDao {
 
     @Override
     public List<Potluck> getAllPlucks() {
-        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
+        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place, pluck_banner " +
                 "FROM pluck";
         SqlRowSet allPlucks = jdbcTemplate.queryForRowSet(sql);
         List<Potluck> pluckList = new ArrayList<>();
@@ -35,7 +35,7 @@ public class JdbcPotluckDao implements PotluckDao {
 
     @Override
     public Potluck getPluckById(int pluckId) {
-        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place " +
+        String sql = "SELECT pluck_id, pluck_name, pluck_description, pluck_date_time, pluck_place, pluck_banner " +
                 "FROM pluck WHERE pluck_id = ?";
 
         SqlRowSet pluckById = jdbcTemplate.queryForRowSet(sql, pluckId);
@@ -69,11 +69,11 @@ public class JdbcPotluckDao implements PotluckDao {
     }
 
     @Override
-    public Integer createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace, String pluckDescription) {
-        String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place, pluck_description) " +
-                "VALUES (?,?,?,?) " +
+    public Integer createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace, String pluckDescription, String pluckImageURL) {
+        String sql = "INSERT INTO pluck (pluck_name, pluck_date_time, pluck_place, pluck_description, pluck_banner) " +
+                "VALUES (?,?,?,?,?) " +
                 "RETURNING pluck_id";
-        return jdbcTemplate.queryForObject(sql,Integer.class,pluckName,pluckTime,pluckPlace,pluckDescription);
+        return jdbcTemplate.queryForObject(sql,Integer.class,pluckName,pluckTime,pluckPlace,pluckDescription,pluckImageURL);
     }
 
     @Override
@@ -141,6 +141,7 @@ public class JdbcPotluckDao implements PotluckDao {
         pluck.setPluckId(pluckRowSet.getInt("pluck_id"));
         pluck.setPluckName(pluckRowSet.getString("pluck_name"));
         pluck.setPluckDescription(pluckRowSet.getString("pluck_description"));
+        pluck.setPluckImageURL(pluckRowSet.getString("pluck_banner"));
         if (pluckRowSet.getTimestamp("pluck_date_time") != null) {
             pluck.setPluckTime(pluckRowSet.getTimestamp("pluck_date_time").toLocalDateTime());
         } else {

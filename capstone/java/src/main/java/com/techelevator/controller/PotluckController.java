@@ -46,7 +46,9 @@ public class PotluckController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")
     public Integer createPluck(@Valid @RequestBody Potluck potluck) {
-        return potluckDao.createPluck(potluck.getPluckName(), potluck.getPluckTime(), potluck.getPluckPlace(), potluck.getPluckDescription());
+        return potluckDao.createPluck(potluck.getPluckName(),
+                potluck.getPluckTime(), potluck.getPluckPlace(),
+                potluck.getPluckDescription(), potluck.getPluckImageURL());
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -69,6 +71,5 @@ public class PotluckController {
     public boolean addCat(@RequestBody AddCatToPluckDTO newCat){
         return potluckDao.addCat(newCat.getPluckId(), newCat.getCatId(), newCat.getLimit());
     }
-
 
 }

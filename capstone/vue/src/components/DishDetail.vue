@@ -19,7 +19,7 @@
     </ul>
     <router-link
       tag="button"
-      :to="{ name: 'CreateDish', params: { dishID: $route.params.dishID } }"
+      :to="{ name: 'CreateDish', params: { dishId: $route.params.dishId } }"
       class="btn editDish"
       >Edit Dish</router-link
     >
@@ -33,6 +33,7 @@ export default {
   name: "dish-detail",
   data() {
     return {
+      dishId: this.$store.state.dish.dishId,
       userName: this.$store.state.dish.userName,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,

@@ -9,6 +9,8 @@ import CreatePotluck from '../views/CreatePotluck'
 import CreateDish from '../views/CreateDish'
 import PotluckDishes from '../views/PotluckDishes'
 import store from '../store/index'
+// import DishService from '../services/DishService'
+import Dish from '../views/Dish'
 
 
 
@@ -85,6 +87,11 @@ const router = new Router({
       name: 'potluck-dishes',
       component: PotluckDishes,
     },
+    {
+      path: '/dish/:id',
+      name: 'dish-detail',
+      component: Dish,
+    }
   ]
 })
 

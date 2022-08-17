@@ -4,17 +4,19 @@
     <h1>{{ dish.dishName }}</h1>
     <p>{{ dish.servings }} Servings</p>
     <p>{{ dish.details }}</p>
-     <h3 class="dietary-restrictions">This dish will be:</h3>
-      <ul class="dietary-restriction-list">
-        <li v-for="restriction in selectedRestrictions" :key="restriction.id">
-          <div class="restrictionBorder">
-            <span
-              :id="restriction.abbreviation + '-icon'"
-              class="dietary-restriction-icon"
-              >{{ restriction.abbreviation }}</span
-            >
-             <span class="dietary-restriction-name">{{ restriction.name }}</span>
-          </div>
+    <h3 class="dietary-restrictions">This dish will be:</h3>
+    <ul class="dietary-restriction-list">
+      <li v-for="restriction in selectedRestrictions" :key="restriction.id">
+        <div class="restrictionBorder">
+          <span
+            :id="restriction.abbreviation + '-icon'"
+            class="dietary-restriction-icon"
+            >{{ restriction.abbreviation }}</span
+          >
+          <span class="dietary-restriction-name">{{ restriction.name }}</span>
+        </div>
+      </li>
+    </ul>
     <router-link
       tag="button"
       :to="{ name: 'CreateDish', params: { dishID: $route.params.dishID } }"

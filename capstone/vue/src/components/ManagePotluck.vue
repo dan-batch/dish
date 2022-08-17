@@ -84,6 +84,7 @@
             :key="image.id"
             :src="image.url"
             :value="image.id"
+            :class="bannerSelectionClass(image.id)"
             @click="selectBanner(image.id)"
           />
         </div>
@@ -142,6 +143,12 @@ export default {
       this.selectedBanner = bannerID;
       this.$forceUpdate();
       console.log(bannerID);
+    },
+    bannerSelectionClass(bannerID) {
+      if (this.selectedBanner === bannerID) {
+        return "selected-banner";
+      }
+      return "";
     },
     resetCategories() {
       this.potluckCategories.forEach((c) => {
@@ -343,6 +350,10 @@ export default {
       "save-or-cancel";
     padding-bottom: 25px;
   }
+}
+
+.selected-banner {
+  border-color: #f58634;
 }
 
 @media only screen and (min-width: 768px) {

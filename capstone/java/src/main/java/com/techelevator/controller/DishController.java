@@ -5,6 +5,7 @@ import com.techelevator.model.AddRestrictionToDishDTO;
 import com.techelevator.model.Category;
 import com.techelevator.model.Dish;
 import com.techelevator.model.Potluck;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,11 +29,13 @@ public class DishController {
         return dishDao.getAllDishes();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")
     public boolean createDish(@RequestBody @Valid Dish dish) {
         return dishDao.createDish(dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName());
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping(path="/update/{dishId}")
     public boolean updateDish(@RequestBody @Valid Dish dish, @PathVariable int dishId){
         return dishDao.updateDish(dishId, dish.getDishDescription(), dish.getDishName(), dish.getServings());
@@ -68,11 +71,13 @@ public class DishController {
         return dishDao.getPluckByDishId(dishId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping(path = "/addRestriction")
     public boolean addRestriction(@RequestBody AddRestrictionToDishDTO newCat) {
         return dishDao.addRestriction(newCat.getDishId(), newCat.getRestrictionId());
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping(path = "/delete/{dishId}")
     public boolean deleteDish(@PathVariable int dishId){return dishDao.deleteDish(dishId);}
 

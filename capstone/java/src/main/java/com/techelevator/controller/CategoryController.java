@@ -33,6 +33,7 @@ public class CategoryController {
         return categoryDao.getAllCatsByPluck(pluckId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping(path = "/updateLimit")
     public boolean updateLimit(@RequestBody AddCatToPluckDTO update) {
         return categoryDao.updateLimit(update.getPluckId(), update.getCatId(), update.getLimit());

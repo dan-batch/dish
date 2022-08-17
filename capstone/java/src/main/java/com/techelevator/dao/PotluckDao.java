@@ -13,11 +13,9 @@ public interface PotluckDao {
 
     List<Potluck> getAllPlucksByUser(int userId);
 
+    Integer createPluck(String pluckName, LocalDateTime pluckTime, String pluckPlace, String pluckDescription, String pluckImageURL);
 
-    Integer createPluck (String pluckName,
-                         LocalDateTime pluckTime, String pluckPlace, String pluckDescription);
-
-    Boolean updatePluck(int pluckId, String pluckName, String pluckDescription, LocalDateTime pluckTime,  String pluckPlace);
+    Boolean updatePluck(int pluckId, String pluckName, String pluckDescription, LocalDateTime pluckTime, String pluckPlace);
 
     Potluck getPluckById(int pluckId);
 

@@ -26,6 +26,8 @@ public class Potluck {
     private String pluckDescription;
     private List<Integer> pluckDishes;
     private List<Integer> pluckCats;
+    private String pluckImageURL;
+
 
     public Potluck(int pluckId, String pluckName) {
         this.pluckId = pluckId;
@@ -89,5 +91,17 @@ public class Potluck {
 
     public void setPluckCats(List<Integer> pluckCats) {
         this.pluckCats = pluckCats;
+    }
+
+    public static DateTimeFormatter getFormat() {
+        return format;
+    }
+
+    public String getPluckImageURL() {
+        return pluckImageURL;
+    }
+
+    public void setPluckImageURL(String pluckImageURL) {
+        this.pluckImageURL = pluckImageURL;
     }
 }

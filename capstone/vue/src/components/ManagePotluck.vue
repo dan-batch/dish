@@ -65,6 +65,7 @@
               :name="category.catId + '-selector'"
               :id="category.catId + '-selector'"
               :disabled="!catIsSelected(category.catId)"
+              v-model="category.limit"
             >
               <option
                 v-for="quantity in catQuantities"
@@ -153,6 +154,9 @@ export default {
         pluckPlace: this.potluckLocation,
         pluckTime: this.potluckDateTime,
         pluckDescription: this.potluckDescription,
+        pluckImageURL: this.bannerImages.find(
+          (i) => i.id === this.selectedBanner
+        ).url,
       };
       potluckService
         .createPotluck(newPotluck)

@@ -35,6 +35,14 @@ export default {
 </script>
 
 <style>
+@media only screen and (max-width: 768px) {
+  .dishes {
+    display: flex;
+    flex-flow: row wrap;
+    flex-grow: 1;
+    width: 18em;
+  }
+}
 .dish {
   background-color: white;
   padding: 5px;
@@ -46,5 +54,9 @@ p {
 }
 .servings p {
   font-size: 0.8rem;
+}
+
+h4 {
+  text-align: center;
 }
 </style>

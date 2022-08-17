@@ -71,12 +71,12 @@ export default {
   name: "my-profile",
   data() {
     return {
-      userName: this.$store.state.dish.userName,
+      dishUserName: this.$store.state.dish.dishUserName,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
       selectedRestrictions: this.selectRestrictions(),
-      description: this.$store.state.dish.description,
+      dishDescription: this.$store.state.dish.dishDescription,
     };
   },
 
@@ -85,11 +85,11 @@ export default {
       let dishID = this.$store.state.dish.id;
       let updatedDish = {
         authorities: this.$store.state.dish.authorities,
-        userName: this.userName,
-        id: dishID,
+        dishUserName: this.dishUserName,
+        dishId: dishID,
         dishName: this.dishName,
         servings: this.servings,
-        description: this.description,
+        dishDescription: this.dishDescription,
       };
       updatedDish.authorities = this.$store.state.dish.authorities;
       dishService

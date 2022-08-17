@@ -1,10 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.DishDao;
-import com.techelevator.model.AddRestrictionToDishDTO;
-import com.techelevator.model.Category;
-import com.techelevator.model.Dish;
-import com.techelevator.model.Potluck;
+import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +29,13 @@ public class DishController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")
     public boolean createDish(@RequestBody @Valid Dish dish) {
-        return dishDao.createDish(dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName());
+        return dishDao.createDish(dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName(), dish.getUsername());
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(path="/update/{dishId}")
     public boolean updateDish(@RequestBody @Valid Dish dish, @PathVariable int dishId){
-        return dishDao.updateDish(dishId, dish.getDishDescription(), dish.getDishName(), dish.getServings());
+        return dishDao.updateDish(dishId, dish.getDishDescription(), dish.getDishName(), dish.getServings(), dish.getUsername());
     }
 
     @GetMapping(path = "/dish{dishId}")
@@ -80,6 +77,9 @@ public class DishController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping(path = "/delete/{dishId}")
     public boolean deleteDish(@PathVariable int dishId){return dishDao.deleteDish(dishId);}
+
+//    @GetMapping(path = "/restrictions/{dishId}")
+//    public List<Restriction> getRestrictionsByDish(@PathVariable int dishId){return dishDao.getRestrictionsByDish(dishId);}
 
 
 }

@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Category;
 import com.techelevator.model.Dish;
 import com.techelevator.model.Potluck;
+import com.techelevator.model.Restriction;
 import com.techelevator.model.exceptions.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -22,7 +23,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public List<Dish> getAllDishes() {
-        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish";
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, username, servings, description FROM pluck_dish";
         SqlRowSet allDishes = jdbcTemplate.queryForRowSet(sql);
         List<Dish> dishList = new ArrayList<>();
 
@@ -33,10 +34,10 @@ public class JdbcDishDao implements DishDao {
     }
 
     @Override
-    public Boolean createDish(int pluckId, int catId, int userId, String dishName) {
-        String sql = "INSERT INTO pluck_dish (pluck_id, cat_id, user_id, dish_name) VALUES (?,?,?,?)";
+    public Boolean createDish(int pluckId, int catId, int userId, String dishName, String username) {
+        String sql = "INSERT INTO pluck_dish (pluck_id, cat_id, user_id, dish_name) VALUES (?,?,?,?,?)";
         try {
-            if (jdbcTemplate.update(sql, pluckId, catId, userId, dishName) == 1) {
+            if (jdbcTemplate.update(sql, pluckId, catId, userId, dishName, username) == 1) {
                 return true;
             } else {
                 System.err.println("The dish could not be created");
@@ -52,10 +53,10 @@ public class JdbcDishDao implements DishDao {
     }
 
     @Override
-    public Boolean updateDish(int dishId, String dishDescription, String dishName, int servings) {
-        String sql = "UPDATE pluck_dish SET description=?, dish_name=?, servings=? WHERE dishId=?";
+    public Boolean updateDish(int dishId, String dishDescription, String dishName, int servings, String username) {
+        String sql = "UPDATE pluck_dish SET description=?, dish_name=?, servings=?, username=? WHERE dishId=?";
         try {
-            if (jdbcTemplate.update(sql, dishDescription, dishName, servings, dishId) == 1) {
+            if (jdbcTemplate.update(sql, dishDescription, dishName, servings, username, dishId) == 1) {
                 return true;
             } else {
                 System.err.println("The dish could not be updated");
@@ -68,7 +69,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public Dish getDishById(int dishId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, username, description FROM pluck_dish " +
                 "WHERE dish_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, dishId);
@@ -82,7 +83,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public List<Dish> getDishesByUserAndPluck(int userId, int pluckId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, username, description FROM pluck_dish " +
                 "WHERE user_id = ? AND pluck_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, userId, pluckId);
@@ -102,7 +103,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public List<Dish> getDishesByPluckId(int pluckId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, username, description FROM pluck_dish " +
                 "WHERE pluck_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, pluckId);
@@ -119,7 +120,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public List<Dish> getDishesByCatAndPluck(int catId, int pluckId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, username, description FROM pluck_dish " +
                 "WHERE cat_id = ? AND pluck_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, catId, pluckId);
@@ -202,6 +203,7 @@ public class JdbcDishDao implements DishDao {
         }
     }
 
+
     private Dish mapRowToDish(SqlRowSet dishRowSet) {
         Dish dish = new Dish();
         dish.setDishId(dishRowSet.getInt("dish_id"));
@@ -210,6 +212,7 @@ public class JdbcDishDao implements DishDao {
         dish.setDishUserId(dishRowSet.getInt("user_id"));
         dish.setDishName(dishRowSet.getString("dish_name"));
         dish.setServings(dishRowSet.getInt("servings"));
+        dish.setUsername(dishRowSet.getString("username"));
         dish.setDishDescription(dishRowSet.getString("description"));
         return dish;
     }

@@ -9,7 +9,7 @@
         v-on:click="viewDishDetails(dish.dishId)"
       >
         <div class="username">
-          <p>{{ dish.userName }}</p>
+          <p>{{ dish.username }}</p>
         </div>
         <div class="dish-name">
           <p>{{ dish.dishName }}</p>

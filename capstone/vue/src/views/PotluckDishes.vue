@@ -44,7 +44,7 @@ export default {
         pluckId: null,
         pluckName: "",
         pluckPlace: "",
-        pluckTime: null,
+        pluckTime: "",
         pluckDescription: "",
         pluckDishes: [],
         pluckCats: null,
@@ -52,8 +52,9 @@ export default {
       categories: this.$store.state.categories,
     };
   },
-  created() {
+  beforeCreate() {
     potluckService.getPotluck(this.$route.params.id).then((r) => {
+      console.log("got response");
       this.potluck = r.data;
       let pluckTime = new Date(this.potluck.pluckTime);
       this.potluck.pluckTime = pluckTime;

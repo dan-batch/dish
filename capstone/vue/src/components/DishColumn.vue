@@ -5,8 +5,8 @@
       <div
         class="dish"
         v-for="dish in dishes"
-        v-bind:key="dish.id"
-        v-on:click="viewDishDetails(dish.id)"
+        v-bind:key="dish.dishId"
+        v-on:click="viewDishDetails(dish.dishId)"
       >
         <div class="username">
           <p>{{ dish.userName }}</p>

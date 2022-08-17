@@ -16,6 +16,7 @@
         :key="category.catId"
         :title="category.catName"
         :dishes="pluckDishes.filter((d) => d.dishCatId === category.catId)"
+        :limit="category.limit"
       ></dish-column>
 
       <!-- Description -->
@@ -126,6 +127,85 @@ export default {
 }
 .description-header {
   text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .potluck-dishes {
+    margin: 30px;
+  }
+  .header-container {
+    display: grid;
+    justify-content: center;
+    height: 100px;
+    border: 2px #6b3e0a solid;
+    border-radius: 20px;
+    background-image: var(--headerImage);
+  }
+  .header {
+    padding: 0;
+    background: transparent;
+  }
+  .where-when {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .categories-description {
+    display: flex;
+    flex-direction: column;
+  }
+  .description-container {
+    margin: 10px;
+    padding: 5px;
+    width: 16.6%;
+  }
+  .dish-column {
+    width: 16.6%;
+    margin: 10px;
+    padding: 5px;
+  }
+  .description-header {
+    text-align: center;
+  }
+  .description-body {
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+    width: 16em;
+  }
+
+  p {
+    background-color: transparent;
+    font-weight: 900;
+  }
+
+  textarea {
+    width: 22em;
+    background-color: white;
+  }
+
+  #emailButton {
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 18px;
+    color: white;
+    background-color: #9dcd5a;
+    height: 32px;
+    width: 125px;
+    text-align: center;
+  }
+
+  #resetButton {
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 18px;
+    color: white;
+    background-color: #f58634;
+    height: 32px;
+    width: 125px;
+  }
 }
 
 @media only screen and (min-width: 768px) {

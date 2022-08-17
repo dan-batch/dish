@@ -39,9 +39,9 @@ INSERT INTO users (email,first_name,last_name,password_hash,role) VALUES ('user3
 
 INSERT INTO user_restrictions (user_id, restriction_id) VALUES (1001, 2001), (1001, 2002), (1001, 2008);
 
-INSERT INTO pluck (pluck_name, pluck_description, pluck_date_time, pluck_place) VALUES ('Happy Birthday, June!', 'Bring your favorite dishes to celebrate her big day!', '2022-09-03 17:30:00', '1242 Lathrop Way. Arnoldsburg, XX 12345');
-INSERT INTO pluck (pluck_name, pluck_description, pluck_date_time, pluck_place) VALUES ('BYOD!', 'I am hungry and do not feel like cooking. Bring me your best snacks!', '2022-09-10 18:00:00', '1566 Poplar Rd. Trainsville, XX 12345');
-INSERT INTO pluck (pluck_name, pluck_description, pluck_date_time, pluck_place) VALUES ('Dave and Linus, 10 years strong!', 'Dave and Linus are celebrating ten years! Bring a fancy drink and a dish to wish them well.', '2022-09-17 19:30:00', '5681 Nautilus Ave. Plainton, XX 12345');
+INSERT INTO pluck (pluck_name, pluck_description, pluck_date_time, pluck_place, pluck_banner) VALUES ('Happy Birthday, June!', 'Bring your favorite dishes to celebrate her big day!', '2022-09-03 17:30:00', '1242 Lathrop Way. Arnoldsburg, XX 12345', 'https://cdn.discordapp.com/attachments/965635046734168084/1009516049747681411/pink_bubbles.png');
+INSERT INTO pluck (pluck_name, pluck_description, pluck_date_time, pluck_place, pluck_banner) VALUES ('BYOD!', 'I am hungry and do not feel like cooking. Bring me your best snacks!', '2022-09-10 18:00:00', '1566 Poplar Rd. Trainsville, XX 12345', 'https://cdn.discordapp.com/attachments/965635046734168084/1009516050318102588/pool_party.png');
+INSERT INTO pluck (pluck_name, pluck_description, pluck_date_time, pluck_place, pluck_banner) VALUES ('Dave and Linus, 10 years strong!', 'Dave and Linus are celebrating ten years! Bring a fancy drink and a dish to wish them well.', '2022-09-17 19:30:00', '5681 Nautilus Ave. Plainton, XX 12345', 'https://cdn.discordapp.com/attachments/965635046734168084/1009516049122725898/confetti_ribbons.png');
 
 INSERT INTO pluck_cat (pluck_id, cat_id, cat_limit) VALUES ((SELECT pluck_id FROM pluck WHERE pluck_name = 'Happy Birthday, June!'), (SELECT cat_id FROM category WHERE cat_name = 'sides & snacks'), 6);
 INSERT INTO pluck_cat (pluck_id, cat_id, cat_limit) VALUES ((SELECT pluck_id FROM pluck WHERE pluck_name = 'Happy Birthday, June!'), (SELECT cat_id FROM category WHERE cat_name = 'main dishes'), 6);

@@ -17,12 +17,13 @@
           ><br />
           <input type="text" name="servings" id="servings-input" />
         </div>
-        <div class="Details">
-          <label for="details" id="detailsLabel">Anything Else to Add?</label
+        <div class="Description">
+          <label for="description" id="descriptionLabel"
+            >Anything Else to Add?</label
           ><br />
           <textarea
-            name="details"
-            id="details-input"
+            name="description"
+            id="description-input"
             placeholder=" Add details!
    List ingredients!
    Share your recipe!"
@@ -70,7 +71,7 @@ export default {
       servings: this.$store.state.dish.servings,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
       selectedRestrictions: this.selectRestrictions(),
-      details: this.$store.state.dish.details,
+      description: this.$store.state.dish.description,
     };
   },
 
@@ -191,10 +192,10 @@ export default {
   border-radius: 20px;
   margin: 5px;
 }
-.Details {
-  grid-area: "ga-Details";
+.Description {
+  grid-area: "ga-Description";
 }
-#details-input {
+#description-input {
   border-radius: 10px;
   background-color: white;
   height: 225px;
@@ -277,7 +278,7 @@ li {
     grid-template-areas:
       "ga-UserName"
       "ga-DishName"
-      "ga-Details"
+      "ga-Description"
       "ga-Restrictions"
       "ga-buttonGrid";
     justify-content: center;
@@ -298,7 +299,7 @@ li {
     grid-template-areas:
       "ga-UserName  ga-Restrictions"
       "ga-DishName  ga-Restrictions"
-      "ga-Details ga-Restrictions"
+      "ga-Description ga-Restrictions"
       "ga-buttonGrid  ga-buttonGrid";
     justify-content: center;
     align-items: center;

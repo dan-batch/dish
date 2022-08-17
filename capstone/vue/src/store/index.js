@@ -13,7 +13,7 @@ const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 const currentDish = JSON.parse(localStorage.getItem('dish'));
 const currentUserDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
-const currentDishDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+const currentDishDietaryRestrictions = JSON.parse(localStorage.getItem('DishDietaryRestrictions'));
 const defaultCategories = JSON.parse(localStorage.getItem('categories'));
 
 
@@ -170,9 +170,9 @@ export default new Vuex.Store({
       state.dietaryRestrictions = dietaryRestrictions;
       localStorage.setItem('dietaryRestrictions', JSON.stringify(dietaryRestrictions));
     },
-    SET_DISH_DIETARY_RESTRICTIONS(state, dietaryRestrictions) {
-      state.DishDietaryRestrictions = dietaryRestrictions;
-      localStorage.setItem('dietaryRestrictions', JSON.stringify(dietaryRestrictions));
+    SET_DISH_DIETARY_RESTRICTIONS(state, DishDietaryRestrictions) {
+      state.DishDietaryRestrictions = DishDietaryRestrictions;
+      localStorage.setItem('DishDietaryRestrictions', JSON.stringify(DishDietaryRestrictions));
     },
     UPDATE_DIETARY_RESTRICTIONS(state, selectedRestrictions) {
       state.dietaryRestrictions.forEach((r) => {

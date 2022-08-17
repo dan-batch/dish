@@ -36,7 +36,7 @@ export default {
       userName: this.$store.state.dish.userName,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,
-      dietaryRestrictions: this.$store.state.dietaryRestrictions,
+      DishDietaryRestrictions: this.$store.state.DishDietaryRestrictions,
       selectedRestrictions: this.selectRestrictions(),
       description: this.$store.state.dish.description,
     };

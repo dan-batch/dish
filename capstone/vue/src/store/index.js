@@ -129,19 +129,19 @@ export default new Vuex.Store({
     bannerImages: [
       {
         id: 1,
-        url: "https://bakingamoment.com/wp-content/uploads/2020/01/IMG_7173-white-bread-2-500x500.jpg"
+        url: "https://cdn.discordapp.com/attachments/965635046734168084/1009516049122725898/confetti_ribbons.png"
       },
       {
         id: 2,
-        url: "https://images.timberland.com/is/image/timberland/10361024-ALT4?wid=500&hei=500"
+        url: "https://cdn.discordapp.com/attachments/965635046734168084/1009516049747681411/pink_bubbles.png"
       },
       {
         id: 3,
-        url: "https://veenaazmanov.com/wp-content/uploads/2020/04/Pizza-Margherita14-500x500.jpg"
+        url: "https://cdn.discordapp.com/attachments/965635046734168084/1009516050318102588/pool_party.png"
       },
       {
         id: 4,
-        url: "https://i.ebayimg.com/images/g/IV0AAOSwb4JiLOQ5/s-l500.jpg"
+        url: "https://cdn.discordapp.com/attachments/965635046734168084/1009516050796261436/scribble_dots.png"
       },
     ]
   },

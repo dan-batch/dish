@@ -23,12 +23,7 @@
           <br />
           <router-link to="/upcoming_events" class="well"
             ><img src="../assets/bullet_point_arrow.png" class="bullet" />View
-            upcoming potluck events</router-link
-          >
-          <br />
-          <router-link to="/past_events" class="well"
-            ><img src="../assets/bullet_point_arrow.png" class="bullet" />View
-            past potluck events</router-link
+            your potlucks</router-link
           >
         </div>
       </div>

@@ -14,6 +14,7 @@
         class="dish-column"
         v-for="category in pluckCats"
         :key="category.catId"
+        :categoryID="category.catId"
         :title="category.catName"
         :dishes="pluckDishes.filter((d) => d.dishCatId === category.catId)"
         :limit="category.limit"

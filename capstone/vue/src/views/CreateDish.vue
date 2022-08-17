@@ -9,6 +9,7 @@
 import NewDishForm from "@/components/NewDishForm";
 
 export default {
+  props: ["catID"],
   components: {
     NewDishForm,
   },

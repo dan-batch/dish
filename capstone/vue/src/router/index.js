@@ -75,7 +75,7 @@ const router = new Router({
       },
     },
     {
-      path: "/createDish",
+      path: "/potluck/:id/createDish",
       name: "create-dish",
       component: CreateDish,
       meta: {
@@ -91,6 +91,7 @@ const router = new Router({
       path: '/dish/:dishId',
       name: 'dish',
       component: Dish,
+      // props: { catID: "" }
     }
   ]
 })

@@ -19,7 +19,15 @@
         </div>
       </div>
     </div>
-    <router-link to="/createDish" v-if="limit > dishes.length"
+    <router-link
+      :to="{
+        name: 'create-dish',
+        params: {
+          id: this.$route.params.id,
+          catID: categoryID,
+          catName: title,
+        },
+      }"
       >Add dish</router-link
     >
   </div>
@@ -28,11 +36,22 @@
 <script>
 export default {
   name: "dish-column",
-  props: ["title", "dishes", "dishID", "categoryID", "limit"],
+  props: ["title", "dishes", "dishID", "categoryID", "limit", "pluckID"],
   methods: {
     viewDishDetails(dishID) {
       this.$router.push(`/dish/${dishID}`);
     },
+    // addDish(catID) {
+    //   this.$router.push({
+    //     name: "create-dish",
+    //     params: {
+    //       id: this.pluckID,
+    //     },
+    //     props: {
+    //       catID: catID,
+    //     },
+    //   });
+    // },
   },
 };
 </script>

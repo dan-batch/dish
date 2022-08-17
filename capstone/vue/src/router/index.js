@@ -88,8 +88,8 @@ const router = new Router({
       component: PotluckDishes,
     },
     {
-      path: '/dish/:id',
-      name: 'dish-detail',
+      path: '/dish/:dishId',
+      name: 'dish',
       component: Dish,
     }
   ]

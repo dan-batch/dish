@@ -36,7 +36,6 @@ export default new Vuex.Store({
       dishName: 'Spinach Puffs',
       servings: 10,
       description: "Healthy and delicious!"
-
     },
     dietaryRestrictions: currentUserDietaryRestrictions || [
       {

@@ -2,11 +2,16 @@
   <form v-on:submit.prevent="submitForm" class="newDishForm">
     <div class="wholeDamnThing">
       <div class="leftSide">
-        <div class="UserName">
-          <label for="userName" id="userNameLabel"
+        <div class="DishUserName">
+          <label for="dishUserName" id="dishUserNameLabel"
             >Tell 'em who's bringing this dish!</label
           ><br />
-          <input type="text" name="userName" id="userName-input" required />
+          <input
+            type="text"
+            name="dishUserName"
+            id="dishUserName-input"
+            required
+          />
         </div>
         <div class="DishName">
           <label for="dishName" id="dishNameLabel">Name Your Dish:</label><br />
@@ -17,13 +22,13 @@
           ><br />
           <input type="text" name="servings" id="servings-input" />
         </div>
-        <div class="Description">
-          <label for="description" id="descriptionLabel"
+        <div class="dishDescription">
+          <label for="dishDescription" id="dishDescriptionLabel"
             >Anything Else to Add?</label
           ><br />
           <textarea
-            name="description"
-            id="description-input"
+            name="dishDescription"
+            id="dishDescription-input"
             placeholder=" Add details!
    List ingredients!
    Share your recipe!"
@@ -66,12 +71,12 @@ export default {
   name: "my-profile",
   data() {
     return {
-      userName: this.$store.state.dish.userName,
+      dishUserName: this.$store.state.dish.dishUserName,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
       selectedRestrictions: this.selectRestrictions(),
-      description: this.$store.state.dish.description,
+      dishDescription: this.$store.state.dish.dishDescription,
     };
   },
 
@@ -80,11 +85,11 @@ export default {
       let dishID = this.$store.state.dish.id;
       let updatedDish = {
         authorities: this.$store.state.dish.authorities,
-        userName: this.userName,
-        id: dishID,
+        dishUserName: this.dishUserName,
+        dishId: dishID,
         dishName: this.dishName,
         servings: this.servings,
-        description: this.description,
+        dishDescription: this.dishDescription,
       };
       updatedDish.authorities = this.$store.state.dish.authorities;
       dishService

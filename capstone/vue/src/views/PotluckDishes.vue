@@ -57,21 +57,12 @@ export default {
       this.potluck = r.data;
       let pluckTime = new Date(this.potluck.pluckTime);
       this.potluck.pluckTime = pluckTime;
-    });
-
-    potluckService.getPluckDishes(this.$route.params.id).then((r) => {
-      this.potluck.pluckDishes = r.data;
+      potluckService.getPluckDishes(this.$route.params.id).then((d) => {
+        this.potluck.pluckDishes = d.data;
+      });
     });
   },
-  computed: {
-    testCategoryColumns() {
-      let testArray = [];
-      for (let i = 1; i <= 5; i++) {
-        testArray.push(i);
-      }
-      return testArray;
-    },
-  },
+  computed: {},
   methods: {},
 };
 </script>

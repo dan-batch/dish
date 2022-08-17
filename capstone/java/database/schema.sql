@@ -78,6 +78,7 @@ CREATE SEQUENCE seq_dish_id
 	cat_id int NOT NULL, 
 	user_id int NOT NULL,
 	dish_name varchar(25) NOT NULL,
+	username varchar(25)
 	servings int,
 	description varchar(500),
 	CONSTRAINT PK_dish_id PRIMARY KEY (dish_id),

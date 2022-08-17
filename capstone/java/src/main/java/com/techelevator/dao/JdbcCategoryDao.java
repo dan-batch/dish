@@ -34,7 +34,9 @@ public class JdbcCategoryDao implements CategoryDao {
 
     @Override
     public List<Category> getAllCatsByPluck(int pluckId) {
-        String sql = "SELECT cat_id, cat_limit FROM pluck_cat WHERE pluck_id = ?";
+        String sql = "SELECT pc.cat_id, pc.cat_limit, c.cat_name FROM pluck_cat AS pc\n" +
+                "JOIN category AS c ON c.cat_id = pc.cat_id\n" +
+                "WHERE pluck_id = ?;";
         SqlRowSet catsByPluck = jdbcTemplate.queryForRowSet(sql, pluckId);
         List<Category> catsList = new ArrayList<>();
 
@@ -104,6 +106,7 @@ public class JdbcCategoryDao implements CategoryDao {
         Category cat = new Category();
         cat.setCatId(pluckCatRowSet.getInt("cat_id"));
         cat.setLimit(pluckCatRowSet.getInt("cat_limit"));
+        cat.setCatName(pluckCatRowSet.getString("cat_name"));
         return cat;
     }
 }

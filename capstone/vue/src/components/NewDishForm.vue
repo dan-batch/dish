@@ -2,11 +2,11 @@
   <form v-on:submit.prevent="submitForm" class="newDishForm">
     <div class="wholeDamnThing">
       <div class="leftSide">
-        <div class="UserName">
-          <label for="userName" id="userNameLabel"
+        <div class="username">
+          <label for="username" id="username"
             >Tell 'em who's bringing this dish!</label
           ><br />
-          <input type="text" name="userName" id="userName-input" required />
+          <input type="text" name="username" id="username-input" required />
         </div>
         <div class="DishName">
           <label for="dishName" id="dishNameLabel">Name Your Dish:</label><br />
@@ -17,13 +17,13 @@
           ><br />
           <input type="text" name="servings" id="servings-input" />
         </div>
-        <div class="Description">
-          <label for="description" id="descriptionLabel"
+        <div class="dishDescription">
+          <label for="dishDescription" id="dishDescriptionLabel"
             >Anything Else to Add?</label
           ><br />
           <textarea
-            name="description"
-            id="description-input"
+            name="dishDescription"
+            id="dishDescription-input"
             placeholder=" Add details!
    List ingredients!
    Share your recipe!"
@@ -66,12 +66,12 @@ export default {
   name: "my-profile",
   data() {
     return {
-      userName: this.$store.state.dish.userName,
+      username: this.$store.state.dish.username,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,
       dietaryRestrictions: this.$store.state.dietaryRestrictions,
       selectedRestrictions: this.selectRestrictions(),
-      description: this.$store.state.dish.description,
+      dishDescription: this.$store.state.dish.dishDescription,
     };
   },
 
@@ -80,11 +80,11 @@ export default {
       let dishID = this.$store.state.dish.id;
       let updatedDish = {
         authorities: this.$store.state.dish.authorities,
-        userName: this.userName,
-        id: dishID,
+        username: this.username,
+        dishId: dishID,
         dishName: this.dishName,
         servings: this.servings,
-        description: this.description,
+        dishDescription: this.dishDescription,
       };
       updatedDish.authorities = this.$store.state.dish.authorities;
       dishService
@@ -115,7 +115,7 @@ export default {
         });
     },
     cancelProfileChanges() {
-      this.userName = this.$store.state.dish.userName;
+      this.username = this.$store.state.dish.username;
       this.dishName = this.$store.state.dish.dishName;
       this.selectedRestrictions = this.selectRestrictions();
       this.servings = this.$store.state.dish.servings;
@@ -154,11 +154,11 @@ export default {
   margin-top: 0%;
   text-indent: 10px;
 }
-.UserName {
-  grid-area: "ga-UserName";
+.username {
+  grid-area: "ga-username";
 }
 
-#userName-input {
+#username-input {
   border-radius: 10px;
   background-color: white;
   height: 40px;
@@ -276,7 +276,7 @@ li {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
-      "ga-UserName"
+      "ga-username"
       "ga-DishName"
       "ga-Description"
       "ga-Restrictions"
@@ -297,7 +297,7 @@ li {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "ga-UserName  ga-Restrictions"
+      "ga-username  ga-Restrictions"
       "ga-DishName  ga-Restrictions"
       "ga-Description ga-Restrictions"
       "ga-buttonGrid  ga-buttonGrid";

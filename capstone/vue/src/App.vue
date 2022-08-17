@@ -2,14 +2,15 @@
   <div id="app">
     <div id="nav">
       <router-link v-bind:to="{ name: 'home' }" class="homeButton"
-        >Home</router-link
-      >
+        >Home
+      </router-link>
       &nbsp;|&nbsp;
       <router-link
         v-bind:to="{ name: 'logout' }"
         v-if="$store.state.token != ''"
         class="logoutButton"
-        >Logout</router-link
+      >
+        Logout</router-link
       >
     </div>
     <router-view style="margin-bottom: 50px" />

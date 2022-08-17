@@ -19,13 +19,16 @@
         </div>
       </div>
     </div>
+    <router-link to="/createDish" v-if="limit > dishes.length"
+      >Add dish</router-link
+    >
   </div>
 </template>
 
 <script>
 export default {
   name: "dish-column",
-  props: ["title", "dishes", "dishID", "categoryID"],
+  props: ["title", "dishes", "dishID", "categoryID", "limit"],
   methods: {
     viewDishDetails(dishID) {
       this.$router.push(`/dish/${dishID}`);

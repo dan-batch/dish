@@ -1,6 +1,6 @@
 <template>
   <div class="potluck-dishes">
-    <div class="header-container">
+    <div class="header-container" :style="cssVars">
       <h1 class="header">{{ potluck.pluckName }}</h1>
     </div>
     <div class="where-when">
@@ -78,7 +78,13 @@ export default {
       this.pluckCats = c.data;
     });
   },
-  computed: {},
+  computed: {
+    cssVars() {
+      return {
+        "--headerImage": "url(" + this.potluck.pluckImageURL + ")",
+      };
+    },
+  },
   methods: {},
 };
 </script>
@@ -93,7 +99,7 @@ export default {
   height: 100px;
   border: 2px #6b3e0a solid;
   border-radius: 20px;
-  background-image: url({{this.potluck.pluckImageURL}});
+  background-image: var(--headerImage);
 }
 .header {
   padding: 0;

@@ -93,6 +93,7 @@ export default {
 .header {
   padding: 0;
   background: transparent;
+  text-shadow: 0px 1px, 1px 0px, 1px 1px #fff;
 }
 .where-when {
   display: flex;

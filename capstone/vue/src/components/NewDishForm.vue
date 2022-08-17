@@ -2,11 +2,16 @@
   <form v-on:submit.prevent="submitForm" class="newDishForm">
     <div class="wholeDamnThing">
       <div class="leftSide">
-        <div class="UserName">
-          <label for="userName" id="userNameLabel"
+        <div class="DishUserName">
+          <label for="dishUserName" id="dishUserNameLabel"
             >Tell 'em who's bringing this dish!</label
           ><br />
-          <input type="text" name="userName" id="userName-input" required />
+          <input
+            type="text"
+            name="dishUserName"
+            id="dishUserName-input"
+            required
+          />
         </div>
         <div class="DishName">
           <label for="dishName" id="dishNameLabel">Name Your Dish:</label><br />
@@ -17,13 +22,13 @@
           ><br />
           <input type="text" name="servings" id="servings-input" />
         </div>
-        <div class="Description">
-          <label for="description" id="descriptionLabel"
+        <div class="dishDescription">
+          <label for="dishDescription" id="dishDescriptionLabel"
             >Anything Else to Add?</label
           ><br />
           <textarea
-            name="description"
-            id="description-input"
+            name="dishDescription"
+            id="dishDescription-input"
             placeholder=" Add details!
    List ingredients!
    Share your recipe!"

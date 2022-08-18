@@ -147,7 +147,7 @@ export default {
   background-color: #f58634;
 }
 
-/* li {
+li {
   list-style: none;
   display: flex;
 }
@@ -171,9 +171,8 @@ export default {
 }
 
 .dietary-restriction-name {
-  background-color: white;
   padding-left: 5px;
   margin-top: 6px;
   font-weight: bold;
-} */
+}
 </style>

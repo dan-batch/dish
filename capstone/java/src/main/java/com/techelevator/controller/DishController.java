@@ -32,7 +32,7 @@ public class DishController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")
     public boolean createDish(@RequestBody @Valid Dish dish) {
-        return dishDao.createDish(dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName(), dish.getUsername());
+        return dishDao.createDish(dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName(), dish.getDishDescription(), dish.getServings());
     }
 
     @ResponseStatus(HttpStatus.OK)

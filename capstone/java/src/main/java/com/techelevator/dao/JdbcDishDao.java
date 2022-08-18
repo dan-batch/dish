@@ -3,7 +3,6 @@ package com.techelevator.dao;
 import com.techelevator.model.Category;
 import com.techelevator.model.Dish;
 import com.techelevator.model.Potluck;
-import com.techelevator.model.Restriction;
 import com.techelevator.model.exceptions.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -34,10 +33,11 @@ public class JdbcDishDao implements DishDao {
     }
 
     @Override
-    public Boolean createDish(int pluckId, int catId, int userId, String dishName, String username) {
-        String sql = "INSERT INTO pluck_dish (pluck_id, cat_id, user_id, dish_name) VALUES (?,?,?,?,?)";
+    public Boolean createDish(int pluckId, int catId, int userId, String dishName, String dishDescription, int servings) {
+        String sql = "INSERT INTO pluck_dish (pluck_id, cat_id, user_id, dish_name, description, servings) " +
+                "VALUES (?,?,?,?,?,?)";
         try {
-            if (jdbcTemplate.update(sql, pluckId, catId, userId, dishName, username) == 1) {
+            if (jdbcTemplate.update(sql, pluckId, catId, userId, dishName,dishDescription,servings) == 1) {
                 return true;
             } else {
                 System.err.println("The dish could not be created");

@@ -11,8 +11,9 @@ public interface DishDao {
     List<Dish> getAllDishes();
    //list of all dishes added across whole site
 
-    Boolean createDish(int pluckId, int catId, int userId, String dishName, String username);
     //create a new dish
+
+    Boolean createDish(int pluckId, int catId, int userId, String dishName, String dishDescription, int servings);
 
     Boolean updateDish(int dishId, String dishDescription, String dishName, int servings, String username);
 

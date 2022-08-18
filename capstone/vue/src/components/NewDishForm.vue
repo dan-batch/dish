@@ -1,78 +1,86 @@
 <template>
-  <form v-on:submit.prevent="saveDish()" class="newDishForm">
-    <div class="dish-info">
-      <div class="leftSide">
-        <div class="username">
-          <label for="username" id="username"
-            >Tell 'em who's bringing this dish!</label
-          ><br />
-          <input
-            type="text"
-            name="username"
-            id="username-input"
-            v-model="username"
-            required
-          />
-        </div>
-        <div class="DishName">
-          <label for="dishName" id="dishNameLabel">Name Your Dish:</label><br />
-          <input
-            type="text"
-            name="dishName"
-            id="dishName-input"
-            v-model="dish.dishName"
-            required
-          />
-        </div>
-        <div class="Servings">
-          <label for="servings" id="servingsLabel">How Many Servings?</label
-          ><br />
-          <input
-            type="number"
-            name="servings"
-            id="servings-input"
-            v-model="dish.servings"
-          />
-        </div>
-        <div class="dishDescription">
-          <label for="dishDescription" id="dishDescriptionLabel"
-            >Anything Else to Add?</label
-          ><br />
-          <textarea
-            name="dishDescription"
-            id="dishDescription-input"
-            placeholder="Add details! List ingredients! Share your recipe!"
-            rows="3"
-            v-model="dish.dishDescription"
-          />
+  <div class="new-dish-form">
+    <form v-on:submit.prevent="saveDish()" class="newDishForm">
+      <div class="dish-info">
+        <div class="leftSide">
+          <div class="username">
+            <label for="username" id="username"
+              >Tell 'em who's bringing this dish!</label
+            ><br />
+            <input
+              type="text"
+              name="username"
+              id="username-input"
+              v-model="username"
+              required
+            />
+          </div>
+          <div class="DishName">
+            <label for="dishName" id="dishNameLabel">Name Your Dish:</label
+            ><br />
+            <input
+              type="text"
+              name="dishName"
+              id="dishName-input"
+              v-model="dish.dishName"
+              required
+            />
+          </div>
+          <div class="Servings">
+            <label for="servings" id="servingsLabel">How Many Servings?</label
+            ><br />
+            <input
+              type="number"
+              name="servings"
+              id="servings-input"
+              v-model="dish.servings"
+            />
+          </div>
+          <div class="dishDescription">
+            <label for="dishDescription" id="dishDescriptionLabel"
+              >Anything Else to Add?</label
+            ><br />
+            <textarea
+              name="dishDescription"
+              id="dishDescription-input"
+              placeholder="Add details! List ingredients! Share your recipe!"
+              rows="3"
+              v-model="dish.dishDescription"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="restrictions">
-      <h3 class="dietary-restrictions">This dish will be:</h3>
-      <ul class="dietary-restriction-list">
-        <li v-for="restriction in dish.dishRestrictions" :key="restriction.id">
-          <div class="restrictionBorder">
-            <span
-              :id="restriction.abbreviation + '-icon'"
-              class="dietary-restriction-icon"
-              >{{ restriction.abbreviation }}</span
-            >
-            <span class="dietary-restriction-name">{{ restriction.name }}</span>
-          </div>
-          <input
-            type="checkbox"
-            :value="restriction.id"
-            v-model="restriction.active"
-          />
-        </li>
-      </ul>
-    </div>
-    <div class="buttonGrid">
-      <input type="submit" id="submitButton" value="Save Changes" />
-      <input type="reset" id="cancelButton" value="Discard Changes" />
-    </div>
-  </form>
+      <div class="restrictions">
+        <h3 class="dietary-restrictions">This dish will be:</h3>
+        <ul class="dietary-restriction-list">
+          <li
+            v-for="restriction in dish.dishRestrictions"
+            :key="restriction.id"
+          >
+            <div class="restrictionBorder">
+              <span
+                :id="restriction.abbreviation + '-icon'"
+                class="dietary-restriction-icon"
+                >{{ restriction.abbreviation }}</span
+              >
+              <span class="dietary-restriction-name">{{
+                restriction.name
+              }}</span>
+            </div>
+            <input
+              type="checkbox"
+              :value="restriction.id"
+              v-model="restriction.active"
+            />
+          </li>
+        </ul>
+      </div>
+      <div class="buttonGrid">
+        <input type="submit" id="submitButton" value="Save Changes" />
+        <input type="reset" id="cancelButton" value="Discard Changes" />
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -86,7 +94,6 @@ export default {
       dish: {
         dishName: "",
         servings: null,
-        dishRestrictions: [],
         dishDescription: "",
         dishCatId: this.$store.state.activeDish.dishCatId,
         dishPluckId: this.$route.params.id,
@@ -94,17 +101,22 @@ export default {
       },
       username: this.$store.state.user.email,
       catName: this.$route.params.catName,
+      dishRestrictions: [],
     };
   },
   created() {
     dietaryRestrictionsService.getRestrictionsList().then((r) => {
-      this.dish.dishRestrictions = r.data;
+      this.dishRestrictions = r.data;
     });
   },
   methods: {
     saveDish() {
       dishService.addDish(this.dish);
       console.log("saveDish");
+      this.$router.push({
+        name: "potluck-dishes",
+        params: { id: this.$route.params.id },
+      });
     },
     cancelChanges() {
       console.log("cancelChanges");
@@ -134,9 +146,6 @@ export default {
   margin-top: 0%;
   text-indent: 10px;
 }
-.username {
-  /* grid-area: "ga-username"; */
-}
 
 #username-input {
   border-radius: 10px;
@@ -146,9 +155,6 @@ export default {
   border: none;
   border-radius: 20px;
   margin: 5px;
-}
-.DishName {
-  /* grid-area: "ga-DishName"; */
 }
 
 input {
@@ -164,9 +170,6 @@ input {
   border: none;
   border-radius: 20px;
   margin: 5px;
-}
-.Servings {
-  /* grid-area: "ga-Servings"; */
 }
 #servings-input {
   border-radius: 10px;
@@ -192,7 +195,6 @@ input {
   padding-left: 50px;
 }
 ul {
-  /* grid-area: ga-list; */
   padding-left: 0%;
   padding-top: 0%;
 }
@@ -233,7 +235,6 @@ li {
   justify-content: center;
 }
 #submitButton {
-  /* grid-area: "ga-submit"; */
   background-color: #9dcd5a;
   border-radius: 15px;
   border-style: none;
@@ -244,7 +245,6 @@ li {
   font-weight: 900;
 }
 #cancelButton {
-  /* grid-area: "ga-cancel"; */
   background-color: #f58634;
   border-radius: 15px;
   border-style: none;

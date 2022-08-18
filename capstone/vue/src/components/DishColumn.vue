@@ -19,7 +19,13 @@
         </div>
       </div>
     </div>
-    <button v-if="limit > dishes.length" @click="addDish()">Add dish</button>
+    <button
+      class="add-dish-button"
+      v-if="limit > dishes.length"
+      @click="addDish()"
+    >
+      Add dish
+    </button>
   </div>
 </template>
 
@@ -47,6 +53,10 @@ export default {
 </script>
 
 <style>
+.add-dish-button {
+  text-decoration: underline;
+  border: none;
+}
 @media only screen and (max-width: 768px) {
   .dishes {
     display: flex;

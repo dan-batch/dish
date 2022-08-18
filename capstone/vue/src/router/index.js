@@ -91,7 +91,6 @@ const router = new Router({
       path: '/dish/:dishId',
       name: 'dish',
       component: Dish,
-      // props: { catID: "" }
     }
   ]
 })

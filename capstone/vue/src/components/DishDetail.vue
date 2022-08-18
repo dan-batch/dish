@@ -146,4 +146,34 @@ export default {
   width: 140px;
   background-color: #f58634;
 }
+
+/* li {
+  list-style: none;
+  display: flex;
+}
+
+.restrictionBorder {
+  background-color: white;
+  border-radius: 15px;
+  width: 150px;
+  height: 35px;
+  margin: 5px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.dietary-restriction-icon {
+  width: 20px;
+  border-radius: 50%;
+  margin-left: 5px;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.dietary-restriction-name {
+  background-color: white;
+  padding-left: 5px;
+  margin-top: 6px;
+  font-weight: bold;
+} */
 </style>

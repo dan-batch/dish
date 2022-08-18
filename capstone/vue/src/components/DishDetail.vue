@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="all">
     <h2>{{ dish.username }} is bringing:</h2>
     <h1>{{ dish.dishName }}</h1>
     <h3>Serving {{ dish.servings }}</h3>
-    <h3>{{ dish.dishDescription }}</h3>
+    <h3 class="description">"{{ dish.dishDescription }}"</h3>
     <h3 class="dietary-restrictions">This dish will be:</h3>
     <ul class="dietary-restriction-list">
       <li v-for="restriction in selectedRestrictions" :key="restriction.id">
@@ -15,14 +15,17 @@
         <span class="dietary-restriction-name">{{ restriction.name }}</span>
       </li>
     </ul>
-    <router-link
-      tag="button"
-      :to="{ name: 'CreateDish', params: { dishId: $route.params.dishId } }"
-      class="btn editDish"
-      >Edit Dish</router-link
-    >
-
-    <button class="btn deleteDish" v-on:click="deleteDish">Delete Dish</button>
+    <div class="buttons">
+      <router-link
+        tag="button"
+        :to="{ name: 'CreateDish', params: { dishId: $route.params.dishId } }"
+        class="btn-editDish"
+        >Edit Dish</router-link
+      >
+      <button class="btn-deleteDish" v-on:click="deleteDish">
+        Delete Dish
+      </button>
+    </div>
   </div>
 </template>
 
@@ -107,4 +110,42 @@ export default {
 </script>
 
 <style scoped>
+.all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.description {
+  font-style: italic;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-editDish {
+  border-radius: 16px;
+  border-style: none;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  background-color: #9dcd5a;
+  height: 32px;
+  width: 140px;
+  align-items: center;
+}
+
+.btn-deleteDish {
+  border-radius: 16px;
+  border-style: none;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+  height: 32px;
+  width: 140px;
+  background-color: #f58634;
+}
 </style>

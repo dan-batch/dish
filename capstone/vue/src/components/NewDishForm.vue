@@ -1,6 +1,10 @@
 <template>
   <div class="new-dish-form">
-    <form v-on:submit.prevent="saveDish()" class="newDishForm">
+    <form
+      v-on:submit.prevent="saveDish()"
+      @reset="cancelChanges()"
+      class="newDishForm"
+    >
       <div class="dish-info">
         <div class="leftSide">
           <div class="username">
@@ -53,10 +57,7 @@
       <div class="restrictions">
         <h3 class="dietary-restrictions">This dish will be:</h3>
         <ul class="dietary-restriction-list">
-          <li
-            v-for="restriction in dish.dishRestrictions"
-            :key="restriction.id"
-          >
+          <li v-for="restriction in dishRestrictions" :key="restriction.id">
             <div class="restrictionBorder">
               <span
                 :id="restriction.abbreviation + '-icon'"
@@ -120,6 +121,10 @@ export default {
     },
     cancelChanges() {
       console.log("cancelChanges");
+      this.$router.push({
+        name: "potluck-dishes",
+        params: { id: this.$route.params.id },
+      });
     },
   },
   computed: {},

@@ -8,6 +8,7 @@ import MyProfile from '../views/MyProfile'
 import CreatePotluck from '../views/CreatePotluck'
 import CreateDish from '../views/CreateDish'
 import PotluckDishes from '../views/PotluckDishes'
+// import UserPotlucks from '../views/UserPotlucks'
 import store from '../store/index'
 // import DishService from '../services/DishService'
 import Dish from '../views/Dish'
@@ -91,7 +92,12 @@ const router = new Router({
       path: '/dish/:dishId',
       name: 'dish',
       component: Dish,
-    }
+    },
+    // {
+    //   path: '/pluck/user:userId',
+    //   name: 'potlucks-by-user',
+    //   component: UserPotlucks,
+    // }
   ]
 })
 

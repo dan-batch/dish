@@ -18,7 +18,7 @@
     <div class="buttons">
       <router-link
         tag="button"
-        :to="{ name: 'CreateDish', params: { dishId: $route.params.dishId } }"
+        :to="{ name: 'EditDish', params: { dishId: $route.params.dishId } }"
         class="btn-editDish"
         >Edit Dish</router-link
       >

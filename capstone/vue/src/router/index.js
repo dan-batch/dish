@@ -11,6 +11,7 @@ import PotluckDishes from '../views/PotluckDishes'
 import store from '../store/index'
 // import DishService from '../services/DishService'
 import Dish from '../views/Dish'
+import EditDish from '../views/EditDish'
 
 
 
@@ -73,6 +74,11 @@ const router = new Router({
       meta: {
         requiresAuth: false
       },
+    },
+    {
+      path: '/dish/:dishId/edit',
+      name: "EditDish",
+      component: EditDish
     },
     {
       path: "/potluck/:id/createDish",

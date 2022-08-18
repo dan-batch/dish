@@ -121,12 +121,9 @@ export default {
   font-style: italic;
 }
 
-.buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
 .btn-editDish {
+  grid-area: "ga-edit";
+  margin-right: 7px;
   border-radius: 16px;
   border-style: none;
   font-weight: bold;
@@ -139,6 +136,7 @@ export default {
 }
 
 .btn-deleteDish {
+  grid-area: "ga-delete";
   border-radius: 16px;
   border-style: none;
   font-weight: 600;

@@ -30,6 +30,6 @@ export default {
     },
 
     getDishRestrictionIDs(dishID) {
-        return axios.get(`/dish/${dishID}`);
+        return axios.get(`/dish/${dishID}/restrictions`);
     }
 }

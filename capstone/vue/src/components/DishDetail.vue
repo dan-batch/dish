@@ -6,7 +6,7 @@
     <h3 class="description">"{{ dish.dishDescription }}"</h3>
     <h3 class="dietary-restrictions">This dish will be:</h3>
     <ul class="dietary-restriction-list">
-      <li v-for="restriction in selectedRestrictions" :key="restriction.id">
+      <li v-for="restriction in dishDietaryRestrictions" :key="restriction.id">
         <span
           :id="restriction.abbreviation + '-icon'"
           class="dietary-restriction-icon"
@@ -31,29 +31,15 @@
 
 <script>
 import dishService from "../services/DishService";
+import restrictionService from "../services/DietaryRestrictionsService";
 export default {
   name: "dish-detail",
   data() {
     return {
-      dishId: this.$store.state.dish.dishId,
-      username: this.$store.state.dish.username,
-      dishName: this.$store.state.dish.dishName,
-      servings: this.$store.state.dish.servings,
-      DishDietaryRestrictions: this.$store.state.DishDietaryRestrictions,
-      selectedRestrictions: this.selectRestrictions(),
-      dishDescription: this.$store.state.dish.dishDescription,
+      dishDietaryRestrictions: [],
     };
   },
   methods: {
-    selectRestrictions() {
-      let selected = [];
-      this.$store.state.DishDietaryRestrictions.forEach((r) => {
-        if (r.active) {
-          selected.push(r.id);
-        }
-      });
-      return selected;
-    },
     retrieveDish() {
       dishService
         .getDish(this.$route.params.dishId)
@@ -100,6 +86,20 @@ export default {
   },
   created() {
     this.retrieveDish();
+  },
+  mounted() {
+    restrictionService.getRestrictionsList().then((list) => {
+      dishService
+        .getDishRestrictionIDs(this.$store.state.dish.dishId)
+        .then((d) => {
+          list.data.forEach((r) => {
+            if (d.data.includes(r.id)) {
+              this.dishDietaryRestrictions.push(r);
+            }
+          });
+        });
+    });
+    console.log("created()");
   },
   computed: {
     dish() {

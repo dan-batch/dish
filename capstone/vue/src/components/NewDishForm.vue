@@ -93,6 +93,7 @@ export default {
   data() {
     return {
       dish: {
+        dishId: null,
         dishName: "",
         servings: null,
         dishDescription: "",
@@ -112,7 +113,16 @@ export default {
   },
   methods: {
     saveDish() {
-      dishService.addDish(this.dish);
+      dishService.addDish(this.dish).then((response) => {
+        this.dish.dishId = response.data;
+        this.dishRestrictions.forEach((restriction) => {
+          if (restriction.active) {
+            dishService.addRestrictionToDish(restriction.id, this.dish.dishId);
+          }
+        });
+        this.$store.commit("SET_DISH", this.dish);
+      });
+
       console.log("saveDish");
       this.$router.push({
         name: "potluck-dishes",

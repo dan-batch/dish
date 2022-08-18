@@ -13,7 +13,7 @@ public interface DishDao {
 
     //create a new dish
 
-    Boolean createDish(int pluckId, int catId, int userId, String dishName, String dishDescription, int servings);
+    int createDish(int pluckId, int catId, int userId, String dishName, String dishDescription, int servings);
 
     Boolean updateDish(int dishId, String dishDescription, String dishName, int servings, String username);
 
@@ -45,5 +45,5 @@ public interface DishDao {
     Boolean deleteDish(int dishId);
 
 
-
+    List<Integer> getDishRestrictionIds(int dishId);
 }

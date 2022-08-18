@@ -33,16 +33,12 @@ public class JdbcDishDao implements DishDao {
     }
 
     @Override
-    public Boolean createDish(int pluckId, int catId, int userId, String dishName, String dishDescription, int servings) {
+    public int createDish(int pluckId, int catId, int userId, String dishName, String dishDescription, int servings) {
         String sql = "INSERT INTO pluck_dish (pluck_id, cat_id, user_id, dish_name, description, servings) " +
-                "VALUES (?,?,?,?,?,?)";
+                "VALUES (?,?,?,?,?,?) " +
+                "RETURNING dish_id;";
         try {
-            if (jdbcTemplate.update(sql, pluckId, catId, userId, dishName,dishDescription,servings) == 1) {
-                return true;
-            } else {
-                System.err.println("The dish could not be created");
-                return false;
-            }
+            return jdbcTemplate.queryForObject(sql, int.class, pluckId, catId, userId, dishName,dishDescription,servings);
         } catch (PotluckNotFoundException p){
             throw new PotluckNotFoundException();
         }catch (CategoryNotFoundException c){
@@ -201,6 +197,21 @@ public class JdbcDishDao implements DishDao {
         } catch (DishNotFoundException d){
             throw new DishNotFoundException();
         }
+    }
+
+    @Override
+    public List<Integer> getDishRestrictionIds(int dishId) {
+        List<Integer> restrictionIds = new ArrayList<>();
+        String sql = "SELECT restriction_id\n" +
+                "FROM dish_restrictions\n" +
+                "WHERE dish_id = ?;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, dishId);
+
+        while(rowSet.next()) {
+            restrictionIds.add(rowSet.getInt("restriction_id"));
+        }
+
+        return restrictionIds;
     }
 
 

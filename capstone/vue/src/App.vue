@@ -26,4 +26,11 @@
   display: flex;
   justify-content: center;
 }
+
+.homeButton {
+  margin-right: 5px;
+}
+.logoutButton {
+  margin-left: 5px;
+}
 </style>

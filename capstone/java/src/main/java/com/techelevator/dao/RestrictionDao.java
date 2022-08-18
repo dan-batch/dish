@@ -13,4 +13,5 @@ public interface RestrictionDao {
 
     List<Restriction> getRestrictionsByDish(int dishId);
 
+    List<Restriction> getRestrictionsList();
 }

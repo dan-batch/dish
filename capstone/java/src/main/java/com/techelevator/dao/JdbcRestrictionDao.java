@@ -84,6 +84,19 @@ public class JdbcRestrictionDao implements RestrictionDao {
         return null;
     }
 
+    @Override
+    public List<Restriction> getRestrictionsList(){
+        List<Restriction> restrictionList = new ArrayList<>();
+        String sql = "SELECT * FROM restrictions;";
+        SqlRowSet restrictionRowSet = jdbcTemplate.queryForRowSet(sql);
+
+        while (restrictionRowSet.next()) {
+            restrictionList.add(mapRowToRestriction(restrictionRowSet));
+        }
+
+        return restrictionList;
+    }
+
     private Restriction mapRowToRestriction(SqlRowSet sql){
         Restriction restriction = new Restriction();
         restriction.setId(sql.getInt("restriction_id"));

@@ -69,7 +69,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public Dish getDishById(int dishId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, username, description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
                 "WHERE dish_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, dishId);
@@ -103,7 +103,7 @@ public class JdbcDishDao implements DishDao {
 
     @Override
     public List<Dish> getDishesByPluckId(int pluckId) {
-        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, username, description FROM pluck_dish " +
+        String sql = "SELECT dish_id, pluck_id, cat_id, user_id, dish_name, servings, description FROM pluck_dish " +
                 "WHERE pluck_id = ?";
 
         SqlRowSet dishById = jdbcTemplate.queryForRowSet(sql, pluckId);
@@ -212,7 +212,7 @@ public class JdbcDishDao implements DishDao {
         dish.setDishUserId(dishRowSet.getInt("user_id"));
         dish.setDishName(dishRowSet.getString("dish_name"));
         dish.setServings(dishRowSet.getInt("servings"));
-        dish.setUsername(dishRowSet.getString("username"));
+//        dish.setUsername(dishRowSet.getString("username"));
         dish.setDishDescription(dishRowSet.getString("description"));
         return dish;
     }

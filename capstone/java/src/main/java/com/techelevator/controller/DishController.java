@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.DishDao;
+import com.techelevator.dao.RestrictionDao;
 import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,11 @@ import java.util.List;
 
 public class DishController {
     private DishDao dishDao;
+    private RestrictionDao restrictionDao;
 
-    private DishController(DishDao dishDao) {
+    private DishController(DishDao dishDao, RestrictionDao restrictionDao) {
         this.dishDao = dishDao;
+        this.restrictionDao = restrictionDao;
     }
 
     @GetMapping(path = "")
@@ -77,6 +80,11 @@ public class DishController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping(path = "/delete/{dishId}")
     public boolean deleteDish(@PathVariable int dishId){return dishDao.deleteDish(dishId);}
+
+    @GetMapping(path = "/dietaryRestrictions")
+    public List<Restriction> getAllRestrictions(){
+        return restrictionDao.getRestrictionsList();
+    }
 
 //    @GetMapping(path = "/restrictions/{dishId}")
 //    public List<Restriction> getRestrictionsByDish(@PathVariable int dishId){return dishDao.getRestrictionsByDish(dishId);}

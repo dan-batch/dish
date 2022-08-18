@@ -11,9 +11,9 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
-const currentDish = JSON.parse(localStorage.getItem('dish'));
+// const currentDish = JSON.parse(localStorage.getItem('dish'));
 const currentUserDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
-const currentDishDietaryRestrictions = JSON.parse(localStorage.getItem('DishDietaryRestrictions'));
+// const currentDishDietaryRestrictions = JSON.parse(localStorage.getItem('DishDietaryRestrictions'));
 const defaultCategories = JSON.parse(localStorage.getItem('categories'));
 
 
@@ -30,12 +30,6 @@ export default new Vuex.Store({
       imageURL: 'https://media-exp1.licdn.com/dms/image/C5603AQG11wYnSQ28ug/profile-displayphoto-shrink_800_800/0/1625681037290?e=1665619200&v=beta&t=YYcwiDfDxqJeZNyfPrxqKQMP5_9yZnLeiY1LxM85JfI',
       firstName: 'Carly',
       lastName: 'Trimboli',
-    },
-    dish: currentDish || {
-      username: 'Carly',
-      dishName: 'Spinach Puffs',
-      servings: 10,
-      dishDescription: "Healthy and delicious!"
     },
     dietaryRestrictions: currentUserDietaryRestrictions || [
       {
@@ -81,50 +75,17 @@ export default new Vuex.Store({
       },
 
     ],
-    DishDietaryRestrictions: currentDishDietaryRestrictions || [
-      {
-        id: 2001,
-        name: "Dairy-free",
-        abbreviation: "df",
-        active: false
-      }, {
-        id: 2002,
-        name: "Gluten-free",
-        abbreviation: "gf",
-        active: false
-      }, {
-        id: 2003,
-        name: "Halal",
-        abbreviation: "hl",
-        active: false
-      }, {
-        id: 2004,
-        name: "Kosher",
-        abbreviation: "k",
-        active: false
-      }, {
-        id: 2005,
-        name: "Low-carb",
-        abbreviation: "lc",
-        active: false
-      }, {
-        id: 2006,
-        name: "Nut-free",
-        abbreviation: "nf",
-        active: false
-      }, {
-        id: 2007,
-        name: "Vegan",
-        abbreviation: "vn",
-        active: false
-      }, {
-        id: 2008,
-        name: "Vegetarian",
-        abbreviation: "v",
-        active: false
-      },
-
-    ],
+    activeDish: {
+      dishId: null,
+      dishDescription: "",
+      dishName: "",
+      username: null,
+      dishUserId: null,
+      dishRestrictions: {},
+      dishCatId: null,
+      dishPluckId: null,
+      servings: null
+    },
     categories: defaultCategories || [],
     bannerImages: [
       {
@@ -155,10 +116,6 @@ export default new Vuex.Store({
       state.user = user;
       localStorage.setItem('user', JSON.stringify(user));
     },
-    SET_DISH(state, dish) {
-      state.dish = dish;
-      localStorage.setItem('dish', JSON.stringify(dish));
-    },
     LOGOUT(state) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -170,21 +127,7 @@ export default new Vuex.Store({
       state.dietaryRestrictions = dietaryRestrictions;
       localStorage.setItem('dietaryRestrictions', JSON.stringify(dietaryRestrictions));
     },
-    SET_DISH_DIETARY_RESTRICTIONS(state, DishDietaryRestrictions) {
-      state.DishDietaryRestrictions = DishDietaryRestrictions;
-      localStorage.setItem('DishDietaryRestrictions', JSON.stringify(DishDietaryRestrictions));
-    },
     UPDATE_DIETARY_RESTRICTIONS(state, selectedRestrictions) {
-      state.dietaryRestrictions.forEach((r) => {
-        if (selectedRestrictions.includes(r.id)) {
-          r.active = true;
-        } else {
-          r.active = false;
-        }
-      });
-      localStorage.setItem('dietaryRestrictions', JSON.stringify(state.dietaryRestrictions));
-    },
-    UPDATE_DISH_DIETARY_RESTRICTIONS(state, selectedRestrictions) {
       state.dietaryRestrictions.forEach((r) => {
         if (selectedRestrictions.includes(r.id)) {
           r.active = true;
@@ -197,6 +140,9 @@ export default new Vuex.Store({
     SET_CATEGORIES(state, categories) {
       state.categories = categories;
       localStorage.setItem('categories', JSON.stringify(state.categories));
+    },
+    SET_ACTIVE_DISH(state, activeDish) {
+      state.activeDish = activeDish;
     }
   }
 })

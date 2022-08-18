@@ -30,6 +30,10 @@ export default {
         return axios.get(`dish/pluck${pluckID}`)
     },
 
+    getAllPlucks() {
+        return axios.get('/pluck')
+    }
+
 
 
 }

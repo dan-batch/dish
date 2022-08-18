@@ -14,3 +14,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+</style>

@@ -21,7 +21,7 @@
             your next potluck event</router-link
           >
           <br />
-          <router-link to="/pluck/user:userId" class="well"
+          <router-link to="/potluck" class="well"
             ><img src="../assets/bullet_point_arrow.png" class="bullet" />View
             your potlucks</router-link
           >

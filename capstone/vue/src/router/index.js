@@ -13,6 +13,7 @@ import store from '../store/index'
 // import DishService from '../services/DishService'
 import Dish from '../views/Dish'
 import EditDish from '../views/EditDish'
+import GetAllPlucks from '../views/GetAllPlucks'
 
 
 
@@ -93,6 +94,11 @@ const router = new Router({
       path: '/potluck/:id/dishes',
       name: 'potluck-dishes',
       component: PotluckDishes,
+    },
+    {
+      path: '/potluck',
+      name: 'get-all-plucks',
+      component: GetAllPlucks,
     },
     {
       path: '/dish/:dishId',

@@ -31,7 +31,7 @@ public class DishController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/create")
-    public boolean createDish(@RequestBody @Valid Dish dish) {
+    public int createDish(@RequestBody @Valid Dish dish) {
         return dishDao.createDish(dish.getDishPluckId(), dish.getDishCatId(), dish.getDishUserId(), dish.getDishName(), dish.getDishDescription(), dish.getServings());
     }
 
@@ -86,8 +86,9 @@ public class DishController {
         return restrictionDao.getRestrictionsList();
     }
 
-//    @GetMapping(path = "/restrictions/{dishId}")
-//    public List<Restriction> getRestrictionsByDish(@PathVariable int dishId){return dishDao.getRestrictionsByDish(dishId);}
-
-
+    @GetMapping(path = "/{dishId}/restrictions")
+    public List<Integer> getRestrictionsByDish(@PathVariable int dishId) {
+        return dishDao.getDishRestrictionIds(dishId);
+    }
+    
 }

@@ -14,10 +14,22 @@ export default {
     },
 
     getDishByPluck(pluckId) {
-        return axios.get(`/dish/pluck${pluckId}`)
+        return axios.get(`/dish/pluck${pluckId}`);
     },
 
     deleteDish(id) {
         return axios.delete(`/dish/${id}`);
+    },
+
+    addRestrictionToDish(restrictionId, dishId) {
+        const newRestrictionDTO = {
+            restrictionId: restrictionId,
+            dishId: dishId
+        };
+        return axios.post('/dish/addRestriction', newRestrictionDTO);
+    },
+
+    getDishRestrictionIDs(dishID) {
+        return axios.get(`/dish/${dishID}`);
     }
 }

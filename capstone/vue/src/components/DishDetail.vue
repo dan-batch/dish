@@ -31,6 +31,7 @@
 
 <script>
 import dishService from "../services/DishService";
+import restrictionService from "../services/DietaryRestrictionsService";
 export default {
   name: "dish-detail",
   data() {
@@ -39,7 +40,7 @@ export default {
       username: this.$store.state.dish.username,
       dishName: this.$store.state.dish.dishName,
       servings: this.$store.state.dish.servings,
-      DishDietaryRestrictions: this.$store.state.DishDietaryRestrictions,
+      DishDietaryRestrictions: [],
       selectedRestrictions: this.selectRestrictions(),
       dishDescription: this.$store.state.dish.dishDescription,
     };
@@ -100,6 +101,18 @@ export default {
   },
   created() {
     this.retrieveDish();
+    let restrictions = [];
+    restrictionService.getRestrictionsList().then((list) => {
+      restrictions = list.data;
+      dishService.getDishRestrictionIDs(this.dishId).then((d) => {
+        restrictions.forEach((r) => {
+          if (d.data.includes(r.id)) {
+            r.active = true;
+          }
+        });
+      });
+    });
+    this.DishDietaryRestrictions = restrictions;
   },
   computed: {
     dish() {

@@ -19,17 +19,13 @@
         </div>
       </div>
     </div>
-    <router-link
-      :to="{
-        name: 'create-dish',
-        params: {
-          id: this.$route.params.id,
-          catID: categoryID,
-          catName: title,
-        },
-      }"
-      >Add dish</router-link
+    <button
+      class="add-dish-button"
+      v-if="limit > dishes.length"
+      @click="addDish()"
     >
+      Add dish
+    </button>
   </div>
 </template>
 
@@ -41,22 +37,26 @@ export default {
     viewDishDetails(dishID) {
       this.$router.push(`/dish/${dishID}`);
     },
-    // addDish(catID) {
-    //   this.$router.push({
-    //     name: "create-dish",
-    //     params: {
-    //       id: this.pluckID,
-    //     },
-    //     props: {
-    //       catID: catID,
-    //     },
-    //   });
-    // },
+    addDish() {
+      const newDish = {
+        dishCatId: this.categoryID,
+      };
+      this.$store.commit("SET_ACTIVE_DISH", newDish);
+      this.$router.push({
+        name: "create-dish",
+        params: { id: this.$route.params.id },
+      });
+      console.log("addDish");
+    },
   },
 };
 </script>
 
 <style>
+.add-dish-button {
+  text-decoration: underline;
+  border: none;
+}
 @media only screen and (max-width: 768px) {
   .dishes {
     display: flex;

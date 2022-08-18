@@ -5,8 +5,8 @@ export default {
         return axios.get(`/dish/dish${id}`)
     },
 
-    addDish() {
-        return axios.post(`/dish/create`)
+    addDish(newDish) {
+        return axios.post(`/dish/create`, newDish)
     },
 
     updateDish(id, updatedDish) {

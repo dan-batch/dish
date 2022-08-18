@@ -35,5 +35,4 @@ public class RestrictionController {
     public List<Restriction> setRestrictionActive(@PathVariable int userId){
         return restrictionDao.getUserRestrictions(userId);
     }
-
 }

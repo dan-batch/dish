@@ -147,6 +147,21 @@ export default {
   background-color: #f58634;
 }
 
+/* li {
+  list-style: none;
+  display: flex;
+}
+
+.restrictionBorder {
+  background-color: white;
+  border-radius: 15px;
+  width: 150px;
+  height: 35px;
+  margin: 5px;
+  display: flex;
+  align-items: flex-start;
+}
+
 .dietary-restriction-icon {
   width: 20px;
   border-radius: 50%;
@@ -160,5 +175,5 @@ export default {
   padding-left: 5px;
   margin-top: 6px;
   font-weight: bold;
-}
+} */
 </style>

@@ -12,6 +12,7 @@ Vue.use(Vuex)
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 const activeDish = JSON.parse(localStorage.getItem('activeDish'));
+const dish = JSON.parse(localStorage.getItem('dish'));
 const currentUserDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
 // const currentDishDietaryRestrictions = JSON.parse(localStorage.getItem('DishDietaryRestrictions'));
 const defaultCategories = JSON.parse(localStorage.getItem('categories'));
@@ -76,6 +77,7 @@ export default new Vuex.Store({
 
     ],
     activeDish: activeDish || {},
+    dish: dish || {},
     categories: defaultCategories || [],
     bannerImages: [
       {
@@ -135,6 +137,10 @@ export default new Vuex.Store({
       state.activeDish = activeDish;
       localStorage.setItem('activeDish', JSON.stringify(state.activeDish));
 
+    },
+    SET_DISH(state, dish) {
+      state.dish = dish;
+      localStorage.setItem('dish', JSON.stringify(state.dish));
     }
   }
 })

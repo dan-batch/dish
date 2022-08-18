@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="potluck">
     <h1>My Potlucks:</h1>
     <div class="link-well">
       <router-link
@@ -47,7 +47,9 @@ h1 {
 }
 
 .pluck {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 35px;
   background-color: #9dcd5a;
   border: none;
@@ -61,9 +63,19 @@ h1 {
   max-width: 500px;
   max-height: 100px;
 }
+.potluck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .link-well {
   max-width: 500px;
-  max-height: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

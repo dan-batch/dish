@@ -54,7 +54,6 @@ h1 {
   margin: 25px;
   padding: 30px;
   font-weight: bold;
-  text-shadow: 1px, 1px, 1px, 1px #fff;
 }
 
 .potluckName {

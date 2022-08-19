@@ -202,8 +202,8 @@ public class JdbcDishDao implements DishDao {
     @Override
     public List<Integer> getDishRestrictionIds(int dishId) {
         List<Integer> restrictionIds = new ArrayList<>();
-        String sql = "SELECT restriction_id\n" +
-                "FROM dish_restrictions\n" +
+        String sql = "SELECT restriction_id " +
+                "FROM dish_restrictions " +
                 "WHERE dish_id = ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, dishId);
 
